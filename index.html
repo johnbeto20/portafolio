@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portafolio profesional — Diseñador Web, Ilustrador, Piloto de Drone & Audiovisual Aéreo">
+    <meta name="author" content="John B.">
+    <meta property="og:title" content="John B. — Creative Portfolio">
+    <meta property="og:description" content="Diseño Web · Ilustración · Tomas Aereas · Microinteracciones">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>JB</text></svg>">
+    <title>JOHN B. — Creative Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-content">
+            <span class="preloader-text" data-text="JOHN B.">JOHN B.</span>
+            <div class="preloader-bar">
+                <div class="preloader-progress" id="preloaderProgress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-main">JOHN B.</span>
+                <span class="logo-sub">CREATIVE</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link active" data-page="home">HOME</a>
+                <a href="web.html" class="nav-link" data-page="web">SITIOS WEB</a>
+                <a href="illustrations.html" class="nav-link" data-page="illustrations">ILUSTRACIONES</a>
+                <a href="aerial.html" class="nav-link" data-page="aerial">TOMAS AEREAS</a>
+                <a href="chargers.html" class="nav-link" data-page="chargers">MICROINTERACCIONES</a>
+                <a href="certificados.html" class="nav-link" data-page="certificados">CERTIFICADOS</a>
+                <a href="about.html" class="nav-link" data-page="about">QUIEN SOY</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-bg">
+                <div class="hero-gradient"></div>
+                <div class="hero-grid-overlay"></div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-tag">
+                    <span class="tag-line"></span>
+                    <span class="tag-text">DISEÑADOR WEB · ILUSTRADOR · DRONE · AUDIOVISUAL</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line" data-reveal>CREATIVE</span>
+                    <span class="title-line title-accent" data-reveal>PORTFOLIO</span>
+                    <span class="title-line" data-reveal>& DIGITAL</span>
+                </h1>
+                <p class="hero-subtitle" data-reveal-delay>
+                    Diseño web, ilustración, tomas aereas y microinteracciones que cuentan historias.
+                </p>
+                <div class="hero-cta" data-reveal-delay>
+                    <a href="#work" class="btn btn-primary magnetic-btn">
+                        <span class="btn-text">EXPLORAR TRABAJOS</span>
+                        <span class="btn-arrow">→</span>
+                    </a>
+                    <a href="about.html" class="btn btn-secondary magnetic-btn">
+                        <span class="btn-text">QUIEN SOY</span>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-scroll-indicator">
+                <span class="scroll-text">SCROLL</span>
+                <div class="scroll-line">
+                    <div class="scroll-line-fill"></div>
+                </div>
+            </div>
+            <div class="hero-side-info">
+                <div class="side-text" data-scroll-reveal>
+                    <span class="side-label">DISPONIBLE PARA</span>
+                    <span class="side-value">PROYECTOS 2026</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Marquee Section -->
+        <section class="marquee-section">
+            <div class="marquee-track">
+                <span class="marquee-text">DISEÑO WEB ✦ ILUSTRACIÓN ✦ TOMAS AEREAS ✦ DRONE ✦ MICROINTERACCIONES ✦ AUDIOVISUAL ✦</span>
+                <span class="marquee-text">DISEÑO WEB ✦ ILUSTRACIÓN ✦ TOMAS AEREAS ✦ DRONE ✦ MICROINTERACCIONES ✦ AUDIOVISUAL ✦</span>
+            </div>
+        </section>
+
+        <!-- Work Grid Section -->
+        <section class="work-section" id="work">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2 class="section-title" data-reveal>TRABAJOS SELECCIONADOS</h2>
+            </div>
+            <div class="work-filters">
+                <button class="filter-btn active" data-filter="all">TODOS</button>
+                <button class="filter-btn" data-filter="web">SITIOS WEB</button>
+                <button class="filter-btn" data-filter="illustration">ILUSTRACIONES</button>
+                <button class="filter-btn" data-filter="aerial">TOMAS AEREAS</button>
+                <button class="filter-btn" data-filter="micro">MICROINTERACCIONES</button>
+            </div>
+            <div class="work-grid" id="workGrid">
+                <!-- Web Project 1 -->
+                <article class="work-card" data-category="web" data-scroll-reveal>
+                    <div class="card-image">
+                        <div class="card-image-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <span class="placeholder-icon">🌐</span>
+                            <span class="placeholder-text">GCA Web</span>
+                        </div>
+                        <div class="card-overlay">
+                            <span class="card-category">SITIO WEB</span>
+                            <span class="card-arrow">↗</span>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">GCA Platform</h3>
+                        <p class="card-description">Diseño y desarrollo web completo</p>
+                        <span class="card-year">2025</span>
+                    </div>
+                </article>
+
+                <!-- Web Project 2 -->
+                <article class="work-card" data-category="web" data-scroll-reveal>
+                    <div class="card-image">
+                        <div class="card-image-placeholder" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            <span class="placeholder-icon">🌐</span>
+                            <span class="placeholder-text">PropiApp</span>
+                        </div>
+                        <div class="card-overlay">
+                            <span class="card-category">SITIO WEB</span>
+                            <span class="card-arrow">↗</span>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">PropiApp</h3>
+                        <p class="card-description">Aplicación web interactiva</p>
+                        <span class="card-year">2025</span>
+                    </div>
+                </article>
+
+                <!-- Illustration Project 1 -->
+                <article class="work-card" data-category="illustration" data-scroll-reveal>
+                    <div class="card-image">
+                        <div class="card-image-placeholder" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                            <span class="placeholder-icon">🎨</span>
+                            <span class="placeholder-text">MAIA</span>
+                        </div>
+                        <div class="card-overlay">
+                            <span class="card-category">ILUSTRACIÓN</span>
+                            <span class="card-arrow">↗</span>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">MAIA Series</h3>
+                        <p class="card-description">Ilustración digital y branding visual</p>
+                        <span class="card-year">2025</span>
+                    </div>
+                </article>
+
+                <!-- Aerial Project 1 -->
+                <article class="work-card" data-category="aerial" data-scroll-reveal>
+                    <div class="card-image">
+                        <div class="card-image-placeholder" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                            <span class="placeholder-icon">🚁</span>
+                            <span class="placeholder-text">Alzar la Vista</span>
+                        </div>
+                        <div class="card-overlay">
+                            <span class="card-category">TOMA AEREA</span>
+                            <span class="card-arrow">↗</span>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Alzar la Vista</h3>
+                        <p class="card-description">Producción audiovisual aerea</p>
+                        <span class="card-year">2025</span>
+                    </div>
+                </article>
+
+                <!-- Web Project 3 -->
+                <article class="work-card" data-category="web" data-scroll-reveal>
+                    <div class="card-image">
+                        <div class="card-image-placeholder" style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);">
+                            <span class="placeholder-icon">🌐</span>
+                            <span class="placeholder-text">Virtual Heal</span>
+                        </div>
+                        <div class="card-overlay">
+                            <span class="card-category">SITIO WEB</span>
+                            <span class="card-arrow">↗</span>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Virtual Heal</h3>
+                        <p class="card-description">Plataforma de bienestar digital</p>
+                        <span class="card-year">2024</span>
+                    </div>
+                </article>
+
+                <!-- Illustration Project 2 -->
+                <article class="work-card" data-category="illustration" data-scroll-reveal>
+                    <div class="card-image">
+                        <div class="card-image-placeholder" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                            <span class="placeholder-icon">🎨</span>
+                            <span class="placeholder-text">Simplex</span>
+                        </div>
+                        <div class="card-overlay">
+                            <span class="card-category">ILUSTRACIÓN</span>
+                            <span class="card-arrow">↗</span>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Simplex Visuals</h3>
+                        <p class="card-description">Identidad visual y diseño editorial</p>
+                        <span class="card-year">2024</span>
+                    </div>
+                </article>
+
+                <!-- Aerial Project 2 -->
+                <article class="work-card" data-category="aerial" data-scroll-reveal>
+                    <div class="card-image">
+                        <div class="card-image-placeholder" style="background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);">
+                            <span class="placeholder-icon">🚁</span>
+                            <span class="placeholder-text">Drone Shots</span>
+                        </div>
+                        <div class="card-overlay">
+                            <span class="card-category">TOMA AEREA</span>
+                            <span class="card-arrow">↗</span>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Drone Cinematic</h3>
+                        <p class="card-description">Producción cinematográfica aerea</p>
+                        <span class="card-year">2024</span>
+                    </div>
+                </article>
+
+                <!-- Micro Project 1 -->
+                <article class="work-card" data-category="micro" data-scroll-reveal>
+                    <div class="card-image">
+                        <div class="card-image-placeholder" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">
+                            <span class="placeholder-icon">⚡</span>
+                            <span class="placeholder-text">Micro-UX</span>
+                        </div>
+                        <div class="card-overlay">
+                            <span class="card-category">MICROINTERACCIÓN</span>
+                            <span class="card-arrow">↗</span>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">Micro-UX Kit</h3>
+                        <p class="card-description">Animaciones y microinteracciones UI</p>
+                        <span class="card-year">2025</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Certificates CTA -->
+        <section class="certificates-cta" data-scroll-reveal>
+            <div class="certificates-cta-content">
+                <span class="section-number">04</span>
+                <h2 class="certificates-cta-title">FORMACIÓN CONTINUA</h2>
+                <p class="certificates-cta-desc">
+                    15+ certificaciones en diseño web, UX, metodologías ágiles, 
+                    Salesforce, liderazgo creativo y más.
+                </p>
+                <a href="certificados.html" class="btn btn-primary magnetic-btn">
+                    <span class="btn-text">VER CERTIFICADOS</span>
+                    <span class="btn-arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Featured Project Section -->
+        <section class="featured-section">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2 class="section-title" data-reveal>PROYECTO DESTACADO</h2>
+            </div>
+            <div class="featured-project" data-scroll-reveal>
+                <div class="featured-image">
+                    <div class="featured-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);">
+                        <span class="featured-icon">✨</span>
+                        <span class="featured-title">PROYECTO DESTACADO</span>
+                    </div>
+                </div>
+                <div class="featured-content">
+                    <span class="featured-tag">DESTACADO</span>
+                    <h3 class="featured-name">EXPERIENCIA DIGITAL INMERSIVA</h3>
+                    <p class="featured-desc">
+                        Un proyecto que combina diseño web, ilustración personalizada y animaciones 
+                        avanzadas para crear una experiencia digital única e inolvidable.
+                    </p>
+                    <div class="featured-tags">
+                        <span class="tag">DISEÑO WEB</span>
+                        <span class="tag">ILUSTRACIÓN</span>
+                        <span class="tag">ANIMACIÓN</span>
+                        <span class="tag">UI/UX</span>
+                    </div>
+                    <a href="#" class="btn btn-primary magnetic-btn">
+                        <span class="btn-text">VER PROYECTO</span>
+                        <span class="btn-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services-section">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2 class="section-title" data-reveal>SERVICIOS</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card" data-scroll-reveal>
+                    <span class="service-number">01</span>
+                    <h3 class="service-title">DISEÑO WEB</h3>
+                    <p class="service-desc">Sitios web modernos, responsivos y con experiencias de usuario excepcionales.</p>
+                    <ul class="service-list">
+                        <li>Diseño UI/UX</li>
+                        <li>Desarrollo Frontend</li>
+                        <li>Diseño Responsivo</li>
+                        <li>Prototipado</li>
+                    </ul>
+                </div>
+                <div class="service-card" data-scroll-reveal>
+                    <span class="service-number">02</span>
+                    <h3 class="service-title">ILUSTRACIÓN</h3>
+                    <p class="service-desc">Ilustraciones digitales únicas que dan vida a conceptos y marcas.</p>
+                    <ul class="service-list">
+                        <li>Ilustración Digital</li>
+                        <li>Branding Visual</li>
+                        <li>Diseño Editorial</li>
+                        <li>Arte Conceptual</li>
+                    </ul>
+                </div>
+                <div class="service-card" data-scroll-reveal>
+                    <span class="service-number">03</span>
+                    <h3 class="service-title">TOMAS AEREAS</h3>
+                    <p class="service-desc">Producción audiovisual aerea con drone para proyectos profesionales.</p>
+                    <ul class="service-list">
+                        <li>Videografía Aerea</li>
+                        <li>Fotografía Drone</li>
+                        <li>Edición Audiovisual</li>
+                        <li>Color Grading</li>
+                    </ul>
+                </div>
+                <div class="service-card" data-scroll-reveal>
+                    <span class="service-number">04</span>
+                    <h3 class="service-title">MICROINTERACCIONES</h3>
+                    <p class="service-desc">Animaciones y microinteracciones que mejoran la experiencia de usuario.</p>
+                    <ul class="service-list">
+                        <li>Animaciones CSS/JS</li>
+                        <li>Prototipos Interactivos</li>
+                        <li>Loaders Creativos</li>
+                        <li>Motion Design</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="footer-logo-main">JOHN B.</span>
+                        <span class="footer-logo-sub">CREATIVE PORTFOLIO</span>
+                    </div>
+                    <p class="footer-tagline">Diseño Web · Ilustración · Tomas Aereas · Microinteracciones</p>
+                </div>
+                <div class="footer-nav">
+                    <div class="footer-col">
+                        <h4 class="footer-col-title">NAVEGACION</h4>
+                        <ul class="footer-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="web.html">Sitios Web</a></li>
+                            <li><a href="illustrations.html">Ilustraciones</a></li>
+                            <li><a href="aerial.html">Tomas Aereas</a></li>
+                            <li><a href="chargers.html">Microinteracciones</a></li>
+                            <li><a href="certificados.html">Certificados</a></li>
+                            <li><a href="about.html">Quien Soy</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4 class="footer-col-title">CONTACTO</h4>
+                        <ul class="footer-links">
+                            <li><a href="mailto:contacto@johnb.com">contacto@johnb.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-left">
+                    <span class="footer-year">2026</span>
+                    <span class="footer-separator">·</span>
+                    <span class="footer-name">JOHN B.</span>
+                    <span class="footer-separator">·</span>
+                    <span class="footer-rights">TODOS LOS DERECHOS RESERVADOS</span>
+                </div>
+                <div class="footer-bottom-center">
+                    <span class="footer-location">CREATIVE PORTFOLIO</span>
+                </div>
+                <div class="footer-bottom-right">
+                    <div class="footer-socials">
+                        <a href="https://www.instagram.com/johnbeto20/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+                            <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/alzarlavista/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Alzar la Vista">
+                            <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

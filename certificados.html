@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Certificaciones y diplomas — John B.">
+    <title>CERTIFICADOS — JOHN B.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-main">JOHN B.</span>
+                <span class="logo-sub">CREATIVE</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link" data-page="home">HOME</a>
+                <a href="web.html" class="nav-link" data-page="web">SITIOS WEB</a>
+                <a href="illustrations.html" class="nav-link" data-page="illustrations">ILUSTRACIONES</a>
+                <a href="aerial.html" class="nav-link" data-page="aerial">TOMAS AEREAS</a>
+                <a href="chargers.html" class="nav-link" data-page="chargers">MICROINTERACCIONES</a>
+                <a href="certificados.html" class="nav-link active" data-page="certificados">CERTIFICADOS</a>
+                <a href="about.html" class="nav-link" data-page="about">QUIEN SOY</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Page Header -->
+        <header class="page-header">
+            <span class="section-number">06</span>
+            <h1 class="page-title">CERTIFICADOS</h1>
+            <p class="page-subtitle">FORMACIÓN CONTINUA & CERTIFICACIONES PROFESIONALES</p>
+        </header>
+
+        <!-- Filters -->
+        <div class="work-filters">
+            <button class="filter-btn active" data-filter="all">TODOS</button>
+            <button class="filter-btn" data-filter="web">DESIGN WEB & ACCESIBILIDAD</button>
+            <button class="filter-btn" data-filter="agile">METODOLOGÍAS ÁGILES</button>
+            <button class="filter-btn" data-filter="salesforce">SALESFORCE & CRM</button>
+            <button class="filter-btn" data-filter="design">DISEÑO & UX</button>
+            <button class="filter-btn" data-filter="dev">DESARROLLO</button>
+            <button class="filter-btn" data-filter="leadership">LIDERAZGO & OPS</button>
+        </div>
+
+        <!-- Certificates Grid -->
+        <section class="cert-grid" id="certGrid">
+            <!-- Design Web & Accesibilidad -->
+            <a class="cert-card" data-category="web" data-scroll-reveal href="Certificados/diploma-accesibilidad-web.pdf" target="_blank" rel="noopener noreferrer">
+                <div class="cert-preview">
+                    <div class="cert-preview-placeholder" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <span class="cert-icon">📜</span>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3 class="cert-title">Accesibilidad Web</h3>
+                    <span class="cert-company">Platzi</span>
+                </div>
+            </a>
+
+            <!-- Metodologías Ágiles -->
+            <a class="cert-card" data-category="agile" data-scroll-reveal href="Certificados/SCRUM%20MASTER.pdf" target="_blank" rel="noopener noreferrer">
+                <div class="cert-preview">
+                    <div class="cert-preview-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <span class="cert-icon">🔄</span>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3 class="cert-title">Scrum Master</h3>
+                    <span class="cert-company">CertiProf</span>
+                </div>
+            </a>
+
+            <a class="cert-card" data-category="agile" data-scroll-reveal href="Certificados/Certificate%20SCRUM%20DEVELOP.pdf" target="_blank" rel="noopener noreferrer">
+                <div class="cert-preview">
+                    <div class="cert-preview-placeholder" style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);">
+                        <span class="cert-icon">🔄</span>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3 class="cert-title">Scrum Developer</h3>
+                    <span class="cert-company">CertiProf</span>
+                </div>
+            </a>
+
+            <a class="cert-card" data-category="agile" data-scroll-reveal href="Certificados/Certificate.pdf" target="_blank" rel="noopener noreferrer">
+                <div class="cert-preview">
+                    <div class="cert-preview-placeholder" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                        <span class="cert-icon">🔄</span>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3 class="cert-title">Scrum Product Owner</h3>
+                    <span class="cert-company">CertiProf</span>
+                </div>
+            </a>
+
+            <!-- Salesforce & CRM -->
+            <a class="cert-card" data-category="salesforce" data-scroll-reveal href="Certificados/diploma-salesforce-admin.pdf" target="_blank" rel="noopener noreferrer">
+                <div class="cert-preview">
+                    <div class="cert-preview-placeholder" style="background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);">
+                        <span class="cert-icon">☁️</span>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3 class="cert-title">Salesforce Admin</h3>
+                    <span class="cert-company">Platzi</span>
+                </div>
+            </a>
+
+            <a class="cert-card" data-category="salesforce" data-scroll-reveal href="Certificados/diploma-crm-salesforce.pdf" target="_blank" rel="noopener noreferrer">
+                <div class="cert-preview">
+                    <div class="cert-preview-placeholder" style="background: linear-gradient(135deg, #0052d4 0%, #4364f7 100%);">
+                        <span class="cert-icon">☁️</span>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3 class="cert-title">CRM Salesforce</h3>
+                    <span class="cert-company">Platzi</span>
+                </div>
+            </a>
+
+            <!-- Diseño & UX -->
+            <a class="cert-card" data-category="design" data-scroll-reveal href="Certificados/diploma-dise%C3%B1o-de-interfaces-y-ux.pdf" target="_blank" rel="noopener noreferrer">
+                <div class="cert-preview">
+                    <div class="cert-preview-placeholder" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <span class="cert-icon">🎨</span>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3 class="cert-title">Diseño de Interfaces y UX</h3>
+                    <span class="cert-company">Platzi</span>
+                </div>
+            </a>
+
+            <a class="cert-card" data-category="design" data-scroll-reveal href="Certificados/diploma-sistema-de-dise%C3%B1o.pdf" target="_blank" rel="noopener noreferrer">
+                <div class="cert-preview">
+                    <div class="cert-preview-placeholder" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <span class="cert-icon">🎨</span>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3 class="cert-title">Sistema de Diseño</h3>
+                    <span class="cert-company">Platzi</span>
+                </div>
+            </a>
+
+            <a class="cert-card" data-category="design" data-scroll-reveal href="Certificados/diploma-sistema-de-dise%C3%B1o-para-desarrolladores.pdf" target="_blank" rel="noopener noreferrer">
+                <div class="cert-preview">
+                    <div class="cert-preview-placeholder" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">
+                        <span class="cert-icon">🎨</span>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3 class="cert-title">Sistema de Diseño para Desarrolladores</h3>
+                    <span class="cert-company">Platzi</span>
+                </div>
+            </a>
+
+            <a class="cert-card" data-category="design" data-scroll-reveal href="Certificados/CERTIFICADO_APD_JOHN%20ALBERTO%20SANCHEZ%20MEDINA.png" target="_blank" rel="noopener noreferrer">
+                <div class="cert-preview">
+                    <div class="cert-preview-placeholder" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                        <span class="cert-icon">🚁</span>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3 class="cert-title">Piloto y Observador UAS/RPAS/Drone</h3>
+                    <span class="cert-company">Asociación de Profesionales de Drones</span>
+                </div>
+            </a>
+
+            <!-- Desarrollo -->
+            <a class="cert-card" data-category="dev" data-scroll-reveal href="Certificados/diploma-fundamentos-javascript-2018.pdf" target="_blank" rel="noopener noreferrer">
+                <div class="cert-preview">
+                    <div class="cert-preview-placeholder" style="background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);">
+                        <span class="cert-icon">💻</span>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3 class="cert-title">Fundamentos de JavaScript</h3>
+                    <span class="cert-company">Platzi</span>
+                </div>
+            </a>
+
+            <a class="cert-card" data-category="dev" data-scroll-reveal href="Certificados/diploma-preprocesador-sass.pdf" target="_blank" rel="noopener noreferrer">
+                <div class="cert-preview">
+                    <div class="cert-preview-placeholder" style="background: linear-gradient(135deg, #c471f5 0%, #fa71cd 100%);">
+                        <span class="cert-icon">💻</span>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3 class="cert-title">Preprocesador Sass</h3>
+                    <span class="cert-company">Platzi</span>
+                </div>
+            </a>
+
+            <!-- Liderazgo & Ops -->
+            <a class="cert-card" data-category="leadership" data-scroll-reveal href="Certificados/diploma-liderazgo-creativo.pdf" target="_blank" rel="noopener noreferrer">
+                <div class="cert-preview">
+                    <div class="cert-preview-placeholder" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                        <span class="cert-icon">👑</span>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3 class="cert-title">Liderazgo Creativo</h3>
+                    <span class="cert-company">Platzi</span>
+                </div>
+            </a>
+
+            <a class="cert-card" data-category="leadership" data-scroll-reveal href="Certificados/diploma-design-ops.pdf" target="_blank" rel="noopener noreferrer">
+                <div class="cert-preview">
+                    <div class="cert-preview-placeholder" style="background: linear-gradient(135deg, #fc5c7d 0%, #6a82fb 100%);">
+                        <span class="cert-icon">⚙️</span>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3 class="cert-title">DesignOps</h3>
+                    <span class="cert-company">Platzi</span>
+                </div>
+            </a>
+
+            <!-- Tendencias & Especialización -->
+            <a class="cert-card" data-category="all" data-scroll-reveal href="Certificados/Informe-de-tendencias-Ceiba-2025.pdf" target="_blank" rel="noopener noreferrer">
+                <div class="cert-preview">
+                    <div class="cert-preview-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);">
+                        <span class="cert-icon">📊</span>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3 class="cert-title">Informe de Tendencias Ceiba 2025</h3>
+                    <span class="cert-company">Ceiba</span>
+                </div>
+            </a>
+
+            <a class="cert-card" data-category="all" data-scroll-reveal href="Certificados/prompt-engineering.pdf" target="_blank" rel="noopener noreferrer">
+                <div class="cert-preview">
+                    <div class="cert-preview-placeholder" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        <span class="cert-icon">🤖</span>
+                    </div>
+                </div>
+                <div class="cert-info">
+                    <h3 class="cert-title">Prompt Engineering</h3>
+                    <span class="cert-company">Platzi</span>
+                </div>
+            </a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="footer-logo-main">JOHN B.</span>
+                        <span class="footer-logo-sub">CREATIVE PORTFOLIO</span>
+                    </div>
+                    <p class="footer-tagline">Diseño Web · Ilustración · Tomas Aereas · Microinteracciones</p>
+                </div>
+                <div class="footer-nav">
+                    <div class="footer-col">
+                        <h4 class="footer-col-title">NAVEGACION</h4>
+                        <ul class="footer-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="web.html">Sitios Web</a></li>
+                            <li><a href="illustrations.html">Ilustraciones</a></li>
+                            <li><a href="aerial.html">Tomas Aereas</a></li>
+                            <li><a href="chargers.html">Microinteracciones</a></li>
+                            <li><a href="certificados.html">Certificados</a></li>
+                            <li><a href="about.html">Quien Soy</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4 class="footer-col-title">CONTACTO</h4>
+                        <ul class="footer-links">
+                            <li><a href="mailto:contacto@johnb.com">contacto@johnb.com</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-left">
+                    <span class="footer-year">2026</span>
+                    <span class="footer-separator">·</span>
+                    <span class="footer-name">JOHN B.</span>
+                    <span class="footer-separator">·</span>
+                    <span class="footer-rights">TODOS LOS DERECHOS RESERVADOS</span>
+                </div>
+                <div class="footer-bottom-center">
+                    <span class="footer-location">CREATIVE PORTFOLIO</span>
+                </div>
+                <div class="footer-bottom-right">
+                    <div class="footer-socials">
+                        <a href="https://www.instagram.com/johnbeto20/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+                            <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/alzarlavista/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Alzar la Vista">
+                            <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
