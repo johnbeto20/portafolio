@@ -14,11 +14,11 @@
     --color-text: #ffffff;
     --color-text-secondary: #888888;
     --color-text-muted: #555555;
-    --color-accent: #9b5de5;
-    --color-accent-pink: #f15bb5;
-    --color-accent-green: #00f5d4;
-    --color-accent-orange: #ff6b35;
-    --color-accent-yellow: #fee440;
+    --color-accent: #3b82f6;
+    --color-accent-pink: #0ea5e9;
+    --color-accent-green: #06b6d4;
+    --color-accent-orange: #0284c7;
+    --color-accent-yellow: #6366f1;
     --color-border: #2a2a2a;
     --color-white: #ffffff;
     
@@ -42,6 +42,19 @@
     /* Layout */
     --max-width: 1400px;
     --nav-height: 80px;
+}
+
+/* Light Mode Colors */
+body.light-mode {
+    --color-bg: #f5f5f5;
+    --color-bg-secondary: #ffffff;
+    --color-surface: #ffffff;
+    --color-surface-hover: #e8e8e8;
+    --color-text: #1a1a1a;
+    --color-text-secondary: #666666;
+    --color-text-muted: #999999;
+    --color-border: #dddddd;
+    --color-white: #ffffff;
 }
 
 /* ========== RESET & BASE ========== */
@@ -291,6 +304,61 @@ ul {
 
 .nav-toggle.active .toggle-line:nth-child(3) {
     transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ========== THEME TOGGLE ========== */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    color: var(--color-text);
+    padding: 0;
+}
+
+.theme-toggle:hover {
+    border-color: var(--color-accent);
+    background: rgba(155, 93, 229, 0.1);
+    transform: rotate(30deg);
+}
+
+.theme-icon {
+    width: 18px;
+    height: 18px;
+    transition: opacity var(--transition-base);
+}
+
+.theme-icon-dark {
+    display: none;
+}
+
+.theme-icon-light {
+    display: block;
+}
+
+body.light-mode .theme-icon-dark {
+    display: block;
+}
+
+body.light-mode .theme-icon-light {
+    display: none;
+}
+
+/* ========== THEME TRANSITIONS ========== */
+body,
+body *,
+body *::before,
+body *::after {
+    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (max-width: 1024px) {
