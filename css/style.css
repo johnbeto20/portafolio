@@ -206,7 +206,7 @@ ul {
 }
 
 .navbar.scrolled {
-    background: rgba(10, 10, 10, 0.9);
+    background: var(--color-bg);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--color-border);
 }
