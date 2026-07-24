@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMagneticButtons();
     initSmoothScroll();
     initParallax();
+    initThemeToggle();
 });
 
 // ========== PRELOADER ==========
@@ -324,5 +325,22 @@ if (marqueeTrack) {
         setTimeout(() => {
             marqueeTrack.style.animationDuration = '20s';
         }, 500);
+    });
+}
+
+// ========== THEME TOGGLE ==========
+function initThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    
+    // Check for saved preference or default to dark mode
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+    }
+    
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        const isLight = document.body.classList.contains('light-mode');
+        localStorage.setItem('theme', isLight ? 'light' : 'dark');
     });
 }
