@@ -1,0 +1,1 @@
+Apoyo al equipo de desarrollo en la unidad gráfica de la interfaz, revisando buenas prácticas en la construcción del HTML y demás elementos del frontend. (2023, vía Ceiba Software)

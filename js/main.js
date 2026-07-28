@@ -3,6 +3,23 @@
 // JavaScript — Interactions, Animations & Navigation
 // ============================================
 
+// ========== SCROLL THROTTLING ==========
+// Runs `callback` at most once per animation frame instead of once per
+// scroll event (which can fire dozens of times per frame), and keeps the
+// listener passive so it never blocks the browser's own scrolling.
+function onScroll(callback) {
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                callback();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initPreloader();
     initCustomCursor();
@@ -56,18 +73,18 @@ function initCustomCursor() {
     });
     
     function animate() {
-        // Cursor follows immediately
+        // Cursor follows immediately (transform-only: keeps this off the layout/paint path)
         cursorX += (mouseX - cursorX) * 0.2;
         cursorY += (mouseY - cursorY) * 0.2;
-        cursor.style.left = cursorX + 'px';
-        cursor.style.top = cursorY + 'px';
-        
-        // Follower follows with delay
-        followerX += (mouseX - followerX) * 0.08;
-        followerY += (mouseY - followerY) * 0.08;
-        follower.style.left = followerX + 'px';
-        follower.style.top = followerY + 'px';
-        
+        cursor.style.setProperty('--cursor-x', cursorX + 'px');
+        cursor.style.setProperty('--cursor-y', cursorY + 'px');
+
+        // Follower follows with a slight delay (tighter than before)
+        followerX += (mouseX - followerX) * 0.25;
+        followerY += (mouseY - followerY) * 0.25;
+        follower.style.setProperty('--follower-x', followerX + 'px');
+        follower.style.setProperty('--follower-y', followerY + 'px');
+
         requestAnimationFrame(animate);
     }
     animate();
@@ -95,17 +112,8 @@ function initNavbar() {
     if (!navbar) return;
     
     // Scroll effect
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        
-        if (currentScroll > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-        
-        lastScroll = currentScroll;
+    onScroll(() => {
+        navbar.classList.toggle('scrolled', window.pageYOffset > 50);
     });
     
     // Mobile toggle
@@ -250,18 +258,15 @@ function initParallax() {
     const heroGrid = document.querySelector('.hero-grid-overlay');
     
     if (!heroGradient) return;
-    
-    window.addEventListener('scroll', () => {
+
+    onScroll(() => {
         const scrolled = window.pageYOffset;
-        
-        if (heroGradient) {
-            heroGradient.style.transform = `translate(${scrolled * 0.05}px, ${scrolled * 0.1}px)`;
-        }
-        
+        heroGradient.style.transform = `translate3d(${scrolled * 0.05}px, ${scrolled * 0.1}px, 0)`;
+
         if (heroGrid) {
-            heroGrid.style.transform = `translateY(${scrolled * 0.3}px)`;
+            heroGrid.style.transform = `translate3d(0, ${scrolled * 0.3}px, 0)`;
         }
-    }, { passive: true });
+    });
 }
 
 // ========== CSS ANIMATION KEYFRAMES (injected) ==========
@@ -287,18 +292,17 @@ function updateActiveNavLink() {
     
     if (!sections.length || !navLinks.length) return;
     
-    window.addEventListener('scroll', () => {
+    onScroll(() => {
         let current = '';
-        
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            
+
             if (window.pageYOffset >= sectionTop - 200) {
                 current = section.getAttribute('id');
             }
         });
-        
+
         navLinks.forEach(link => {
             link.classList.remove('active');
             if (link.dataset.page === current) {
@@ -313,16 +317,17 @@ updateActiveNavLink();
 // ========== MARQUEE SPEED ON SCROLL ==========
 const marqueeTrack = document.querySelector('.marquee-track');
 if (marqueeTrack) {
-    let marqueeSpeed = 20;
-    
-    window.addEventListener('scroll', () => {
+    let marqueeResetTimeout;
+
+    onScroll(() => {
         const scrollSpeed = Math.abs(window.pageYOffset - (window._lastScrollY || window.pageYOffset));
         window._lastScrollY = window.pageYOffset;
-        
+
         const newDuration = Math.max(5, 20 - scrollSpeed * 0.1);
         marqueeTrack.style.animationDuration = newDuration + 's';
-        
-        setTimeout(() => {
+
+        clearTimeout(marqueeResetTimeout);
+        marqueeResetTimeout = setTimeout(() => {
             marqueeTrack.style.animationDuration = '20s';
         }, 500);
     });
