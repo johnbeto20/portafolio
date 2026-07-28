@@ -35,14 +35,10 @@
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
                 <span class="logo-main">JOHN B.</span>
-                <span class="logo-sub">CREATIVE</span>
             </a>
             <div class="nav-links" id="navLinks">
                 <a href="index.html" class="nav-link active" data-page="home">HOME</a>
-                <a href="web.html" class="nav-link" data-page="web">SITIOS WEB</a>
-                <a href="illustrations.html" class="nav-link" data-page="illustrations">ILUSTRACIONES</a>
-                <a href="aerial.html" class="nav-link" data-page="aerial">TOMAS AEREAS</a>
-                <a href="chargers.html" class="nav-link" data-page="chargers">MICROINTERACCIONES</a>
+                <a href="proyectos.html" class="nav-link" data-page="proyectos">PROYECTOS</a>
                 <a href="certificados.html" class="nav-link" data-page="certificados">CERTIFICADOS</a>
                 <a href="about.html" class="nav-link" data-page="about">QUIEN SOY</a>
             </div>
@@ -74,8 +70,13 @@
     <main class="main-content">
         <!-- Hero Section -->
         <section class="hero" id="hero">
-            <div class="hero-bg">
-                <div class="hero-gradient"></div>
+            <div class="hero-bg" id="heroBg">
+                <canvas class="hero-shader-canvas" id="heroShaderCanvas"></canvas>
+                <div class="hero-gradient-fallback">
+                    <div class="hero-gradient"></div>
+                    <div class="hero-gradient-warm"></div>
+                    <div class="hero-gradient-glow"></div>
+                </div>
                 <div class="hero-grid-overlay"></div>
             </div>
             <div class="hero-content">
@@ -134,165 +135,13 @@
                 <span class="section-number">01</span>
                 <h2 class="section-title" data-reveal>TRABAJOS SELECCIONADOS</h2>
             </div>
-            <div class="work-filters">
-                <button class="filter-btn active" data-filter="all">TODOS</button>
-                <button class="filter-btn" data-filter="web">SITIOS WEB</button>
-                <button class="filter-btn" data-filter="illustration">ILUSTRACIONES</button>
-                <button class="filter-btn" data-filter="aerial">TOMAS AEREAS</button>
-                <button class="filter-btn" data-filter="micro">MICROINTERACCIONES</button>
-            </div>
-            <div class="work-grid" id="workGrid">
-                <!-- Web Project 1 -->
-                <article class="work-card" data-category="web" data-scroll-reveal>
-                    <div class="card-image">
-                        <div class="card-image-placeholder" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                            <span class="placeholder-icon">🌐</span>
-                            <span class="placeholder-text">GCA Web</span>
-                        </div>
-                        <div class="card-overlay">
-                            <span class="card-category">SITIO WEB</span>
-                            <span class="card-arrow">↗</span>
-                        </div>
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">GCA Platform</h3>
-                        <p class="card-description">Diseño y desarrollo web completo</p>
-                        <span class="card-year">2025</span>
-                    </div>
-                </article>
-
-                <!-- Web Project 2 -->
-                <article class="work-card" data-category="web" data-scroll-reveal>
-                    <div class="card-image">
-                        <div class="card-image-placeholder" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
-                            <span class="placeholder-icon">🌐</span>
-                            <span class="placeholder-text">PropiApp</span>
-                        </div>
-                        <div class="card-overlay">
-                            <span class="card-category">SITIO WEB</span>
-                            <span class="card-arrow">↗</span>
-                        </div>
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">PropiApp</h3>
-                        <p class="card-description">Aplicación web interactiva</p>
-                        <span class="card-year">2025</span>
-                    </div>
-                </article>
-
-                <!-- Illustration Project 1 -->
-                <article class="work-card" data-category="illustration" data-scroll-reveal>
-                    <div class="card-image">
-                        <div class="card-image-placeholder" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
-                            <span class="placeholder-icon">🎨</span>
-                            <span class="placeholder-text">MAIA</span>
-                        </div>
-                        <div class="card-overlay">
-                            <span class="card-category">ILUSTRACIÓN</span>
-                            <span class="card-arrow">↗</span>
-                        </div>
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">MAIA Series</h3>
-                        <p class="card-description">Ilustración digital y branding visual</p>
-                        <span class="card-year">2025</span>
-                    </div>
-                </article>
-
-                <!-- Aerial Project 1 -->
-                <article class="work-card" data-category="aerial" data-scroll-reveal>
-                    <div class="card-image">
-                        <div class="card-image-placeholder" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
-                            <span class="placeholder-icon">🚁</span>
-                            <span class="placeholder-text">Alzar la Vista</span>
-                        </div>
-                        <div class="card-overlay">
-                            <span class="card-category">TOMA AEREA</span>
-                            <span class="card-arrow">↗</span>
-                        </div>
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Alzar la Vista</h3>
-                        <p class="card-description">Producción audiovisual aerea</p>
-                        <span class="card-year">2025</span>
-                    </div>
-                </article>
-
-                <!-- Web Project 3 -->
-                <article class="work-card" data-category="web" data-scroll-reveal>
-                    <div class="card-image">
-                        <div class="card-image-placeholder" style="background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);">
-                            <span class="placeholder-icon">🌐</span>
-                            <span class="placeholder-text">Virtual Heal</span>
-                        </div>
-                        <div class="card-overlay">
-                            <span class="card-category">SITIO WEB</span>
-                            <span class="card-arrow">↗</span>
-                        </div>
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Virtual Heal</h3>
-                        <p class="card-description">Plataforma de bienestar digital</p>
-                        <span class="card-year">2024</span>
-                    </div>
-                </article>
-
-                <!-- Illustration Project 2 -->
-                <article class="work-card" data-category="illustration" data-scroll-reveal>
-                    <div class="card-image">
-                        <div class="card-image-placeholder" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
-                            <span class="placeholder-icon">🎨</span>
-                            <span class="placeholder-text">Simplex</span>
-                        </div>
-                        <div class="card-overlay">
-                            <span class="card-category">ILUSTRACIÓN</span>
-                            <span class="card-arrow">↗</span>
-                        </div>
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Simplex Visuals</h3>
-                        <p class="card-description">Identidad visual y diseño editorial</p>
-                        <span class="card-year">2024</span>
-                    </div>
-                </article>
-
-                <!-- Aerial Project 2 -->
-                <article class="work-card" data-category="aerial" data-scroll-reveal>
-                    <div class="card-image">
-                        <div class="card-image-placeholder" style="background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);">
-                            <span class="placeholder-icon">🚁</span>
-                            <span class="placeholder-text">Drone Shots</span>
-                        </div>
-                        <div class="card-overlay">
-                            <span class="card-category">TOMA AEREA</span>
-                            <span class="card-arrow">↗</span>
-                        </div>
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Drone Cinematic</h3>
-                        <p class="card-description">Producción cinematográfica aerea</p>
-                        <span class="card-year">2024</span>
-                    </div>
-                </article>
-
-                <!-- Micro Project 1 -->
-                <article class="work-card" data-category="micro" data-scroll-reveal>
-                    <div class="card-image">
-                        <div class="card-image-placeholder" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);">
-                            <span class="placeholder-icon">⚡</span>
-                            <span class="placeholder-text">Micro-UX</span>
-                        </div>
-                        <div class="card-overlay">
-                            <span class="card-category">MICROINTERACCIÓN</span>
-                            <span class="card-arrow">↗</span>
-                        </div>
-                    </div>
-                    <div class="card-info">
-                        <h3 class="card-title">Micro-UX Kit</h3>
-                        <p class="card-description">Animaciones y microinteracciones UI</p>
-                        <span class="card-year">2025</span>
-                    </div>
-                </article>
+            <!-- Grid generado por js/projects.js a partir de js/projects-data.js -->
+            <div class="work-grid" id="workGrid"></div>
+            <div class="work-section-cta">
+                <a href="proyectos.html" class="btn btn-secondary magnetic-btn">
+                    <span class="btn-text">VER TODOS LOS PROYECTOS</span>
+                    <span class="btn-arrow">→</span>
+                </a>
             </div>
         </section>
 
@@ -417,10 +266,7 @@
                         <h4 class="footer-col-title">NAVEGACION</h4>
                         <ul class="footer-links">
                             <li><a href="index.html">Home</a></li>
-                            <li><a href="web.html">Sitios Web</a></li>
-                            <li><a href="illustrations.html">Ilustraciones</a></li>
-                            <li><a href="aerial.html">Tomas Aereas</a></li>
-                            <li><a href="chargers.html">Microinteracciones</a></li>
+                            <li><a href="proyectos.html">Proyectos</a></li>
                             <li><a href="certificados.html">Certificados</a></li>
                             <li><a href="about.html">Quien Soy</a></li>
                         </ul>
@@ -472,6 +318,9 @@
         </div>
     </footer>
 
+    <script src="js/hero-shader.js"></script>
+    <script src="js/projects-data.js"></script>
+    <script src="js/projects.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

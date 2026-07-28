@@ -1,0 +1,1 @@
+Revisión de la implementación gráfica de las pantallas de la interfaz, proponiendo elementos interactivos alineados a la propuesta de experiencia de usuario. (2022 - 2023, vía Ceiba Software)
