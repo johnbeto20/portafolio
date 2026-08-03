@@ -41,9 +41,11 @@ CATEGORIES = [
     {"slug": "aplicaciones-y-sitios-web", "label": "Aplicaciones y Sitios Web"},
     {"slug": "animaciones", "label": "Animaciones"},
     {"slug": "disenio-grafico", "label": "Diseño Grafico"},
+    {"slug": "certificados", "label": "Certificados"},
 ]
 
-IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
+IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".webp", ".mp4"}
+DOCUMENT_EXTENSIONS = {".pdf", ".png", ".jpg", ".jpeg"}
 SKIP_MARKER = ".skip"
 
 
@@ -111,6 +113,40 @@ def main():
     projects = []
     for category in CATEGORIES:
         category_dir = IMG_DIR / category["slug"]
+        
+        # Manejo especial para Certificados: estan en Certificados/ en la raiz, no en img/
+        if category["slug"] == "certificados":
+            cert_dir = ROOT / "Certificados"
+            if not cert_dir.exists():
+                print(f"Aviso: no existe Certificados/ (se omite)")
+                continue
+            for file_path in sorted(cert_dir.iterdir()):
+                if not file_path.is_file():
+                    continue
+                if file_path.suffix.lower() not in DOCUMENT_EXTENSIONS:
+                    continue
+
+                # Extraer titulo del nombre del archivo
+                title = file_path.stem
+                title = prettify_title(title)
+                # Limpiar guiones bajos y guiones
+                title = re.sub(r"[_-]+", " ", title)
+                title = re.sub(r"\s+", " ", title).strip()
+
+                projects.append({
+                    "slug": file_path.stem,
+                    "title": title,
+                    "category": category["slug"],
+                    "categoryLabel": category["label"],
+                    "description": "",
+                    "url": None,
+                    "image": to_web_path(file_path),
+                    "images": [to_web_path(file_path)],
+                    "file_type": "pdf",
+                    "mtime": file_path.stat().st_mtime,
+                })
+            continue
+
         if not category_dir.exists():
             print(f"Aviso: no existe img/{category['slug']}/ (se omite)")
             continue

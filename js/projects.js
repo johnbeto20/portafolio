@@ -33,10 +33,15 @@
     }
 
     function renderCards() {
-        grid.innerHTML = items.map((project, index) => `
+        grid.innerHTML = items.map((project, index) => {
+            const isVideo = project.image && /\.(mp4|webm|ogg)$/i.test(project.image);
+            const media = isVideo
+                ? `<video src="${project.image}" muted playsinline preload="metadata" class="card-media"></video>`
+                : `<img src="${project.image}" alt="${project.title}" loading="lazy">`;
+            return `
             <article class="work-card" data-category="${project.category}" data-scroll-reveal data-index="${index}">
                 <div class="card-image is-loading" data-open-project="${project.slug}">
-                    <img src="${project.image}" alt="${project.title}" loading="lazy">
+                    ${media}
                     <div class="card-overlay">
                         <span class="card-category">${project.categoryLabel.toUpperCase()}</span>
                         <span class="card-arrow">↗</span>
@@ -47,7 +52,8 @@
                     ${project.description ? `<p class="card-description">${project.description}</p>` : ''}
                 </div>
             </article>
-        `).join('');
+        `;
+        }).join('');
 
         grid.querySelectorAll('[data-open-project]').forEach(el => {
             el.addEventListener('click', () => {
@@ -55,20 +61,29 @@
             });
         });
 
-        // Skeleton shimmer on each card until its image reports load/error —
-        // handles the cached-image case too (onload never fires if it's
+        // Skeleton shimmer on each card until its media reports load/error —
+        // handles the cached-media case too (onload never fires if it's
         // already complete by the time we attach the listener).
         grid.querySelectorAll('.card-image').forEach(wrapper => {
-            const img = wrapper.querySelector('img');
+            const media = wrapper.querySelector('video, img');
             function markLoaded() {
                 wrapper.classList.remove('is-loading');
-                img.classList.add('is-loaded');
+                media.classList.add('is-loaded');
             }
-            if (img.complete && img.naturalWidth > 0) {
-                markLoaded();
+            if (media.tagName === 'VIDEO') {
+                if (media.readyState >= 1) {
+                    markLoaded();
+                } else {
+                    media.addEventListener('loadeddata', markLoaded, { once: true });
+                    media.addEventListener('error', markLoaded, { once: true });
+                }
             } else {
-                img.addEventListener('load', markLoaded, { once: true });
-                img.addEventListener('error', markLoaded, { once: true });
+                if (media.complete && media.naturalWidth > 0) {
+                    markLoaded();
+                } else {
+                    media.addEventListener('load', markLoaded, { once: true });
+                    media.addEventListener('error', markLoaded, { once: true });
+                }
             }
         });
     }
