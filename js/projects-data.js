@@ -20,9 +20,62 @@ const PROJECT_CATEGORIES = [
   {
     "slug": "disenio-grafico",
     "label": "Diseño Grafico"
+  },
+  {
+    "slug": "certificados",
+    "label": "Certificados"
   }
 ];
 const PROJECTS = [
+  {
+    "slug": "EPM",
+    "title": "EPM",
+    "category": "animaciones",
+    "categoryLabel": "Animaciones",
+    "description": "",
+    "url": null,
+    "image": "img/animaciones/EPM/base.jpg",
+    "images": [
+      "img/animaciones/EPM/base.jpg",
+      "img/animaciones/EPM/Video_splash.mp4"
+    ]
+  },
+  {
+    "slug": "portadas",
+    "title": "Portadas",
+    "category": "ilustraciones",
+    "categoryLabel": "Ilustraciones",
+    "description": "",
+    "url": null,
+    "image": "img/ilustraciones/portadas/backgroundDefault 2.jpg",
+    "images": [
+      "img/ilustraciones/portadas/backgroundDefault 2.jpg",
+      "img/ilustraciones/portadas/backgroundDefault 3.jpg",
+      "img/ilustraciones/portadas/backgroundDefault 4.jpg",
+      "img/ilustraciones/portadas/backgroundDefault.jpg",
+      "img/ilustraciones/portadas/ceiba15.jpg",
+      "img/ilustraciones/portadas/gráfico-portadas.jpg"
+    ]
+  },
+  {
+    "slug": "Gerencia técnica distintivo visual",
+    "title": "Gerencia Técnica Distintivo Visual",
+    "category": "ilustraciones",
+    "categoryLabel": "Ilustraciones",
+    "description": "",
+    "url": null,
+    "image": "img/ilustraciones/Gerencia técnica distintivo visual/distintivoGT_Blanco__GerenciaTecnica_17122020.jpg",
+    "images": [
+      "img/ilustraciones/Gerencia técnica distintivo visual/distintivoGT_Blanco__GerenciaTecnica_17122020.jpg",
+      "img/ilustraciones/Gerencia técnica distintivo visual/distintivoGT_fondo__GerenciaTecnica_17122020.jpg",
+      "img/ilustraciones/Gerencia técnica distintivo visual/distintivoGT_Letras-negativo__GerenciaTecnica_17122020.png",
+      "img/ilustraciones/Gerencia técnica distintivo visual/distintivoGT_Letras-positivo__GerenciaTecnica_17122020.png",
+      "img/ilustraciones/Gerencia técnica distintivo visual/distintivoGT_Letras__GerenciaTecnica_17122020.jpg",
+      "img/ilustraciones/Gerencia técnica distintivo visual/propuestaEnCamisa-conLetra.jpg",
+      "img/ilustraciones/Gerencia técnica distintivo visual/propuestaEnCamisa.jpg",
+      "img/ilustraciones/Gerencia técnica distintivo visual/propuestaVistaenMug.jpg"
+    ]
+  },
   {
     "slug": "Renting Colombia",
     "title": "Renting Colombia",
@@ -216,23 +269,6 @@ const PROJECTS = [
     ]
   },
   {
-    "slug": "portadas",
-    "title": "Portadas",
-    "category": "ilustraciones",
-    "categoryLabel": "Ilustraciones",
-    "description": "",
-    "url": null,
-    "image": "img/ilustraciones/portadas/backgroundDefault 2.jpg",
-    "images": [
-      "img/ilustraciones/portadas/backgroundDefault 2.jpg",
-      "img/ilustraciones/portadas/backgroundDefault 3.jpg",
-      "img/ilustraciones/portadas/backgroundDefault 4.jpg",
-      "img/ilustraciones/portadas/backgroundDefault.jpg",
-      "img/ilustraciones/portadas/ceiba15.jpg",
-      "img/ilustraciones/portadas/gráfico-portadas.jpg"
-    ]
-  },
-  {
     "slug": "convocatorias",
     "title": "Convocatorias",
     "category": "ilustraciones",
@@ -269,5 +305,270 @@ const PROJECTS = [
       "img/aplicaciones-y-sitios-web/GCA/propuestaGrafica-nuestraCompania-GCA-09292018.jpg",
       "img/aplicaciones-y-sitios-web/GCA/propuestaGrafica-politicasDeEquipaje-GCA.jpg"
     ]
+  },
+  {
+    "slug": "tarjeta de navidad ceiba",
+    "title": "Tarjeta De Navidad Ceiba",
+    "category": "aplicaciones-y-sitios-web",
+    "categoryLabel": "Aplicaciones y Sitios Web",
+    "description": "",
+    "url": null,
+    "image": "img/aplicaciones-y-sitios-web/tarjeta de navidad ceiba/TARJETA NAVIDAD/img/bg-background.png",
+    "images": [
+      "img/aplicaciones-y-sitios-web/tarjeta de navidad ceiba/TARJETA NAVIDAD/img/bg-background.png",
+      "img/aplicaciones-y-sitios-web/tarjeta de navidad ceiba/TARJETA NAVIDAD/img/gris.jpg",
+      "img/aplicaciones-y-sitios-web/tarjeta de navidad ceiba/TARJETA NAVIDAD/img/logoCeibaSoftware.png",
+      "img/aplicaciones-y-sitios-web/tarjeta de navidad ceiba/TARJETA NAVIDAD/img/slide-recordar/imagen-1.jpg",
+      "img/aplicaciones-y-sitios-web/tarjeta de navidad ceiba/TARJETA NAVIDAD/img/slide-recordar/imagen-2.jpg",
+      "img/aplicaciones-y-sitios-web/tarjeta de navidad ceiba/TARJETA NAVIDAD/img/slide-recordar/imagen-3.jpg",
+      "img/aplicaciones-y-sitios-web/tarjeta de navidad ceiba/TARJETA NAVIDAD/img/slide-recordar/imagen-4.jpg"
+    ]
+  },
+  {
+    "slug": "prompt-engineering",
+    "title": "Prompt Engineering",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/prompt-engineering.pdf",
+    "images": [
+      "Certificados/prompt-engineering.pdf"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "Informe-de-tendencias-Ceiba-2025",
+    "title": "Informe De Tendencias Ceiba 2025",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/Informe-de-tendencias-Ceiba-2025.pdf",
+    "images": [
+      "Certificados/Informe-de-tendencias-Ceiba-2025.pdf"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "diploma-design-ops",
+    "title": "Diploma Design Ops",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/diploma-design-ops.pdf",
+    "images": [
+      "Certificados/diploma-design-ops.pdf"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "certificado-reto21-john-alberto-sánchez-medina",
+    "title": "Certificado Reto21 John Alberto Sánchez Medina",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/certificado-reto21-john-alberto-sánchez-medina.png",
+    "images": [
+      "Certificados/certificado-reto21-john-alberto-sánchez-medina.png"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "certificate-visual-thinking",
+    "title": "Certificate Visual Thinking",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/certificate-visual-thinking.pdf",
+    "images": [
+      "Certificados/certificate-visual-thinking.pdf"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "CERTIFICADO_APD_JOHN ALBERTO SANCHEZ MEDINA",
+    "title": "CERTIFICADO APD JOHN ALBERTO SANCHEZ MEDINA",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/CERTIFICADO_APD_JOHN ALBERTO SANCHEZ MEDINA.png",
+    "images": [
+      "Certificados/CERTIFICADO_APD_JOHN ALBERTO SANCHEZ MEDINA.png"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "diploma-fundamentos-javascript-2018",
+    "title": "Diploma Fundamentos Javascript 2018",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/diploma-fundamentos-javascript-2018.pdf",
+    "images": [
+      "Certificados/diploma-fundamentos-javascript-2018.pdf"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "diploma-preprocesador-sass",
+    "title": "Diploma Preprocesador Sass",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/diploma-preprocesador-sass.pdf",
+    "images": [
+      "Certificados/diploma-preprocesador-sass.pdf"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "diploma-crm-salesforce",
+    "title": "Diploma Crm Salesforce",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/diploma-crm-salesforce.pdf",
+    "images": [
+      "Certificados/diploma-crm-salesforce.pdf"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "diploma-salesforce-admin",
+    "title": "Diploma Salesforce Admin",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/diploma-salesforce-admin.pdf",
+    "images": [
+      "Certificados/diploma-salesforce-admin.pdf"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "diploma-producción-multimedia",
+    "title": "Diploma Producción Multimedia",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/diploma-producción-multimedia.pdf",
+    "images": [
+      "Certificados/diploma-producción-multimedia.pdf"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "SCRUM MASTER",
+    "title": "SCRUM MASTER",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/SCRUM MASTER.pdf",
+    "images": [
+      "Certificados/SCRUM MASTER.pdf"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "Certificate SCRUM DEVELOP",
+    "title": "Certificate SCRUM DEVELOP",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/Certificate SCRUM DEVELOP.pdf",
+    "images": [
+      "Certificados/Certificate SCRUM DEVELOP.pdf"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "Certificate",
+    "title": "Certificate",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/Certificate.pdf",
+    "images": [
+      "Certificados/Certificate.pdf"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "diploma-diseño-de-interfaces-y-ux",
+    "title": "Diploma Diseño De Interfaces Y Ux",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/diploma-diseño-de-interfaces-y-ux.pdf",
+    "images": [
+      "Certificados/diploma-diseño-de-interfaces-y-ux.pdf"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "diploma-sistema-de-diseño",
+    "title": "Diploma Sistema De Diseño",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/diploma-sistema-de-diseño.pdf",
+    "images": [
+      "Certificados/diploma-sistema-de-diseño.pdf"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "diploma-sistema-de-diseño-para-desarrolladores",
+    "title": "Diploma Sistema De Diseño Para Desarrolladores",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/diploma-sistema-de-diseño-para-desarrolladores.pdf",
+    "images": [
+      "Certificados/diploma-sistema-de-diseño-para-desarrolladores.pdf"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "diploma-liderazgo-creativo",
+    "title": "Diploma Liderazgo Creativo",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/diploma-liderazgo-creativo.pdf",
+    "images": [
+      "Certificados/diploma-liderazgo-creativo.pdf"
+    ],
+    "file_type": "pdf"
+  },
+  {
+    "slug": "diploma-accesibilidad-web",
+    "title": "Diploma Accesibilidad Web",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/diploma-accesibilidad-web.pdf",
+    "images": [
+      "Certificados/diploma-accesibilidad-web.pdf"
+    ],
+    "file_type": "pdf"
   }
 ];
