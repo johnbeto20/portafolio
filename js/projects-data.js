@@ -28,6 +28,21 @@ const PROJECT_CATEGORIES = [
 ];
 const PROJECTS = [
   {
+    "slug": "propiapp",
+    "title": "Propiapp",
+    "category": "aplicaciones-y-sitios-web",
+    "categoryLabel": "Aplicaciones y Sitios Web",
+    "description": "producto digital para la inversión y venta de vienes raices.",
+    "url": "https://www.propiapp.com/home-propiapp",
+    "image": "img/aplicaciones-y-sitios-web/propiapp/propiapp-1.png",
+    "images": [
+      "img/aplicaciones-y-sitios-web/propiapp/propiapp-1.png",
+      "img/aplicaciones-y-sitios-web/propiapp/propiapp-2.png",
+      "img/aplicaciones-y-sitios-web/propiapp/propiapp-3.png",
+      "img/aplicaciones-y-sitios-web/propiapp/propiapp-4.png"
+    ]
+  },
+  {
     "slug": "EPM",
     "title": "EPM",
     "category": "animaciones",
@@ -307,24 +322,6 @@ const PROJECTS = [
     ]
   },
   {
-    "slug": "tarjeta de navidad ceiba",
-    "title": "Tarjeta De Navidad Ceiba",
-    "category": "aplicaciones-y-sitios-web",
-    "categoryLabel": "Aplicaciones y Sitios Web",
-    "description": "",
-    "url": null,
-    "image": "img/aplicaciones-y-sitios-web/tarjeta de navidad ceiba/TARJETA NAVIDAD/img/bg-background.png",
-    "images": [
-      "img/aplicaciones-y-sitios-web/tarjeta de navidad ceiba/TARJETA NAVIDAD/img/bg-background.png",
-      "img/aplicaciones-y-sitios-web/tarjeta de navidad ceiba/TARJETA NAVIDAD/img/gris.jpg",
-      "img/aplicaciones-y-sitios-web/tarjeta de navidad ceiba/TARJETA NAVIDAD/img/logoCeibaSoftware.png",
-      "img/aplicaciones-y-sitios-web/tarjeta de navidad ceiba/TARJETA NAVIDAD/img/slide-recordar/imagen-1.jpg",
-      "img/aplicaciones-y-sitios-web/tarjeta de navidad ceiba/TARJETA NAVIDAD/img/slide-recordar/imagen-2.jpg",
-      "img/aplicaciones-y-sitios-web/tarjeta de navidad ceiba/TARJETA NAVIDAD/img/slide-recordar/imagen-3.jpg",
-      "img/aplicaciones-y-sitios-web/tarjeta de navidad ceiba/TARJETA NAVIDAD/img/slide-recordar/imagen-4.jpg"
-    ]
-  },
-  {
     "slug": "prompt-engineering",
     "title": "Prompt Engineering",
     "category": "certificados",
@@ -334,19 +331,6 @@ const PROJECTS = [
     "image": "Certificados/prompt-engineering.pdf",
     "images": [
       "Certificados/prompt-engineering.pdf"
-    ],
-    "file_type": "pdf"
-  },
-  {
-    "slug": "Informe-de-tendencias-Ceiba-2025",
-    "title": "Informe De Tendencias Ceiba 2025",
-    "category": "certificados",
-    "categoryLabel": "Certificados",
-    "description": "",
-    "url": null,
-    "image": "Certificados/Informe-de-tendencias-Ceiba-2025.pdf",
-    "images": [
-      "Certificados/Informe-de-tendencias-Ceiba-2025.pdf"
     ],
     "file_type": "pdf"
   },
