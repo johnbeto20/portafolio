@@ -15,12 +15,15 @@
 
     if (!grid || typeof PROJECTS === 'undefined') return;
 
-    const items = fullGrid ? PROJECTS : PROJECTS.slice(0, HOME_LIMIT);
+    // Filtrar certificados de proyectos.html (solo aparecen en certificados.html)
+    const items = fullGrid 
+        ? PROJECTS.filter(p => p.category !== 'certificados')
+        : PROJECTS.filter(p => p.category !== 'certificados').slice(0, HOME_LIMIT);
 
     function renderFilters() {
         if (!filters) return;
 
-        const presentSlugs = new Set(PROJECTS.map(p => p.category));
+        const presentSlugs = new Set(PROJECTS.filter(p => p.category !== 'certificados').map(p => p.category));
         const categories = (typeof PROJECT_CATEGORIES !== 'undefined' ? PROJECT_CATEGORIES : [])
             .filter(cat => presentSlugs.has(cat.slug));
 
