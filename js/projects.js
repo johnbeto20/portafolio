@@ -35,6 +35,13 @@
         filters.innerHTML = buttons.join('\n');
     }
 
+    const CARD_DESCRIPTION_LIMIT = 64;
+
+    function truncate(text, limit) {
+        if (!text || text.length <= limit) return text;
+        return text.slice(0, limit).trim() + '…';
+    }
+
     function renderCards() {
         grid.innerHTML = items.map((project, index) => {
             const isVideo = project.image && /\.(mp4|webm|ogg)$/i.test(project.image);
@@ -52,7 +59,7 @@
                 </div>
                 <div class="card-info">
                     <h3 class="card-title">${project.title}</h3>
-                    ${project.description ? `<p class="card-description">${project.description}</p>` : ''}
+                    ${project.description ? `<p class="card-description">${truncate(project.description, CARD_DESCRIPTION_LIMIT)}</p>` : ''}
                 </div>
             </article>
         `;

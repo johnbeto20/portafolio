@@ -14,6 +14,10 @@ const PROJECT_CATEGORIES = [
     "label": "Aplicaciones y Sitios Web"
   },
   {
+    "slug": "sistemas-de-diseno",
+    "label": "Sistemas de Diseño"
+  },
+  {
     "slug": "animaciones",
     "label": "Animaciones"
   },
@@ -27,6 +31,56 @@ const PROJECT_CATEGORIES = [
   }
 ];
 const PROJECTS = [
+  {
+    "slug": "XM",
+    "title": "XM",
+    "category": "sistemas-de-diseno",
+    "categoryLabel": "Sistemas de Diseño",
+    "description": "Biblioteca de componentes — XM: sistema creado desde sus cimientos utilizando variables y design tokens para sistematizar color, tipografía, espaciado y estados. El enfoque actual del proyecto integra herramientas de IA para automatizar la documentación y reducir la fricción en la entrega (handoff) hacia los desarrolladores. Se documenta la anatomía visual y el modo de uso, para que cualquier desarrollador lo utilice en su entorno de desarrollo. Tecnología: Angular, PrimeNG. Solo para desktop.",
+    "url": "https://bibliotecadecomponentes-cbamhkhebndbdjec.z01.azurefd.net/inicio",
+    "image": "img/sistemas-de-diseno/XM/xm-libreria-1.png",
+    "images": [
+      "img/sistemas-de-diseno/XM/xm-libreria-1.png",
+      "img/sistemas-de-diseno/XM/xm-libreria-2.png",
+      "img/sistemas-de-diseno/XM/xm-libreria-3.png",
+      "img/sistemas-de-diseno/XM/xm-libreria-4.png",
+      "img/sistemas-de-diseno/XM/xm-libreria-5.png"
+    ]
+  },
+  {
+    "slug": "Renting Colombia",
+    "title": "Renting Colombia",
+    "category": "sistemas-de-diseno",
+    "categoryLabel": "Sistemas de Diseño",
+    "description": "Renting Colombia: sistema creado desde sus cimientos utilizando variables y design tokens para sistematizar color, tipografía, espaciado y estados. El enfoque actual del proyecto integra herramientas de IA para automatizar la documentación y reducir la fricción en la entrega (handoff) hacia los desarrolladores. Tecnología: Angular Material. Solo para desktop.",
+    "url": "https://ws3.20d2t2infra.com:35000/estandargrafico/home",
+    "image": "img/sistemas-de-diseno/Renting Colombia/renting-1.png",
+    "images": [
+      "img/sistemas-de-diseno/Renting Colombia/renting-1.png",
+      "img/sistemas-de-diseno/Renting Colombia/renting-2.png",
+      "img/sistemas-de-diseno/Renting Colombia/renting-3.png",
+      "img/sistemas-de-diseno/Renting Colombia/renting-4.png",
+      "img/sistemas-de-diseno/Renting Colombia/renting-ilustracion-base.png"
+    ]
+  },
+  {
+    "slug": "Logisfashion",
+    "title": "Logisfashion",
+    "category": "sistemas-de-diseno",
+    "categoryLabel": "Sistemas de Diseño",
+    "description": "Logisfashion — lineamientos UI y componentes: sistema creado desde sus cimientos utilizando variables y design tokens para sistematizar color, tipografía, espaciado y estados. El enfoque actual del proyecto integra herramientas de IA para automatizar la documentación y reducir la fricción en la entrega (handoff) hacia los desarrolladores. También se trabajó parte de las ilustraciones: \"si está la base inicial de diseño podemos crear el resto creativamente y con mayor intención\". Los componentes se documentan con su modo de uso y se entregan en formato de código para que cualquier desarrollador los utilice en su entorno. Tecnología: Angular Material. Solo para desktop.",
+    "url": null,
+    "image": "img/sistemas-de-diseno/Logisfashion/logis-1.png",
+    "images": [
+      "img/sistemas-de-diseno/Logisfashion/logis-1.png",
+      "img/sistemas-de-diseno/Logisfashion/logis-2.png",
+      "img/sistemas-de-diseno/Logisfashion/logis-3.png",
+      "img/sistemas-de-diseno/Logisfashion/logis-4.png",
+      "img/sistemas-de-diseno/Logisfashion/logis-componentes-1.png",
+      "img/sistemas-de-diseno/Logisfashion/logis-componentes-2.png",
+      "img/sistemas-de-diseno/Logisfashion/logis-componentes-3.png"
+    ]
+  },
   {
     "slug": "propiapp",
     "title": "Propiapp",
@@ -89,18 +143,6 @@ const PROJECTS = [
       "img/ilustraciones/Gerencia técnica distintivo visual/propuestaEnCamisa-conLetra.jpg",
       "img/ilustraciones/Gerencia técnica distintivo visual/propuestaEnCamisa.jpg",
       "img/ilustraciones/Gerencia técnica distintivo visual/propuestaVistaenMug.jpg"
-    ]
-  },
-  {
-    "slug": "Renting Colombia",
-    "title": "Renting Colombia",
-    "category": "aplicaciones-y-sitios-web",
-    "categoryLabel": "Aplicaciones y Sitios Web",
-    "description": "Renting Colombia / Localiza: cambio de marca y estándar gráfico, además de acompañamiento visual en firma electrónica, devoluciones de datos bancarios y alianza retail de usados. (2021 - 2024, vía Ceiba Software)",
-    "url": null,
-    "image": "img/aplicaciones-y-sitios-web/Renting Colombia/placeholder.jpg",
-    "images": [
-      "img/aplicaciones-y-sitios-web/Renting Colombia/placeholder.jpg"
     ]
   },
   {
@@ -176,18 +218,6 @@ const PROJECTS = [
     ]
   },
   {
-    "slug": "DeffineStaffing",
-    "title": "Deffine Staffing",
-    "category": "aplicaciones-y-sitios-web",
-    "categoryLabel": "Aplicaciones y Sitios Web",
-    "description": "Revisión de la implementación gráfica de las pantallas de la interfaz, proponiendo elementos interactivos alineados a la propuesta de experiencia de usuario. (2022 - 2023, vía Ceiba Software)",
-    "url": null,
-    "image": "img/aplicaciones-y-sitios-web/DeffineStaffing/placeholder.jpg",
-    "images": [
-      "img/aplicaciones-y-sitios-web/DeffineStaffing/placeholder.jpg"
-    ]
-  },
-  {
     "slug": "Comfamiliar",
     "title": "Comfamiliar",
     "category": "aplicaciones-y-sitios-web",
@@ -197,18 +227,6 @@ const PROJECTS = [
     "image": "img/aplicaciones-y-sitios-web/Comfamiliar/placeholder.jpg",
     "images": [
       "img/aplicaciones-y-sitios-web/Comfamiliar/placeholder.jpg"
-    ]
-  },
-  {
-    "slug": "Siigo",
-    "title": "Siigo",
-    "category": "aplicaciones-y-sitios-web",
-    "categoryLabel": "Aplicaciones y Sitios Web",
-    "description": "Sistema de diseño para Siigo: creación, organización y tokenización de componentes en un UI Kit útil para los equipos de diseño y desarrollo. (2026 - actualidad, vía Ceiba Software)",
-    "url": null,
-    "image": "img/aplicaciones-y-sitios-web/Siigo/placeholder.jpg",
-    "images": [
-      "img/aplicaciones-y-sitios-web/Siigo/placeholder.jpg"
     ]
   },
   {
