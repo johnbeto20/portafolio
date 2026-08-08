@@ -1,0 +1,4 @@
+Biblioteca de componentes — XM: sistema creado desde sus cimientos utilizando variables y design tokens para sistematizar color, tipografía, espaciado y estados. El enfoque actual del proyecto integra herramientas de IA para automatizar la documentación y reducir la fricción en la entrega (handoff) hacia los desarrolladores. Se documenta la anatomía visual y el modo de uso, para que cualquier desarrollador lo utilice en su entorno de desarrollo. Tecnología: Angular, PrimeNG. Solo para desktop.
+
+Sitio web:
+https://bibliotecadecomponentes-cbamhkhebndbdjec.z01.azurefd.net/inicio

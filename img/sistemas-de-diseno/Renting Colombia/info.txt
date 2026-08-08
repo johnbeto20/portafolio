@@ -1,0 +1,4 @@
+Renting Colombia: sistema creado desde sus cimientos utilizando variables y design tokens para sistematizar color, tipografía, espaciado y estados. El enfoque actual del proyecto integra herramientas de IA para automatizar la documentación y reducir la fricción en la entrega (handoff) hacia los desarrolladores. Tecnología: Angular Material. Solo para desktop.
+
+Sitio web:
+https://ws3.20d2t2infra.com:35000/estandargrafico/home

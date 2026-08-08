@@ -39,6 +39,7 @@ CATEGORIES = [
     {"slug": "ilustraciones", "label": "Ilustraciones"},
     {"slug": "tomas-aereas", "label": "Tomas Aereas"},
     {"slug": "aplicaciones-y-sitios-web", "label": "Aplicaciones y Sitios Web"},
+    {"slug": "sistemas-de-diseno", "label": "Sistemas de Diseño"},
     {"slug": "animaciones", "label": "Animaciones"},
     {"slug": "disenio-grafico", "label": "Diseño Grafico"},
     {"slug": "certificados", "label": "Certificados"},

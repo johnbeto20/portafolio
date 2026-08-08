@@ -1,0 +1,1 @@
+Siigo — UI Kit: creación, organización y tokenización de componentes en un UI Kit útil para los equipos de diseño y desarrollo. Las foundations se crean apoyándose en inteligencia artificial para optimizar la documentación, con datos certeros frente a las definiciones específicas de cada propiedad. Herramienta: Figma Design, Figma Make.
