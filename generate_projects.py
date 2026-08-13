@@ -30,6 +30,7 @@ y agregala a la lista CATEGORIES.
 import json
 import re
 from pathlib import Path
+from datetime import datetime
 
 ROOT = Path(__file__).resolve().parent
 IMG_DIR = ROOT / "img"
@@ -45,9 +46,30 @@ CATEGORIES = [
     {"slug": "certificados", "label": "Certificados"},
 ]
 
-IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".webp", ".mp4"}
+# Soporta .mp4 (H.264) y .webm (VP9) para maxima compatibilidad en iOS/Android
+# Tambien detecta imagenes poster automaticas en la carpeta del proyecto
+VIDEO_EXTENSIONS = {".mp4", ".webm", ".ogg"}
+IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
 DOCUMENT_EXTENSIONS = {".pdf", ".png", ".jpg", ".jpeg"}
 SKIP_MARKER = ".skip"
+
+# Patrones comunes para imagenes poster (se buscan automaticas en la carpeta)
+POSTER_PATTERNS = [
+    "poster", "cover", "thumbnail", "thumb", "preview", "banner", "hero", "splash"
+]
+
+# Patrones que indican que el texto usa markdown
+MARKDOWN_INDICATORS = [
+    re.compile(r'^#{1,6}\s?', re.MULTILINE),  # Encabezados ## titulo o ##titulo
+    re.compile(r'\*\*[^*]+\*\*'),              # Negrita **texto**
+    re.compile(r'\*[^*]+\*'),                   # Cursiva *texto*
+    re.compile(r'\[[^]]+\]\([^)]+\)'),          # Enlaces [texto](url)
+    re.compile(r'^\s*[-*+]\s', re.MULTILINE),   # Listas - item
+    re.compile(r'^\s*\d+\.\s', re.MULTILINE),   # Listas numeradas 1. item
+    re.compile(r'^>\s', re.MULTILINE),           # Citas > texto
+    re.compile(r'`[^`]+`'),                      # Code `inline`
+    re.compile(r'^---$', re.MULTILINE),          # Separador ---
+]
 
 
 def prettify_title(folder_name):
@@ -58,29 +80,749 @@ def prettify_title(folder_name):
     return " ".join(words)
 
 
+def find_poster_image(folder):
+    """Busca una imagen poster en la carpeta del proyecto.
+    Prioriza archivos con nombres comunes (poster, cover, thumbnail, etc.)
+    Si no encuentra, usa la primera imagen encontrada.
+    """
+    poster_candidates = []
+    all_images = []
+    
+    for path in folder.rglob("*"):
+        if path.is_file() and path.suffix.lower() in {".jpg", ".jpeg", ".png", ".gif", ".webp"}:
+            all_images.append(path)
+            name_lower = path.stem.lower()
+            # Verificar si el nombre coincide con patrones de poster
+            if any(pattern in name_lower for pattern in POSTER_PATTERNS):
+                poster_candidates.append(path)
+    
+    # Retornar la mejor opcion: poster dedicado o primera imagen
+    if poster_candidates:
+        return poster_candidates[0]
+    elif all_images:
+        return all_images[0]
+    return None
+
+
+def is_video(path):
+    """Verifica si una ruta es un video."""
+    return path.suffix.lower() in VIDEO_EXTENSIONS
+
+
+def find_lottie_animation(folder):
+    """Busca archivos JSON de Lottie en la carpeta del proyecto."""
+    lottie_files = []
+    for path in folder.rglob("*"):
+        if path.is_file() and path.suffix.lower() == ".json":
+            # Verificar que sea un archivo de Lottie válido (tiene estructura básica)
+            try:
+                with open(path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    if 'v' in data and 'layers' in data:  # Estructura básica de Lottie
+                        lottie_files.append(path)
+            except (json.JSONDecodeError, UnicodeDecodeError):
+                pass  # No es un JSON válido o no es Lottie
+    return lottie_files
+
+
 def find_images(folder):
     images = []
+    videos = []
     for path in folder.rglob("*"):
-        if path.is_file() and path.suffix.lower() in IMAGE_EXTENSIONS:
-            images.append(path)
+        if path.is_file():
+            ext = path.suffix.lower()
+            if ext in IMAGE_EXTENSIONS:
+                images.append(path)
+            elif ext in VIDEO_EXTENSIONS:
+                videos.append(path)
+    # Videos primero, luego imagenes
+    videos.sort(key=lambda p: str(p.relative_to(folder)).lower())
     images.sort(key=lambda p: str(p.relative_to(folder)).lower())
-    return images
+    return videos, images
+
+
+def has_sections(text):
+    """Detecta si el texto tiene secciones separadas por --- (linea con solo ---)."""
+    # Busca lineas que contengan solo --- (con posibles espacios/blancos)
+    pattern = re.compile(r'^\s*---\s*$', re.MULTILINE)
+    return bool(pattern.search(text))
+
+
+def has_column_container(text):
+    """Detecta si el texto tiene un contenedor de columnas -- ... --.
+    
+    Busca la primera linea -- y la ultima linea -- en el texto.
+    Si existen, todo el contenido entre ellos es un contenedor de columnas.
+    
+    Returns:
+        tuple: (has_container: bool, column_content: str or None)
+            - has_container: True si se encontro contenedor
+            - column_content: Contenido entre -- y -- (sin los --)
+    """
+    lines = text.splitlines()
+    
+    # Encontrar el indice de la primera linea --
+    first_dash_idx = None
+    for i, line in enumerate(lines):
+        if line.strip() == '--':
+            first_dash_idx = i
+            break
+    
+    # Encontrar el indice de la ultima linea --
+    last_dash_idx = None
+    for i in range(len(lines) - 1, -1, -1):
+        if lines[i].strip() == '--':
+            last_dash_idx = i
+            break
+    
+    # Si encontramos ambos y hay contenido entre ellos
+    if first_dash_idx is not None and last_dash_idx is not None and last_dash_idx > first_dash_idx + 1:
+        # Extraer contenido entre -- y --
+        column_content = '\n'.join(lines[first_dash_idx + 1:last_dash_idx]).strip()
+        if column_content:
+            return True, column_content
+    
+    return False, None
+    """Divide el texto en secciones separadas por ---.
+    
+    Returns:
+        list[str]: Lista de textos por seccion (sin los separadores ---)
+    """
+    sections = re.split(r'^\s*---\s*$', text, flags=re.MULTILINE)
+    # Filtrar secciones vacias
+    return [s.strip() for s in sections if s.strip()]
+
+
+def parse_section_text(section_text):
+    """Parsea el texto de una seccion individual.
+    
+    Detecta columnas dentro de un contenedor -- ... --
+    Las columnas se separan por --- (linea con solo ---).
+    
+    Returns:
+        tuple: (columns_list, title_from_info)
+            - columns_list: list[dict] con 'content_html' por columna
+            - title_from_info: Titulo extraido (primer H1/H2/H3)
+    """
+    # Extraer el primer encabezado como titulo (prioridad: H1 -> H2 -> H3)
+    # Soporta tanto "### Titulo" como "###Titulo" (espacio opcional)
+    title_from_info = None
+    for header_level in [1, 2, 3]:
+        pattern = rf'^#{{{header_level}}}\s*(.+)$'
+        header_match = re.search(pattern, section_text, re.MULTILINE)
+        if header_match:
+            title_from_info = header_match.group(1).strip()
+            # Limpiar caracteres de markdown del titulo
+            title_from_info = re.sub(r'[#*_`]', '', title_from_info).strip()
+            # Remover dos puntos al final si existen
+            title_from_info = re.sub(r':\s*$', '', title_from_info).strip()
+            break
+    
+    # Detectar contenedor de columnas: -- ... --
+    # Busca -- al inicio y -- al final del texto
+    lines = section_text.splitlines()
+    first_line = lines[0].strip() if lines else ""
+    last_line = lines[-1].strip() if lines else ""
+    
+    # Si empieza con -- y termina con --, es un contenedor de columnas
+    if first_line == '--' and last_line == '--' and len(lines) > 2:
+        # Extraer contenido entre -- y --
+        column_content = '\n'.join(lines[1:-1]).strip()
+        
+        # Dividir por --- (cada columna separada por ---)
+        raw_columns = re.split(r'^\s*---\s*$', column_content, flags=re.MULTILINE)
+        columns = []
+        for col_text in raw_columns:
+            col_text = col_text.strip()
+            if not col_text:
+                continue
+            # Limpiar y procesar cada columna
+            cleaned = clean_section_text(col_text)
+            columns.append(cleaned)
+        return columns, title_from_info
+    else:
+        # Una sola columna (sin contenedor)
+        cleaned = clean_section_text(section_text)
+        return [cleaned], title_from_info
+
+
+def parse_column_text(col_text):
+    """Parsea el texto de una columna individual.
+    
+    Extrae URLs e imagen, limpia esas líneas y procesa el resto.
+    La imagen se incluye dentro del contenido HTML de la columna.
+    
+    Returns:
+        dict: {'content_html': str, 'demo_url': str or None, 'github_url': str or None, 'associated_image': str or None}
+    """
+    # Extraer URLs e imagen de esta columna
+    demo_url = None
+    github_url = None
+    associated_image = None
+    
+    demo_match = re.search(r'demo\s*:?\s*(https?://\S+)', col_text, re.I)
+    if demo_match:
+        demo_url = demo_match.group(1).rstrip(".,")
+    
+    github_match = re.search(r'(?:link\s+)?github\s*:?\s*(https?://\S+)', col_text, re.I)
+    if github_match:
+        github_url = github_match.group(1).rstrip(".,")
+    
+    imagen_match = re.search(r'imagen\s*:?\s*\[?([^\]\s]+)\]?', col_text, re.I)
+    if imagen_match:
+        associated_image = imagen_match.group(1).strip()
+        # Verificar que sea un archivo de imagen válido
+        if not associated_image.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')):
+            associated_image = None
+    
+    # Remover lineas de etiquetas para procesar el resto
+    cleaned_text = col_text
+    cleaned_text = re.sub(r'demo\s*:?\s*https?://\S+', '', cleaned_text, flags=re.I)
+    cleaned_text = re.sub(r'(?:link\s+)?github\s*:?\s*https?://\S+', '', cleaned_text, flags=re.I)
+    cleaned_text = re.sub(r'https?://\S+', '', cleaned_text)
+    # Remover linea de imagen - soporta "imagen:[archivo.png]" con o sin espacio
+    cleaned_text = re.sub(r'imagen\s*:?\s*\[?[^\]\s]+\]?', '', cleaned_text, flags=re.I)
+    
+    # Limpiar lineas de etiquetas conocidas
+    cleaned_lines = []
+    for line in cleaned_text.splitlines():
+        stripped = line.strip()
+        if re.match(r'^(sitio web|website|link|url|demo|github|imagen)\s*:?\s*$', stripped, re.I):
+            continue
+        cleaned_lines.append(line)
+    
+    cleaned_text = '\n'.join(cleaned_lines).strip()
+    
+    # Detectar si el texto usa markdown
+    if detect_markdown(cleaned_text):
+        content_html = markdown_to_html(cleaned_text)
+    else:
+        lines = [line.strip() for line in cleaned_lines if line.strip()]
+        content_html = ' '.join(lines).strip()
+    
+    return {
+        'content_html': content_html,
+        'demo_url': demo_url,
+        'github_url': github_url,
+        'associated_image': associated_image,
+    }
+
+
+def clean_section_text(text):
+    """Limpia y procesa el texto de una columna individual.
+    
+    Returns:
+        dict: {'content_html': str}
+    """
+    # Remover lineas de etiquetas conocidas
+    cleaned_text = text
+    cleaned_text = re.sub(r'demo\s*:?\s*https?://\S+', '', cleaned_text, flags=re.I)
+    cleaned_text = re.sub(r'(?:link\s+)?github\s*:?\s*https?://\S+', '', cleaned_text, flags=re.I)
+    cleaned_text = re.sub(r'imagen\s*:?\s*\[?[^\]]+\]?', '', cleaned_text, flags=re.I)
+    cleaned_text = re.sub(r'https?://\S+', '', cleaned_text)
+    
+    # Limpiar lineas de etiquetas conocidas
+    cleaned_lines = []
+    for line in cleaned_text.splitlines():
+        stripped = line.strip()
+        if re.match(r'^(sitio web|website|link|url|demo|github|imagen)\s*:?\s*$', stripped, re.I):
+            continue
+        cleaned_lines.append(line)
+    
+    cleaned_text = '\n'.join(cleaned_lines).strip()
+    
+    # Detectar si el texto usa markdown
+    if detect_markdown(cleaned_text):
+        content_html = markdown_to_html(cleaned_text)
+    else:
+        lines = [line.strip() for line in cleaned_lines if line.strip()]
+        content_html = ' '.join(lines).strip()
+    
+    return {'content_html': content_html}
+    for header_level in [1, 2, 3]:
+        pattern = rf'^#{{{header_level}}}\s*(.+)$'
+        header_match = re.search(pattern, section_text, re.MULTILINE)
+        if header_match:
+            title_from_info = header_match.group(1).strip()
+            # Limpiar caracteres de markdown del titulo
+            title_from_info = re.sub(r'[#*_`]', '', title_from_info).strip()
+            # Remover dos puntos al final si existen (ej: "###Boton de enviar:" -> "Boton de enviar")
+            title_from_info = re.sub(r':\s*$', '', title_from_info).strip()
+            break
+    
+    # Remover lineas de etiquetas conocidas
+    cleaned_text = section_text
+    cleaned_text = re.sub(r'demo\s*:?\s*https?://\S+', '', cleaned_text, flags=re.I)
+    cleaned_text = re.sub(r'(?:link\s+)?github\s*:?\s*https?://\S+', '', cleaned_text, flags=re.I)
+    cleaned_text = re.sub(r'imagen\s*:?\s*\[?[^\]]+\]?', '', cleaned_text, flags=re.I)
+    cleaned_text = re.sub(r'https?://\S+', '', cleaned_text)
+    
+    # Limpiar lineas de etiquetas conocidas
+    cleaned_lines = []
+    for line in cleaned_text.splitlines():
+        stripped = line.strip()
+        if re.match(r'^(sitio web|website|link|url|demo|github|imagen)\s*:?\s*$', stripped, re.I):
+            continue
+        cleaned_lines.append(line)
+    
+    cleaned_text = '\n'.join(cleaned_lines).strip()
+    
+    # Detectar si el texto usa markdown
+    if detect_markdown(cleaned_text):
+        description = markdown_to_html(cleaned_text)
+    else:
+        lines = [line.strip() for line in cleaned_lines if line.strip()]
+        description = ' '.join(lines).strip()
+    
+    return description, title_from_info
 
 
 def parse_info_txt(folder):
+    """Parsea info.txt y detecta si usa markdown.
+    
+    Soporta etiquetas especiales:
+    - demo: URL del proyecto en vivo
+    - github: Link al repositorio
+    - imagen: Nombre de imagen asociada (sin ruta completa)
+    - link: URL alternativa
+    - # Titulo H1: Se extrae el primer H1 como titulo principal
+    
+    Busca info.txt en la carpeta del proyecto y sus subcarpetas.
+    
+    Si el archivo contiene markdown, lo convierte a HTML para renderizado.
+    Si no, mantiene el formato de texto plano original.
+    
+    Returns:
+        tuple: (description_html, title_from_info, demo_url, github_url, associated_image)
+    """
     info_path = folder / "info.txt"
+    
+    # Si no existe en la carpeta raiz, buscar en subcarpetas
     if not info_path.exists():
-        return "", None
+        subfolders = list(folder.rglob("info.txt"))
+        if subfolders:
+            info_path = subfolders[0]  # Usar el primero encontrado
+        else:
+            return "", None, None, None, None
 
     text = info_path.read_text(encoding="utf-8", errors="ignore").strip()
-    url_match = re.search(r"https?://\S+", text)
-    url = url_match.group(0).rstrip(".,") if url_match else None
+    
+    # Extraer el primer encabezado como titulo principal (prioridad: H1 -> H2 -> H3)
+    title_from_info = None
+    for header_level in [1, 2, 3]:
+        pattern = rf'^#{{{header_level}}}\s+(.+)$'
+        header_match = re.search(pattern, text, re.MULTILINE)
+        if header_match:
+            title_from_info = header_match.group(1).strip()
+            # Limpiar caracteres de markdown del titulo
+            title_from_info = re.sub(r'[#*_`]', '', title_from_info).strip()
+            break  # Usar el primer encabezado encontrado
+    
+    # Extraer URLs con etiquetas especificas
+    demo_url = None
+    github_url = None
+    associated_image = None
+    
+    # Buscar etiquetas conocidas (case-insensitive) - soporta "link GitHub", "github", etc.
+    demo_match = re.search(r'demo\s*:?\s*(https?://\S+)', text, re.I)
+    if demo_match:
+        demo_url = demo_match.group(1).rstrip(".,")
+    
+    # Soporta "link GitHub:", "github:", "github link:", etc.
+    github_match = re.search(r'(?:link\s+)?github\s*:?\s*(https?://\S+)', text, re.I)
+    if github_match:
+        github_url = github_match.group(1).rstrip(".,")
+    
+    # Buscar imagen asociada - soporta "imagen:[archivo.png]" con corchetes
+    imagen_match = re.search(r'imagen\s*:?\s*\[?([^\]\s]+)\]?', text, re.I)
+    if imagen_match:
+        associated_image = imagen_match.group(1).strip()
+        # Si parece un nombre de archivo, limpiar extensiones de URL
+        if not associated_image.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')):
+            associated_image = None
+    
+    # Remover lineas de etiquetas para procesar el resto
+    cleaned_text = text
+    cleaned_text = re.sub(r'demo\s*:?\s*https?://\S+', '', cleaned_text, flags=re.I)
+    cleaned_text = re.sub(r'(?:link\s+)?github\s*:?\s*https?://\S+', '', cleaned_text, flags=re.I)
+    cleaned_text = re.sub(r'imagen\s*:?\s*\[?[^\]]+\]?', '', cleaned_text, flags=re.I)
+    
+    # Tambien extraer URL genérica (para compatibilidad con info.txt existentes)
+    url_match = re.search(r'https?://\S+', cleaned_text)
+    generic_url = url_match.group(0).rstrip(".,") if url_match else None
+    # Si no hay demo/github, usar la URL genérica como demo
+    if not demo_url and generic_url:
+        demo_url = generic_url
+    
+    cleaned_text = re.sub(r'https?://\S+', '', cleaned_text)
+    
+    # Limpiar lineas de etiquetas conocidas (pero preservar lineas vacias para markdown)
+    cleaned_lines = []
+    for line in cleaned_text.splitlines():
+        stripped = line.strip()
+        # Eliminar lineas que son solo etiquetas conocidas
+        if re.match(r'^(sitio web|website|link|url|demo|github|imagen)\s*:?\s*$', stripped, re.I):
+            continue
+        cleaned_lines.append(line)
+    
+    cleaned_text = '\n'.join(cleaned_lines).strip()
+    
+    # Detectar si el texto usa markdown
+    if detect_markdown(cleaned_text):
+        # Convertir markdown a HTML (preservando estructura de bloques)
+        description = markdown_to_html(cleaned_text)
+    else:
+        # Formato de texto plano (comportamiento original)
+        lines = [line.strip() for line in cleaned_lines if line.strip()]
+        description = ' '.join(lines).strip()
+    
+    return description, title_from_info, demo_url, github_url, associated_image
 
-    remainder = text.replace(url, "") if url else text
-    lines = [line.strip() for line in remainder.splitlines() if line.strip()]
-    lines = [line for line in lines if not re.match(r"^(sitio web|website|link|url)\s*:?\s*$", line, re.I)]
-    description = " ".join(lines).strip()
-    return description, url
+
+def parse_info_txt_sections(folder):
+    """Parsea info.txt y detecta secciones separadas por ---.
+    
+    Cada seccion puede tener columnas dentro de un contenedor -- ... --
+    Las columnas se separan por --- (linea con solo ---).
+    
+    Returns:
+        list[dict]: Lista de diccionarios con keys:
+            - title: Titulo de la seccion
+            - columns: Lista de columnas con 'content_html'
+            - url: URL del demo (primera encontrada)
+            - github: URL del GitHub (primera encontrada)
+            - associatedImage: Nombre de imagen asociada
+    """
+    info_path = folder / "info.txt"
+    
+    # Si no existe en la carpeta raiz, buscar en subcarpetas
+    if not info_path.exists():
+        subfolders = list(folder.rglob("info.txt"))
+        if subfolders:
+            info_path = subfolders[0]
+        else:
+            return []
+    
+    text = info_path.read_text(encoding="utf-8", errors="ignore").strip()
+    
+    # Primero verificar si el texto tiene un contenedor de columnas -- ... --
+    # Busca el primer -- y el ultimo -- en cualquier posicion del texto
+    has_container, column_content = has_column_container(text)
+    
+    if has_container and column_content:
+        # Extraer texto ANTES del primer -- (titulo general y descripcion)
+        first_dash_idx = text.index('--')
+        before_first_dash = text[:first_dash_idx].strip()
+        
+        # Extraer titulo general (primer H1/H2/H3 ANTES del --)
+        general_title = None
+        for header_level in [1, 2, 3]:
+            pattern = rf'^#{{{header_level}}}\s*(.+)$'
+            header_match = re.search(pattern, before_first_dash, re.MULTILINE)
+            if header_match:
+                general_title = header_match.group(1).strip()
+                general_title = re.sub(r'[#*_`]', '', general_title).strip()
+                general_title = re.sub(r':\s*$', '', general_title).strip()
+                break
+        
+        # Extraer descripcion general (texto despues del titulo, antes del --)
+        general_description = None
+        if general_title and before_first_dash:
+            title_pattern = rf'^#{{{header_level}}}\s*.+?$\n(.+)'
+            desc_match = re.search(title_pattern, before_first_dash, re.MULTILINE | re.DOTALL)
+            if desc_match:
+                desc_text = desc_match.group(1).strip()
+                desc_lines = [line.strip() for line in desc_text.splitlines() if line.strip()]
+                if desc_lines:
+                    general_description = ' '.join(desc_lines)
+        
+        # Todo el texto es una sola seccion con columnas
+        raw_columns = re.split(r'^\s*---\s*$', column_content, flags=re.MULTILINE)
+        columns = []
+        for col_text in raw_columns:
+            col_text = col_text.strip()
+            if not col_text:
+                continue
+            parsed = parse_column_text(col_text)
+            col_data = {
+                "content": parsed["content_html"],
+            }
+            if parsed.get("associated_image"):
+                col_data["associatedImage"] = parsed["associated_image"]
+            if parsed.get("demo_url"):
+                col_data["url"] = parsed["demo_url"]
+            if parsed.get("github_url"):
+                col_data["github"] = parsed["github_url"]
+            columns.append(col_data)
+        
+        # Extraer URLs de toda la seccion (primera encontrada)
+        demo_url = None
+        github_url = None
+        
+        demo_match = re.search(r'demo\s*:?\s*(https?://\S+)', column_content, re.I)
+        if demo_match:
+            demo_url = demo_match.group(1).rstrip(".,")
+        
+        github_match = re.search(r'(?:link\s+)?github\s*:?\s*(https?://\S+)', column_content, re.I)
+        if github_match:
+            github_url = github_match.group(1).rstrip(".,")
+        
+        return [{
+            "title": general_title or "Sección 1",
+            "description": general_description,
+            "columns": columns,
+            "url": demo_url,
+            "github": github_url,
+        }]
+    
+    # Si no es un contenedor de columnas, dividir por --- como secciones
+    sections = split_sections(text)
+    
+    if not sections:
+        return []
+    
+    result = []
+    for section_text in sections:
+        # Parsear la seccion (detecta columnas con --)
+        columns_data, title_from_info = parse_section_text(section_text)
+        
+        if not columns_data:
+            continue
+        
+        # Extraer URLs y imagen de esta seccion
+        demo_url = None
+        github_url = None
+        associated_image = None
+        
+        demo_match = re.search(r'demo\s*:?\s*(https?://\S+)', section_text, re.I)
+        if demo_match:
+            demo_url = demo_match.group(1).rstrip(".,")
+        
+        github_match = re.search(r'(?:link\s+)?github\s*:?\s*(https?://\S+)', section_text, re.I)
+        if github_match:
+            github_url = github_match.group(1).rstrip(".,")
+        
+        imagen_match = re.search(r'imagen\s*:?\s*\[?([^\]\s]+)\]?', section_text, re.I)
+        if imagen_match:
+            associated_image = imagen_match.group(1).strip()
+            if not associated_image.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')):
+                associated_image = None
+        
+        # Construir lista de columnas con su HTML
+        columns = []
+        for col in columns_data:
+            columns.append({
+                "content": col["content_html"],
+            })
+        
+        result.append({
+            "title": title_from_info or f"Sección {len(result) + 1}",
+            "columns": columns,
+            "url": demo_url,
+            "github": github_url,
+            "associatedImage": associated_image,
+        })
+    
+    return result
+
+
+def detect_markdown(text):
+    """Detecta si el texto contiene sintaxis de markdown."""
+    for pattern in MARKDOWN_INDICATORS:
+        if pattern.search(text):
+            return True
+    return False
+
+
+def markdown_to_html(text):
+    """Convierte markdown basico a HTML para renderizado en el navegador.
+    Soporta: encabezados, negrita, cursiva, enlaces, listas, citas, code inline.
+    """
+    # Escapar caracteres HTML para seguridad
+    text = text.replace('&', '&amp;')
+    text = text.replace('<', '&lt;')
+    text = text.replace('>', '&gt;')
+    
+    # Extraer URLs del texto para no procesarlas como markdown
+    urls = re.findall(r'https?://\S+', text)
+    
+    # Procesar por bloques (parrafos separados por lineas vacias)
+    blocks = re.split(r'\n\s*\n', text)
+    html_blocks = []
+    
+    for block in blocks:
+        block = block.strip()
+        if not block:
+            continue
+        
+        # Verificar si es un bloque de lista
+        if re.match(r'^\s*[-*+]\s', block):
+            html_blocks.append(process_list_block(block))
+        elif re.match(r'^\s*\d+\.\s', block):
+            html_blocks.append(process_numbered_list_block(block))
+        # Verificar si es un encabezado (con o sin espacio despues de ##)
+        elif re.match(r'^#{1,6}\s?', block):
+            html_blocks.append(process_heading(block))
+        # Verificar si es una cita
+        elif re.match(r'^>\s', block):
+            html_blocks.append(process_quote(block))
+        # Es un parrafo
+        else:
+            html_blocks.append(f'<p>{process_inline_md(block)}</p>')
+    
+    return '\n'.join(html_blocks)
+
+
+def process_heading(block):
+    """Procesa un encabezado markdown (# titulo) a HTML."""
+    match = re.match(r'^(#{1,6})\s?(.+)$', block.strip())
+    if match:
+        level = min(int(len(match.group(1))), 3)  # Max h3
+        title = process_inline_md(match.group(2).strip())
+        return f'<h{level}>{title}</h{level}>'
+    return f'<p>{process_inline_md(block)}</p>'
+
+
+def process_list_block(block):
+    """Procesa una lista markdown (- item) a HTML."""
+    items = re.findall(r'^\s*[-*+]\s+(.+)$', block, re.MULTILINE)
+    html_items = ''.join(f'<li>{process_inline_md(item.strip())}</li>' for item in items)
+    return f'<ul>{html_items}</ul>'
+
+
+def process_numbered_list_block(block):
+    """Procesa una lista numerada markdown (1. item) a HTML."""
+    items = re.findall(r'^\s*\d+\.\s+(.+)$', block, re.MULTILINE)
+    html_items = ''.join(f'<li>{process_inline_md(item.strip())}</li>' for item in items)
+    return f'<ol>{html_items}</ol>'
+
+
+def process_quote(block):
+    """Procesa una cita markdown (> texto) a HTML."""
+    lines = [re.sub(r'^>\s*', '', line) for line in block.splitlines()]
+    content = ' '.join(line.strip() for line in lines if line.strip())
+    return f'<blockquote>{process_inline_md(content)}</blockquote>'
+
+
+def process_inline_md(text):
+    """Procesa sintaxis markdown inline: negrita, cursiva, enlaces, code."""
+    # Enlaces [texto](url) - procesar primero para no procesar el contenido
+    text = re.sub(r'\[([^\]]+)\]\(([^)]+)\)', r'<a href="\2" target="_blank" rel="noopener noreferrer">\1</a>', text)
+    
+    # Code inline `texto`
+    text = re.sub(r'`([^`]+)`', r'<code>\1</code>', text)
+    
+    # Negrita **texto** o __texto__
+    text = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', text)
+    text = re.sub(r'__(.+?)__', r'<strong>\1</strong>', text)
+    
+    # Cursiva *texto* o _texto_
+    text = re.sub(r'\*(.+?)\*', r'<em>\1</em>', text)
+    text = re.sub(r'(?<!\w)_(.+?)_(?!\w)', r'<em>\1</em>', text)
+    
+    return text
+
+
+def parse_info_txt(folder):
+    """Parsea info.txt y detecta si usa markdown.
+    
+    Soporta etiquetas especiales:
+    - demo: URL del proyecto en vivo
+    - github: Link al repositorio
+    - imagen: Nombre de imagen asociada (sin ruta completa)
+    - link: URL alternativa
+    - # Título H1: Se extrae el primer H1 como título principal
+    
+    Busca info.txt en la carpeta del proyecto y sus subcarpetas.
+    
+    Si el archivo contiene markdown, lo convierte a HTML para renderizado.
+    Si no, mantiene el formato de texto plano original.
+    
+    Returns:
+        tuple: (description_html, title_from_info, demo_url, github_url, associated_image)
+    """
+    info_path = folder / "info.txt"
+    
+    # Si no existe en la carpeta raíz, buscar en subcarpetas
+    if not info_path.exists():
+        subfolders = list(folder.rglob("info.txt"))
+        if subfolders:
+            info_path = subfolders[0]  # Usar el primero encontrado
+        else:
+            return "", None, None, None, None
+
+    text = info_path.read_text(encoding="utf-8", errors="ignore").strip()
+    
+    # Extraer el primer encabezado como título principal (prioridad: H1 → H2 → H3)
+    title_from_info = None
+    for header_level in [1, 2, 3]:
+        pattern = rf'^#{{{header_level}}}\s+(.+)$'
+        header_match = re.search(pattern, text, re.MULTILINE)
+        if header_match:
+            title_from_info = header_match.group(1).strip()
+            # Limpiar caracteres de markdown del título
+            title_from_info = re.sub(r'[#*_`]', '', title_from_info).strip()
+            break  # Usar el primer encabezado encontrado
+    
+    # Extraer URLs con etiquetas específicas
+    demo_url = None
+    github_url = None
+    associated_image = None
+    
+    # Buscar etiquetas conocidas (case-insensitive) - soporta "link GitHub", "github", etc.
+    demo_match = re.search(r'demo\s*:?\s*(https?://\S+)', text, re.I)
+    if demo_match:
+        demo_url = demo_match.group(1).rstrip(".,")
+    
+    # Soporta "link GitHub:", "github:", "github link:", etc.
+    github_match = re.search(r'(?:link\s+)?github\s*:?\s*(https?://\S+)', text, re.I)
+    if github_match:
+        github_url = github_match.group(1).rstrip(".,")
+    
+    # Buscar imagen asociada - soporta "imagen:[archivo.png]" con corchetes
+    imagen_match = re.search(r'imagen\s*:?\s*\[?([^\]\s]+)\]?', text, re.I)
+    if imagen_match:
+        associated_image = imagen_match.group(1).strip()
+        # Si parece un nombre de archivo, limpiar extensiones de URL
+        if not associated_image.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')):
+            associated_image = None
+    
+    # Remover líneas de etiquetas para procesar el resto
+    cleaned_text = text
+    cleaned_text = re.sub(r'demo\s*:?\s*https?://\S+', '', cleaned_text, flags=re.I)
+    cleaned_text = re.sub(r'(?:link\s+)?github\s*:?\s*https?://\S+', '', cleaned_text, flags=re.I)
+    cleaned_text = re.sub(r'imagen\s*:?\s*\[?[^\]]+\]?', '', cleaned_text, flags=re.I)
+    
+    # También extraer URL genérica (para compatibilidad con info.txt existentes)
+    url_match = re.search(r'https?://\S+', cleaned_text)
+    generic_url = url_match.group(0).rstrip(".,") if url_match else None
+    # Si no hay demo/github, usar la URL genérica como demo
+    if not demo_url and generic_url:
+        demo_url = generic_url
+    
+    cleaned_text = re.sub(r'https?://\S+', '', cleaned_text)
+    
+    # Limpiar lineas de etiquetas conocidas (pero preservar lineas vacias para markdown)
+    cleaned_lines = []
+    for line in cleaned_text.splitlines():
+        stripped = line.strip()
+        # Eliminar lineas que son solo etiquetas conocidas
+        if re.match(r'^(sitio web|website|link|url|demo|github|imagen)\s*:?\s*$', stripped, re.I):
+            continue
+        cleaned_lines.append(line)
+    
+    cleaned_text = '\n'.join(cleaned_lines).strip()
+    
+    # Detectar si el texto usa markdown
+    if detect_markdown(cleaned_text):
+        # Convertir markdown a HTML (preservando estructura de bloques)
+        description = markdown_to_html(cleaned_text)
+    else:
+        # Formato de texto plano (comportamiento original)
+        lines = [line.strip() for line in cleaned_lines if line.strip()]
+        description = ' '.join(lines).strip()
+    
+    return description, title_from_info, demo_url, github_url, associated_image
 
 
 def to_web_path(path):
@@ -88,23 +830,159 @@ def to_web_path(path):
 
 
 def build_project(folder, category):
-    images = find_images(folder)
-    if not images:
+    """Construye uno o multiples proyectos desde una carpeta.
+    
+    Si el info.txt contiene secciones separadas por ---, genera un proyecto
+    independiente por seccion. Cada seccion puede tener su propio titulo,
+    demo, github e imagen asociada.
+    
+    Returns:
+        list[dict]: Lista de proyectos generados
+    """
+    videos, images = find_images(folder)
+    poster = find_poster_image(folder)
+    
+    # Combinar videos e imagenes para la galeria
+    all_media = videos + images
+    
+    if not all_media:
         return None
-
-    description, url = parse_info_txt(folder)
-
-    return {
-        "slug": folder.name,
-        "title": prettify_title(folder.name),
-        "category": category["slug"],
-        "categoryLabel": category["label"],
-        "description": description,
-        "url": url,
-        "image": to_web_path(images[0]),
-        "images": [to_web_path(img) for img in images],
-        "mtime": folder.stat().st_mtime,
-    }
+    
+    # La primera imagen/media sera la portada por defecto
+    cover = all_media[0]
+    cover_for_card = poster if is_video(cover) else cover
+    
+    # Buscar animaciones Lottie
+    folder_abs = folder if folder.is_absolute() else (ROOT / folder)
+    lottie_files = find_lottie_animation(folder_abs)
+    lottie_path = to_web_path(lottie_files[0]) if lottie_files else None
+    
+    # Construir lista de medios con tipo
+    media_list = []
+    for media in all_media:
+        media_list.append({
+            "src": to_web_path(media),
+            "type": "video" if is_video(media) else "image"
+        })
+    
+    poster_path = to_web_path(poster) if poster else None
+    
+    # Leer el info.txt y verificar si tiene secciones
+    info_path = folder / "info.txt"
+    if not info_path.exists():
+        subfolders = list(folder.rglob("info.txt"))
+        if subfolders:
+            info_path = subfolders[0]
+    
+    has_multi_sections = False
+    if info_path.exists():
+        text = info_path.read_text(encoding="utf-8", errors="ignore").strip()
+        has_multi_sections = has_sections(text)
+    
+    if has_multi_sections:
+        # GENERAR UN SOLO PROYECTO CON SECCIONES INTERNAS
+        sections_data = parse_info_txt_sections(folder)
+        
+        # Construir array de secciones para el proyecto
+        sections_array = []
+        for idx, section in enumerate(sections_data):
+            # Buscar imagen asociada de esta seccion
+            associated_image = section.get("associatedImage")
+            associated_image_path = None
+            if associated_image:
+                associated_file = folder / associated_image
+                if associated_file.exists() and associated_file.suffix.lower() in IMAGE_EXTENSIONS:
+                    associated_image_path = to_web_path(associated_file)
+                else:
+                    found_files = list(folder.rglob(associated_image))
+                    if found_files:
+                        associated_image_path = to_web_path(found_files[0])
+            
+            # Construir lista de columnas con imagen y URLs completas
+            columns = []
+            for col_idx, col in enumerate(section.get("columns", [])):
+                col_data = {
+                    "content": col["content"],
+                }
+                # Agregar associatedImage con ruta completa
+                if col.get("associatedImage"):
+                    img_name = col["associatedImage"]
+                    img_file = folder / img_name
+                    if img_file.exists() and img_file.suffix.lower() in IMAGE_EXTENSIONS:
+                        col_data["associatedImage"] = to_web_path(img_file)
+                    else:
+                        found_files = list(folder.rglob(img_name))
+                        if found_files:
+                            col_data["associatedImage"] = to_web_path(found_files[0])
+                        else:
+                            col_data["associatedImage"] = img_name
+                # Agregar URLs de la columna
+                if col.get("url"):
+                    col_data["url"] = col["url"]
+                if col.get("github"):
+                    col_data["github"] = col["github"]
+                columns.append(col_data)
+            
+            sections_array.append({
+                "title": section.get("title", f"Seccion {idx + 1}"),
+                "description": section.get("description"),
+                "columns": columns,
+                "url": section.get("url"),
+                "github": section.get("github"),
+                "associatedImage": associated_image_path,
+            })
+        
+        project = {
+            "slug": folder.name,
+            "title": prettify_title(folder.name),
+            "titleFromInfo": None,  # No usar titulo de seccion para el proyecto principal
+            "category": category["slug"],
+            "categoryLabel": category["label"],
+            "description": "",  # La descripcion general se maneja en las secciones
+            "url": None,  # Las URLs son por seccion
+            "github": None,  # Los GitHub son por seccion
+            "image": to_web_path(cover_for_card),
+            "poster": poster_path,
+            "associatedImage": None,
+            "images": media_list,
+            "lottie": lottie_path,
+            "lastModified": datetime.fromtimestamp(folder.stat().st_mtime).isoformat(),
+            "sections": sections_array,  # Array de secciones internas
+        }
+        
+        print(f"  [SECCIONES] {category['slug']}/{folder.name}: 1 proyecto con {len(sections_array)} secciones")
+        return project
+    else:
+        # GENERAR UN SOLO PROYECTO (comportamiento original sin secciones)
+        description, title_from_info, demo_url, github_url, associated_image = parse_info_txt(folder)
+        
+        # Buscar imagen asociada
+        associated_image_path = None
+        if associated_image:
+            associated_file = folder / associated_image
+            if associated_file.exists() and associated_file.suffix.lower() in IMAGE_EXTENSIONS:
+                associated_image_path = to_web_path(associated_file)
+            else:
+                found_files = list(folder.rglob(associated_image))
+                if found_files:
+                    associated_image_path = to_web_path(found_files[0])
+        
+        return {
+            "slug": folder.name,
+            "title": prettify_title(folder.name),
+            "titleFromInfo": title_from_info,
+            "category": category["slug"],
+            "categoryLabel": category["label"],
+            "description": description,
+            "url": demo_url,
+            "github": github_url,
+            "image": to_web_path(cover_for_card),
+            "poster": poster_path,
+            "associatedImage": associated_image_path,
+            "images": media_list,
+            "lottie": lottie_path,
+            "lastModified": datetime.fromtimestamp(folder.stat().st_mtime).isoformat(),
+        }
 
 
 def main():
@@ -144,7 +1022,7 @@ def main():
                     "image": to_web_path(file_path),
                     "images": [to_web_path(file_path)],
                     "file_type": "pdf",
-                    "mtime": file_path.stat().st_mtime,
+                    "lastModified": datetime.fromtimestamp(file_path.stat().st_mtime).isoformat(),
                 })
             continue
 
@@ -166,9 +1044,7 @@ def main():
 
             projects.append(project)
 
-    projects.sort(key=lambda p: p["mtime"], reverse=True)
-    for project in projects:
-        del project["mtime"]
+    projects.sort(key=lambda p: p["lastModified"], reverse=True)
 
     OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
     body = json.dumps(projects, ensure_ascii=False, indent=2)

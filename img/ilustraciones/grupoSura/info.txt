@@ -1,1 +1,3 @@
-Grupo SURA - Portal de Procesos Cobit: propuesta gráfica para la aplicación web del producto y acompañamiento en el entendimiento del negocio. (2017 - 2018)
+##Grupo SURA - Portal de Procesos Cobit
+
+Siempre que se realiza una propuesta gráfica se comienza por un boceto para aterrizar mejor la idea antes de realizer la gráfica completa, se construyó un banner para la aplicación web del producto y acompañamiento en el entendimiento del negocio. (2017 - 2018)

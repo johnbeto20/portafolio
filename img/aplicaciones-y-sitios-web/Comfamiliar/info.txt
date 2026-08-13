@@ -1,1 +1,3 @@
-Apoyo al equipo de desarrollo en la unidad gráfica de la interfaz, revisando buenas prácticas en la construcción del HTML y demás elementos del frontend. (2023, vía Ceiba Software)
+##Comfamiliar / Tienda de servicios
+
+Propuesta inicial de la aplicación de tienda de servicios para comprar entradas para el centro recreativo de la caja de compensación familiar.
