@@ -15,3 +15,7 @@
 .claude/skills/
 # Método Ceiba - Metodología exportada (Claude Code)
 .ceiba-metodo/
+
+# Método Ceiba - Worktrees y script auxiliar
+ceiba-worktree.js
+/worktrees/

@@ -1,0 +1,5 @@
+##Targeta animada para Navidad
+
+En pandemia se realiza un homenaje a celebrar la navidad desde la distancia, Se realiza primero el diseño y luego se lleva a ser animada y a agregar microinteracciones que capturen al usuario, interacciones de valor y que se puedan revivir momentos para recordar.
+
+sitio web: https://johnbeto20.github.io/tarjetaCeibaNavidad/

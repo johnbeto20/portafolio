@@ -1,0 +1,3 @@
+##Cargador para la aplicación Super App de EPM
+
+Se creó un splash loader para la aplicación de Super App de EPM para mitigar la carga del Sistema y mostrar algo mas impactante al inicio para el usuario.

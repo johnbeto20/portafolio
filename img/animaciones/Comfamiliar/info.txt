@@ -1,0 +1,3 @@
+# Comfamiliar — Spinner de carga
+
+Cargador realizado manualmente donde refleja la naturalidad del negocio, se plasma la idea en boceto, luego se digitaliza para finalmente ser animado.
