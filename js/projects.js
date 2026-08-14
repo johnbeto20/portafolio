@@ -108,8 +108,13 @@
             // Soporte para nuevo formato (array con type) y formato antiguo (string)
             const isVideo = project.image && typeof project.image === 'string' && /\.(mp4|webm|ogg)$/i.test(project.image);
             const posterAttr = project.poster ? ` poster="${project.poster}"` : '';
+            // Usar mimeType del data si disponible para compatibilidad mobile
+            const mimeType = (typeof project.image === 'object' && project.image && project.image.mimeType)
+                ? project.image.mimeType
+                : (isVideo ? {'.mp4': 'video/mp4', '.webm': 'video/webm', '.ogg': 'video/ogg'}[project.image.toLowerCase().split('.').pop()] || '' : '');
+            const typeAttr = mimeType ? ` type="${mimeType}"` : '';
             const media = isVideo
-                ? `<video src="${project.image}" muted playsinline preload="metadata"${posterAttr} class="card-media"></video>`
+                ? `<video src="${project.image}" muted playsinline preload="metadata"${typeAttr}${posterAttr} class="card-media"></video>`
                 : `<img src="${project.image}" alt="${project.title}" loading="lazy">`;
             
             // Contenedor para animación Lottie (oculto por defecto)
@@ -123,11 +128,12 @@
                     ${media}
                     ${lottieContainer}
                     <div class="card-overlay">
-                        <span class="card-category">${project.categoryLabel.toUpperCase()}</span>
+                        <span class="card-hover-text">CONOCE MÁS</span>
                         <i class="hgi hgi-stroke hgi-rounded hgi-plus-sign-circle bento-icon"></i>
                     </div>
                 </div>
                 <div class="card-info">
+                    <span class="card-tag tag-${project.category}">${project.categoryLabel.toUpperCase()}</span>
                     <h3 class="card-title">${project.title}</h3>
                     ${project.description ? `<p class="card-description">${truncate(stripHtml(project.description), CARD_DESCRIPTION_LIMIT)}</p>` : ''}
                 </div>

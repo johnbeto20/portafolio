@@ -344,8 +344,17 @@ function initThemeToggle() {
     }
     
     themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('light-mode');
-        const isLight = document.body.classList.contains('light-mode');
-        localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        // Usar View Transitions API si está disponible, si no, cambiar directamente
+        const toggleTheme = () => {
+            document.body.classList.toggle('light-mode');
+            const isLight = document.body.classList.contains('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        };
+        
+        if (!document.startViewTransition) {
+            toggleTheme();
+        } else {
+            document.startViewTransition(toggleTheme);
+        }
     });
 }
