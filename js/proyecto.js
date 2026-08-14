@@ -159,9 +159,14 @@
             const isVideo = typeof mediaItem === 'string' 
                 ? /\.(mp4|webm|ogg)$/i.test(src)
                 : mediaItem.type === 'video';
+            // Usar mimeType del data si disponible, sinon detectar por extension
+            const mimeType = (typeof mediaItem === 'object' && mediaItem.mimeType)
+                ? mediaItem.mimeType
+                : {'.mp4': 'video/mp4', '.webm': 'video/webm', '.ogg': 'video/ogg'}[src.toLowerCase().split('.').pop()] || '';
+            const typeAttr = mimeType ? ` type="${mimeType}"` : '';
             const posterAttr = project.poster ? ` poster="${project.poster}"` : '';
             const media = isVideo
-                ? `<video class="project-detail-main-image" id="projectMainImage" src="${src}" controls preload="metadata" playsinline${posterAttr}></video>`
+                ? `<video class="project-detail-main-image" id="projectMainImage" src="${src}" controls muted playsinline preload="metadata"${typeAttr}${posterAttr}></video>`
                 : `<img class="project-detail-main-image" id="projectMainImage" src="${src}" alt="${project.title}">`;
             
             // Contenedor Lottie para vista individual
@@ -205,13 +210,18 @@
             const isVideo = typeof mediaItem === 'string' 
                 ? /\.(mp4|webm|ogg)$/i.test(src)
                 : mediaItem.type === 'video';
+            // Usar mimeType del data si disponible, sinon detectar por extension
+            const mimeType = (typeof mediaItem === 'object' && mediaItem.mimeType)
+                ? mediaItem.mimeType
+                : {'.mp4': 'video/mp4', '.webm': 'video/webm', '.ogg': 'video/ogg'}[src.toLowerCase().split('.').pop()] || '';
+            const typeAttr = mimeType ? ` type="${mimeType}"` : '';
             const posterAttr = (isVideo && project.poster) ? ` poster="${project.poster}"` : '';
             const bentoClass = getBentoClass(i, total);
             const icon = isVideo
                 ? `<i class="hgi-stroke hgi-play bento-icon"></i>`
                 : `<i class="hgi-stroke hgi-image-01 bento-icon"></i>`;
             const media = isVideo
-                ? `<video src="${src}" muted playsinline preload="metadata" loading="lazy"${posterAttr} data-bento-index="${i}"></video>`
+                ? `<video src="${src}" muted playsinline controls preload="metadata"${typeAttr}${posterAttr} data-bento-index="${i}"></video>`
                 : `<img src="${src}" alt="${project.title} ${i + 1}" loading="lazy" data-bento-index="${i}">`;
             return `
                 <div class="bento-cell${bentoClass ? ' ' + bentoClass : ''}${i === 0 ? ' active' : ''}" 
@@ -569,9 +579,14 @@
         const isVideo = typeof mediaItem === 'string' 
             ? /\.(mp4|webm|ogg)$/i.test(src)
             : mediaItem.type === 'video';
+        // Usar mimeType del data si disponible, sinon detectar por extension
+        const mimeType = (typeof mediaItem === 'object' && mediaItem.mimeType)
+            ? mediaItem.mimeType
+            : {'.mp4': 'video/mp4', '.webm': 'video/webm', '.ogg': 'video/ogg'}[src.toLowerCase().split('.').pop()] || '';
+        const typeAttr = mimeType ? ` type="${mimeType}"` : '';
         const posterAttr = project.poster ? ` poster="${project.poster}"` : '';
         if (isVideo) {
-            mediaContainer.innerHTML = `<video src="${src}" controls autoplay muted playsinline style="max-width:100%;max-height:80vh;"${posterAttr}></video>`;
+            mediaContainer.innerHTML = `<video src="${src}" controls autoplay muted playsinline style="max-width:100%;max-height:80vh;"${typeAttr}${posterAttr}></video>`;
         } else {
             mediaContainer.innerHTML = `<img class="lightbox-image" src="${src}" alt="${project.title}">`;
         }

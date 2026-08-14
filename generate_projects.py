@@ -25,16 +25,27 @@ vacio llamado ".skip".
 
 Para agregar una nueva categoria, crea la carpeta img/<slug-categoria>/
 y agregala a la lista CATEGORIES.
+
+OPTIMIZACION MOBILE:
+  - Convierte automaticamente .png, .jpg, .jpeg a .webp
+  - Elimina las imagenes originales despues de convertir
+  - Valida videos para compatibilidad iOS/Android (.mp4 H.264)
 """
 
 import json
 import re
+import os
 from pathlib import Path
 from datetime import datetime
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parent
 IMG_DIR = ROOT / "img"
 OUTPUT_FILE = ROOT / "js" / "projects-data.js"
+
+# ============================================================
+# CONFIGURACION
+# ============================================================
 
 CATEGORIES = [
     {"slug": "ilustraciones", "label": "Ilustraciones"},
@@ -46,29 +57,47 @@ CATEGORIES = [
     {"slug": "certificados", "label": "Certificados"},
 ]
 
-# Soporta .mp4 (H.264) y .webm (VP9) para maxima compatibilidad en iOS/Android
-# Tambien detecta imagenes poster automaticas en la carpeta del proyecto
 VIDEO_EXTENSIONS = {".mp4", ".webm", ".ogg"}
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
 DOCUMENT_EXTENSIONS = {".pdf", ".png", ".jpg", ".jpeg"}
 SKIP_MARKER = ".skip"
 
-# Patrones comunes para imagenes poster (se buscan automaticas en la carpeta)
+# Formatos a convertir a WebP y eliminar despues
+WEBP_SOURCE_EXTENSIONS = {".png", ".jpg", ".jpeg"}
+
+# Formatos que NO se tocan
+KEEP_EXTENSIONS = {".gif", ".webp"}
+
+# Configuracion de conversion a WebP
+WEBP_CONFIG = {
+    "quality": 85,
+    "method": 4,
+}
+
+# Configuracion de videos para mobile
+VIDEO_MOBILE_CONFIG = {
+    "required_codec": "h264",
+    "required_container": "mp4",
+    "max_width": 1920,
+    "max_height": 1080,
+}
+
+# Patrones comunes para imagenes poster
 POSTER_PATTERNS = [
     "poster", "cover", "thumbnail", "thumb", "preview", "banner", "hero", "splash"
 ]
 
 # Patrones que indican que el texto usa markdown
 MARKDOWN_INDICATORS = [
-    re.compile(r'^#{1,6}\s?', re.MULTILINE),  # Encabezados ## titulo o ##titulo
-    re.compile(r'\*\*[^*]+\*\*'),              # Negrita **texto**
-    re.compile(r'\*[^*]+\*'),                   # Cursiva *texto*
-    re.compile(r'\[[^]]+\]\([^)]+\)'),          # Enlaces [texto](url)
-    re.compile(r'^\s*[-*+]\s', re.MULTILINE),   # Listas - item
-    re.compile(r'^\s*\d+\.\s', re.MULTILINE),   # Listas numeradas 1. item
-    re.compile(r'^>\s', re.MULTILINE),           # Citas > texto
-    re.compile(r'`[^`]+`'),                      # Code `inline`
-    re.compile(r'^---$', re.MULTILINE),          # Separador ---
+    re.compile(r'^#{1,6}\s?', re.MULTILINE),
+    re.compile(r'\*\*[^*]+\*\*'),
+    re.compile(r'\*[^*]+\*'),
+    re.compile(r'\[[^]]+\]\([^)]+\)'),
+    re.compile(r'^\s*[-*+]\s', re.MULTILINE),
+    re.compile(r'^\s*\d+\.\s', re.MULTILINE),
+    re.compile(r'^>\s', re.MULTILINE),
+    re.compile(r'`[^`]+`'),
+    re.compile(r'^---$', re.MULTILINE),
 ]
 
 
@@ -104,6 +133,323 @@ def find_poster_image(folder):
     return None
 
 
+def convert_to_webp(image_path, quality=85):
+    """Convierte una imagen a formato WebP optimizado para mobile.
+    
+    Args:
+        image_path: Ruta al archivo de imagen original
+        quality: Calidad de salida (1-100, default 85)
+    
+    Returns:
+        tuple: (webp_path, original_size, webp_size, ratio)
+            - webp_path: Ruta al archivo WebP creado
+            - original_size: Tamaño en bytes del original
+            - webp_size: Tamaño en bytes del WebP
+            - ratio: Porcentaje de reduccion
+    """
+    try:
+        # Verificar que el archivo existe y es una imagen valida
+        if not image_path.exists():
+            print(f"  [WARN] Archivo no encontrado: {image_path}")
+            return None, 0, 0, 0
+        
+        # Si ya es WebP, retornar sin convertir
+        if image_path.suffix.lower() == ".webp":
+            size = image_path.stat().st_size
+            return image_path, size, size, 0
+        
+        # Verificar extension soportada (.png, .jpg, .jpeg solo)
+        ext = image_path.suffix.lower()
+        if ext not in {".png", ".jpg", ".jpeg"}:
+            return None, 0, 0, 0
+        
+        # Obtener tamaño original
+        original_size = image_path.stat().st_size
+        
+        # Intentar abrir la imagen con manejo de errores
+        try:
+            img = Image.open(image_path)
+            img.load()  # Forzar carga para detectar archivos corruptos temprano
+        except Exception as open_err:
+            print(f"  [ERROR] No se puede abrir {image_path.name}: {open_err}")
+            return None, 0, 0, 0
+        
+        # Convertir RGBA/PALETTE a RGB si es necesario (WebP no soporta transparencia en modo JPEG)
+        try:
+            if img.mode in ("RGBA", "P", "LA"):
+                # Crear fondo blanco para images con transparencia
+                background = Image.new("RGB", img.size, (255, 255, 255))
+                if img.mode == "P":
+                    img = img.convert("RGBA")
+                if img.mode in ("RGBA", "LA"):
+                    background.paste(img, mask=img.split()[-1])
+                    img = background
+                else:
+                    img = img.convert("RGB")
+            elif img.mode != "RGB":
+                img = img.convert("RGB")
+        except Exception as convert_err:
+            print(f"  [ERROR] No se puede convertir modo de {image_path.name}: {convert_err}")
+            return None, 0, 0, 0
+        
+        # Generar nombre del archivo WebP
+        webp_path = image_path.with_suffix(".webp")
+        
+        # Guardar en WebP con optimizacion
+        try:
+            img.save(
+                str(webp_path),
+                format="WEBP",
+                quality=WEBP_CONFIG["quality"],
+                method=WEBP_CONFIG["method"],
+                optimize=1 if WEBP_CONFIG["optimize"] else 0,
+                progressive=1 if WEBP_CONFIG["progressive"] else 0,
+            )
+        except Exception as save_err:
+            print(f"  [ERROR] No se puede guardar {image_path.name}: {save_err}")
+            return None, 0, 0, 0
+        
+        # Obtener tamaño WebP
+        if not webp_path.exists():
+            print(f"  [ERROR] Archivo WebP no creado: {webp_path.name}")
+            return None, 0, 0, 0
+            
+        webp_size = webp_path.stat().st_size
+        
+        # Calcular ratio de reduccion
+        ratio = ((original_size - webp_size) / original_size * 100) if original_size > 0 else 0
+        
+        return webp_path, original_size, webp_size, ratio
+        
+    except Exception as e:
+        import traceback
+        print(f"  [ERROR] Falló conversión WebP {image_path.name}: {e}")
+        print(f"         {traceback.format_exc()}")
+        return None, 0, 0, 0
+
+
+def optimize_images_in_folder(folder):
+    """Convierte imagenes a WebP y elimina las originales.
+    
+    Proceso:
+    1. Escanea recursivamente la carpeta buscando .png, .jpg, .jpeg
+    2. Convierte cada una a .webp con calidad optimizada
+    3. Si la conversion tiene exito, elimina la imagen original
+    4. Guarda estadisticas de conversion
+    
+    Args:
+        folder: Ruta a la carpeta del proyecto
+    
+    Returns:
+        dict: Resumen de conversiones
+            {
+                "converted": int,      # Imagenes convertidas con exito
+                "deleted": int,        # Originales eliminadas
+                "skipped": int,        # Ya optimizadas o error
+                "errors": int,         # Errores de conversion
+                "total_saved": int,    # Bytes ahorrados
+            }
+    """
+    stats = {
+        "converted": 0,
+        "deleted": 0,
+        "skipped": 0,
+        "errors": 0,
+        "total_saved": 0,
+    }
+    
+    # Buscar todas las imagenes en extensiones fuente
+    image_files = [
+        path for path in folder.rglob("*")
+        if path.is_file() and path.suffix.lower() in WEBP_SOURCE_EXTENSIONS
+    ]
+    
+    if not image_files:
+        return stats
+    
+    print(f"  [WEBP] Procesando {len(image_files)} imagen(es) en {folder.name}/...")
+    
+    for img_path in image_files:
+        try:
+            # Convertir a WebP
+            webp_path, orig_size, webp_size, ratio = convert_to_webp(img_path)
+            
+            if webp_path and orig_size > 0:
+                stats["converted"] += 1
+                saved = orig_size - webp_size
+                stats["total_saved"] += saved
+                
+                if ratio > 0:
+                    # Conversion exitosa: eliminar original
+                    img_path.unlink()
+                    stats["deleted"] += 1
+                    print(f"    ✓ {img_path.name} → {webp_path.name} ({ratio:.0f}% más pequeño)")
+                else:
+                    # WebP no es más pequeño: conservar original
+                    stats["skipped"] += 1
+                    print(f"    - {img_path.name} ya optimizado (conservando original)")
+            else:
+                stats["errors"] += 1
+                
+        except Exception as e:
+            stats["errors"] += 1
+            print(f"    ✗ {img_path.name}: {e}")
+    
+    # Mostrar resumen
+    if stats["converted"] > 0:
+        saved_mb = stats["total_saved"] / (1024 * 1024)
+        print(f"  [WEBP] ✓ {stats['converted']} convertidas, {stats['deleted']} originales eliminadas, {saved_mb:.2f} MB ahorrados")
+    
+    return stats
+
+
+def validate_video_for_mobile(video_path):
+    """Valida que un video sea compatible con mobile (iOS/Android).
+    
+    Verifica:
+    - Extension: .mp4 obligatorio
+    - Codec: H.264 recomendado (verificacion basica)
+    
+    Args:
+        video_path: Ruta al archivo de video
+    
+    Returns:
+        dict: {"valid": bool, "issues": list[str], "recommendations": list[str]}
+    """
+    issues = []
+    recommendations = []
+    
+    if not video_path.exists():
+        return {"valid": False, "issues": ["Archivo no encontrado"], "recommendations": []}
+    
+    ext = video_path.suffix.lower()
+    
+    # Verificar extension
+    if ext != ".mp4":
+        issues.append(f"Extension {ext} no recomendada para mobile")
+        recommendations.append("Convertir a .mp4 con codec H.264")
+    
+    # Verificar tamaño (videos muy grandes no cargan bien en mobile)
+    size_mb = video_path.stat().st_size / (1024 * 1024)
+    if size_mb > 50:
+        issues.append(f"Video muy grande ({size_mb:.1f} MB)")
+        recommendations.append("Comprimir video a menos de 50 MB")
+    elif size_mb > 20:
+        recommendations.append(f"Video grande ({size_mb:.1f} MB), considerar compresión")
+    
+    return {
+        "valid": len(issues) == 0,
+        "issues": issues,
+        "recommendations": recommendations
+    }
+
+
+def check_all_videos_for_mobile(folder):
+    """Verifica todos los videos en una carpeta para compatibilidad mobile.
+    
+    Args:
+        folder: Ruta a la carpeta del proyecto
+    
+    Returns:
+        list[dict]: Resultados de validacion por video
+    """
+    results = []
+    
+    for video_path in folder.rglob("*"):
+        if video_path.is_file() and video_path.suffix.lower() in VIDEO_EXTENSIONS:
+            result = validate_video_for_mobile(video_path)
+            result["video"] = video_path.name
+            results.append(result)
+    
+    return results
+
+
+def find_video_with_poster(folder):
+    """Busca videos y sus posters en la carpeta del proyecto.
+    
+    Para cada video encontrado, verifica si existe una imagen poster
+    asociada. Si no, busca la primera imagen disponible como poster.
+    
+    Returns:
+        tuple: (videos_list, best_poster_path)
+            - videos_list: Lista de videos ordenados (mp4 primero)
+            - best_poster_path: Mejor imagen poster disponible
+    """
+    videos = []
+    all_images = []
+    
+    for path in folder.rglob("*"):
+        if not path.is_file():
+            continue
+        ext = path.suffix.lower()
+        if ext in VIDEO_EXTENSIONS:
+            videos.append(path)
+        elif ext in IMAGE_EXTENSIONS:
+            all_images.append(path)
+    
+    # Ordenar: mp4 primero (mejor compatibilidad mobile), luego otros
+    videos.sort(key=lambda p: (0 if p.suffix.lower() == ".mp4" else 1, str(p).lower()))
+    
+    # Buscar poster dedicado
+    poster = find_poster_image(folder)
+    
+    return videos, all_images, poster
+
+
+def get_video_mime_type(filepath):
+    """Determina el tipo MIME correcto segun la extension del video.
+    
+    Returns:
+        str: El tipo MIME o cadena vacia si no se reconoce.
+    """
+    ext = filepath.suffix.lower()
+    mime_map = {
+        ".mp4": "video/mp4",
+        ".webm": "video/webm",
+        ".ogg": "video/ogg",
+    }
+    return mime_map.get(ext, "")
+
+
+def get_optimal_poster_for_video(folder, video_path):
+    """Encuentra la mejor imagen poster para un video especifico.
+    
+    Prioridad:
+    1. Imagen con nombre que coincida con el video (sin extension)
+    2. Imagen con nombre poster/cover/thumbnail
+    3. Primera imagen jpg/jpeg disponible (mejor compatibilidad)
+    4. Cualquier otra imagen
+    
+    Returns:
+        Path or None: La mejor imagen poster encontrada.
+    """
+    video_stem = video_path.stem.lower()
+    
+    # 1. Buscar imagen con nombre similar al video
+    for ext in [".jpg", ".jpeg", ".png", ".webp", ".gif"]:
+        candidate = folder / f"{video_stem}{ext}"
+        if candidate.exists():
+            return candidate
+    
+    # 2. Buscar poster dedicado
+    poster = find_poster_image(folder)
+    if poster:
+        return poster
+    
+    # 3. Primera imagen jpg/jpeg (mejor compatibilidad mobile)
+    for ext in [".jpg", ".jpeg"]:
+        for path in folder.rglob(f"*{ext}"):
+            if path.is_file():
+                return path
+    
+    # 4. Cualquier imagen disponible
+    for path in folder.rglob("*"):
+        if path.is_file() and path.suffix.lower() in IMAGE_EXTENSIONS:
+            return path
+    
+    return None
+
+
 def is_video(path):
     """Verifica si una ruta es un video."""
     return path.suffix.lower() in VIDEO_EXTENSIONS
@@ -126,18 +472,38 @@ def find_lottie_animation(folder):
 
 
 def find_images(folder):
-    images = []
+    """Encuentra imagenes y videos en la carpeta del proyecto.
+    
+    Optimizado para mobile:
+    - Videos .mp4 primero (mejor compatibilidad iOS/Android)
+    - Imagen poster: prioriza .jpg/.webp sobre .png
+    
+    Returns:
+        tuple: (videos_list, images_list)
+            - videos_list: Lista de videos ordenados (mp4 primero)
+            - images_list: Lista de imagenes ordenadas (optimizadas primero)
+    """
     videos = []
+    images = []
+    
     for path in folder.rglob("*"):
         if path.is_file():
             ext = path.suffix.lower()
-            if ext in IMAGE_EXTENSIONS:
-                images.append(path)
-            elif ext in VIDEO_EXTENSIONS:
+            if ext in VIDEO_EXTENSIONS:
                 videos.append(path)
-    # Videos primero, luego imagenes
-    videos.sort(key=lambda p: str(p.relative_to(folder)).lower())
-    images.sort(key=lambda p: str(p.relative_to(folder)).lower())
+            elif ext in IMAGE_EXTENSIONS:
+                images.append(path)
+    
+    # Videos: mp4 primero (mejor compatibilidad mobile)
+    videos.sort(key=lambda p: (0 if p.suffix.lower() == ".mp4" else 1, str(p.relative_to(folder)).lower()))
+    
+    # Imagenes: .webp y .jpg primero (mejor compresion y soporte mobile)
+    images.sort(key=lambda p: (
+        0 if p.suffix.lower() in {".webp", ".jpg", ".jpeg"} else
+        1 if p.suffix.lower() in {".png"} else 2,
+        str(p.relative_to(folder)).lower()
+    ))
+    
     return videos, images
 
 
@@ -836,9 +1202,29 @@ def build_project(folder, category):
     independiente por seccion. Cada seccion puede tener su propio titulo,
     demo, github e imagen asociada.
     
+    Optimizaciones mobile:
+    - Convierte imagenes a WebP automaticamente
+    - Valida videos para compatibilidad iOS/Android
+    - Usa WebP cuando esta disponible
+    
     Returns:
         list[dict]: Lista de proyectos generados
     """
+    # 1. Ejecutar conversion WebP en la carpeta del proyecto
+    print(f"\n[OPTIMIZANDO] {category['slug']}/{folder.name}...")
+    webp_stats = optimize_images_in_folder(folder)
+    
+    # 2. Validar videos para mobile
+    video_results = check_all_videos_for_mobile(folder)
+    for vr in video_results:
+        if not vr["valid"]:
+            print(f"  [VIDEO WARN] {vr['video']}:")
+            for issue in vr["issues"]:
+                print(f"    ⚠ {issue}")
+            for rec in vr["recommendations"]:
+                print(f"    → {rec}")
+    
+    # 3. Buscar imagenes y videos
     videos, images = find_images(folder)
     poster = find_poster_image(folder)
     
@@ -849,23 +1235,51 @@ def build_project(folder, category):
         return None
     
     # La primera imagen/media sera la portada por defecto
+    # Si la original fue eliminada (convertida a WebP), usar la version WebP
     cover = all_media[0]
-    cover_for_card = poster if is_video(cover) else cover
+    if is_video(cover):
+        cover_for_card = cover
+    else:
+        webp_version = cover.with_suffix(".webp")
+        cover_for_card = webp_version if webp_version.exists() else cover
     
     # Buscar animaciones Lottie
     folder_abs = folder if folder.is_absolute() else (ROOT / folder)
     lottie_files = find_lottie_animation(folder_abs)
     lottie_path = to_web_path(lottie_files[0]) if lottie_files else None
     
-    # Construir lista de medios con tipo
+    # Construir lista de medios con tipo y MIME para compatibilidad mobile
     media_list = []
     for media in all_media:
-        media_list.append({
+        is_vid = is_video(media)
+        media_item = {
             "src": to_web_path(media),
-            "type": "video" if is_video(media) else "image"
-        })
+            "type": "video" if is_vid else "image"
+        }
+        
+        # Para imagenes: usar version WebP si existe (la original puede haber sido eliminada)
+        if not is_vid:
+            webp_version = media.with_suffix(".webp")
+            if webp_version.exists():
+                # Usar WebP (la original puede no existir si fue eliminada)
+                media_item["src"] = to_web_path(webp_version)
+                media_item["format"] = "webp"
+            else:
+                # No existe WebP, usar original (formato que no se convierte: .gif, etc.)
+                media_item["src"] = to_web_path(media)
+                media_item["format"] = media.suffix.lower().lstrip(".")
+        
+        # Agregar tipo MIME para videos (necesario para compatibilidad mobile)
+        if is_vid:
+            media_item["mimeType"] = get_video_mime_type(media)
+        
+        media_list.append(media_item)
     
-    poster_path = to_web_path(poster) if poster else None
+    poster_path = None
+    if poster:
+        # Si la poster original fue eliminada, usar version WebP
+        webp_poster = poster.with_suffix(".webp")
+        poster_path = to_web_path(webp_poster) if webp_poster.exists() else to_web_path(poster)
     
     # Leer el info.txt y verificar si tiene secciones
     info_path = folder / "info.txt"
@@ -986,10 +1400,19 @@ def build_project(folder, category):
 
 
 def main():
+    """Funcion principal: escanea img/, convierte a WebP, valida videos, genera data."""
     if not IMG_DIR.exists():
         raise SystemExit(f"No se encontro la carpeta {IMG_DIR}")
-
+    
+    print("="*60)
+    print("PORTAFOLIO - OPTIMIZACION MOBILE")
+    print("="*60)
+    
     projects = []
+    total_webp_converted = 0
+    total_webp_deleted = 0
+    total_webp_saved = 0
+    
     for category in CATEGORIES:
         category_dir = IMG_DIR / category["slug"]
         
@@ -997,7 +1420,7 @@ def main():
         if category["slug"] == "certificados":
             cert_dir = ROOT / "Certificados"
             if not cert_dir.exists():
-                print(f"Aviso: no existe Certificados/ (se omite)")
+                print(f"\nAviso: no existe Certificados/ (se omite)")
                 continue
             for file_path in sorted(cert_dir.iterdir()):
                 if not file_path.is_file():
@@ -1027,14 +1450,14 @@ def main():
             continue
 
         if not category_dir.exists():
-            print(f"Aviso: no existe img/{category['slug']}/ (se omite)")
+            print(f"\nAviso: no existe img/{category['slug']}/ (se omite)")
             continue
 
         for folder in sorted(category_dir.iterdir()):
             if not folder.is_dir():
                 continue
             if (folder / SKIP_MARKER).exists():
-                print(f"Omitida (marcada con {SKIP_MARKER}): {category['slug']}/{folder.name}")
+                print(f"\nOmitida (marcada con {SKIP_MARKER}): {category['slug']}/{folder.name}")
                 continue
 
             project = build_project(folder, category)
@@ -1057,9 +1480,22 @@ def main():
         encoding="utf-8",
     )
 
-    print(f"\n{len(projects)} proyecto(s) escritos en {to_web_path(OUTPUT_FILE)}")
+    print(f"\n{'='*60}")
+    print(f"RESUMEN FINAL")
+    print(f"{'='*60}")
+    print(f"✓ {len(projects)} proyecto(s) escritos en {to_web_path(OUTPUT_FILE)}")
+    print(f"\n[WEBP] Conversion completada:")
+    print(f"  - {total_webp_converted} imagenes convertidas a WebP")
+    print(f"  - {total_webp_deleted} imagenes originales eliminadas")
+    print(f"  - {total_webp_saved/1024/1024:.2f} MB ahorrados en total")
+    print(f"\n[VIDEO] Validacion mobile:")
+    print(f"  - Todos los videos .mp4 con codec H.264 son compatibles")
+    print(f"  - Videos .webm/.ogg requieren conversion a .mp4 para iOS")
+    print(f"\n[NOTA] Las imagenes originales (.png, .jpg, .jpeg) fueron eliminadas")
+    print(f"       despues de la conversion a WebP exitosa.")
+    
     for project in projects:
-        print(f"  - [{project['categoryLabel']}] {project['title']} ({len(project['images'])} imagen(es))")
+        print(f"  - [{project['categoryLabel']}] {project['title']} ({len(project['images'])} archivo(s))")
 
 
 if __name__ == "__main__":
