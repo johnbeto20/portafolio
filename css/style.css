@@ -1923,6 +1923,25 @@ body *::after {
     object-fit: contain;
 }
 
+/* Lottie mostrada junto a un bento grid (varias imagenes + animacion) */
+.project-bento-grid + .lottie-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-surface);
+    border-radius: 12px;
+    min-height: 300px;
+    margin-top: var(--space-md);
+}
+
+.project-bento-grid + .lottie-container svg {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+}
+
 .project-bento-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -2486,5 +2505,84 @@ body *::after {
     .lightbox-next {
         right: 0.2rem;
     }
+}
+
+/* ========== 404 PAGE ========== */
+.not-found {
+    min-height: calc(100vh - var(--nav-height));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xl) var(--space-md);
+    text-align: center;
+}
+
+.not-found-content {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.not-found-code {
+    display: block;
+    font-size: clamp(6rem, 20vw, 12rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-pink) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: var(--space-sm);
+}
+
+.not-found-title {
+    font-size: clamp(1.25rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-sm);
+}
+
+.not-found-desc {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+}
+
+.not-found-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ========== LOTTIE FALLBACK (no disponible en local) ========== */
+.lottie-unavailable {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    width: 100%;
+    padding: var(--space-md);
+    text-align: center;
+    border: 1px dashed var(--color-border);
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.lottie-unavailable i {
+    font-size: 2rem;
+    color: var(--color-accent);
+}
+
+.lottie-unavailable p {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    max-width: 260px;
+    line-height: 1.5;
 }
 

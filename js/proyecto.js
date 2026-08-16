@@ -13,6 +13,8 @@
     const project = PROJECTS.find(p => p.slug === slug);
 
     if (!project) {
+        document.title = 'Proyecto no encontrado — JOHN B.';
+        document.getElementById('robotsMeta')?.setAttribute('content', 'noindex, follow');
         document.getElementById('projectCategory').textContent = '';
         document.getElementById('projectTitleHeading').textContent = 'Proyecto no encontrado';
         detail.innerHTML = `
@@ -25,11 +27,51 @@
         return;
     }
 
+    function stripTags(html) {
+        return (html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    }
+
+    function updateMetaTags(project, displayTitle) {
+        const plainDescription = (project.description || '')
+            .replace(/<[^>]+>/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim()
+            .slice(0, 155) || `Proyecto de ${project.categoryLabel} — Diseñador Web Profesional`;
+
+        const isVideo = typeof project.image === 'string' && /\.(mp4|webm|ogg)$/i.test(project.image);
+        let imagePath = isVideo ? project.poster : project.image;
+        if (!imagePath) {
+            const firstImage = (project.images || []).find(m => (m.type || 'image') === 'image');
+            imagePath = firstImage ? firstImage.src : null;
+        }
+        const imageUrl = imagePath
+            ? new URL(imagePath, window.location.href).href
+            : new URL('img/og-default.png', window.location.href).href;
+        const canonicalUrl = `${window.location.origin}${window.location.pathname}?slug=${encodeURIComponent(project.slug)}`;
+        const pageTitle = `${displayTitle} — JOHN B.`;
+
+        const setContent = (id, value) => {
+            const el = document.getElementById(id);
+            if (el) el.setAttribute('content', value);
+        };
+
+        document.getElementById('metaDescription')?.setAttribute('content', plainDescription);
+        document.getElementById('canonicalLink')?.setAttribute('href', canonicalUrl);
+        setContent('ogTitle', pageTitle);
+        setContent('ogDescription', plainDescription);
+        setContent('ogUrl', canonicalUrl);
+        setContent('ogImage', imageUrl);
+        setContent('twitterTitle', pageTitle);
+        setContent('twitterDescription', plainDescription);
+        setContent('twitterImage', imageUrl);
+    }
+
     document.title = `${project.title} — JOHN B.`;
     document.getElementById('projectCategory').textContent = project.categoryLabel.toUpperCase();
     // Usar título desde info.txt (H1) si existe, sino usar el título por defecto
     const displayTitle = project.titleFromInfo || project.title;
     document.getElementById('projectTitleHeading').textContent = displayTitle;
+    updateMetaTags(project, displayTitle);
 
     let activeIndex = 0;
 
@@ -70,7 +112,7 @@
         const sectionsGrid = allColumns.length > 0
             ? allColumns.map((col, index) => `
                 <div class="section-column">
-                    ${col.associatedImage ? `<div class="column-image"><img src="${col.associatedImage}" alt="column" loading="lazy"></div>` : ''}
+                    ${col.associatedImage ? `<div class="column-image"><img src="${col.associatedImage}" alt="${stripTags(col.content) || project.title}" loading="lazy"></div>` : ''}
                     ${col.content}
                     ${col.url || col.github ? `
                         <div class="project-detail-links">
@@ -96,7 +138,7 @@
         // Siempre mostrar en grid de 2 columnas
         const colsHtml = columns.map(col => `
             <div class="section-column">
-                ${col.associatedImage ? `<div class="column-image"><img src="${col.associatedImage}" alt="column" loading="lazy"></div>` : ''}
+                ${col.associatedImage ? `<div class="column-image"><img src="${col.associatedImage}" alt="${stripTags(col.content) || project.title}" loading="lazy"></div>` : ''}
                 ${col.content}
                 ${col.url || col.github ? `
                     <div class="project-detail-links">
@@ -152,6 +194,36 @@
     }
 
     function renderBentoGrid() {
+        if (project.images.length === 0) {
+            // Proyecto solo-Lottie: sin galeria de imagenes/videos
+            const lottieContainer = project.lottie
+                ? `<div class="lottie-container" id="lottie-detail" style="display: block;"></div>`
+                : '';
+            const associatedImageHtml = project.associatedImage
+                ? `<div class="project-associated-image"><img src="${project.associatedImage}" alt="Imagen asociada a ${project.title}" loading="lazy"></div>`
+                : '';
+            return `
+                ${project.description ? `<div class="project-detail-description">${project.description}</div>` : ''}
+                <div class="project-detail-links">
+                    ${project.url ? `
+                        <a class="btn btn-secondary magnetic-btn project-detail-link" href="${project.url}" target="_blank" rel="noopener noreferrer">
+                            <span class="btn-text">VISITAR SITIO</span>
+                            <span class="btn-arrow">↗</span>
+                        </a>
+                    ` : ''}
+                    ${project.github ? `
+                        <a class="btn btn-secondary magnetic-btn project-detail-link" href="${project.github}" target="_blank" rel="noopener noreferrer">
+                            <span class="btn-text">VER EN GITHUB</span>
+                            <i class="hgi hgi-stroke hgi-github-circle" style="margin-left: 0.5rem;"></i>
+                        </a>
+                    ` : ''}
+                </div>
+                ${associatedImageHtml}
+                <div class="project-bento-single" id="projectMainImageWrap">
+                    ${lottieContainer}
+                </div>
+            `;
+        }
         if (project.images.length <= 1) {
             // Solo una imagen/video — mostrar como estaba
             const mediaItem = project.images[0];
@@ -176,7 +248,7 @@
             
             // Imagen asociada si existe
             const associatedImageHtml = project.associatedImage 
-                ? `<div class="project-associated-image"><img src="${project.associatedImage}" alt="Imagen asociada" loading="lazy"></div>`
+                ? `<div class="project-associated-image"><img src="${project.associatedImage}" alt="Imagen asociada a ${project.title}" loading="lazy"></div>`
                 : '';
             
             return `
@@ -242,7 +314,7 @@
 
         // Imagen asociada si existe
         const associatedImageHtml = project.associatedImage 
-            ? `<div class="project-associated-image"><img src="${project.associatedImage}" alt="Imagen asociada" loading="lazy"></div>`
+            ? `<div class="project-associated-image"><img src="${project.associatedImage}" alt="Imagen asociada a ${project.title}" loading="lazy"></div>`
             : '';
 
         return `
@@ -324,30 +396,22 @@
     // Initialize Lottie animation in detail view
     if (project.lottie) {
         const lottieDetail = document.getElementById('lottie-detail');
-        const mainMedia = mainImage || (bentoGrid ? bentoGrid.querySelector('video, img') : null);
-        
+        // Solo se oculta la imagen principal en modo "single" (una sola imagen
+        // sustituida por la animación). En bento grid (varias imágenes) todas
+        // se mantienen visibles junto a la animación.
+        const mainMedia = mainImage;
+
         if (lottieDetail) {
-            // Hide main media and show Lottie animation
+            // Hide main media and show Lottie animation (o el aviso correspondiente)
             if (mainMedia) {
                 mainMedia.style.display = 'none';
             }
             lottieDetail.style.display = 'block';
-            
-            try {
-                lottie.loadAnimation({
-                    container: lottieDetail,
-                    renderer: 'svg',
-                    loop: true,
-                    autoplay: true,
-                    path: project.lottie
-                });
-            } catch (e) {
-                console.error(`Error loading Lottie animation:`, e);
-                if (mainMedia) {
-                    mainMedia.style.display = '';
-                }
-                lottieDetail.style.display = 'none';
-            }
+
+            loadLottieSafe({
+                container: lottieDetail,
+                path: project.lottie
+            });
         }
     }
 
@@ -554,23 +618,16 @@
         resetLightboxZoom();
         const mediaContainer = lightbox.querySelector('.lightbox-media');
         
-        // Si el proyecto tiene animación Lottie, intentar mostrarla en el lightbox
+        // Si el proyecto tiene animación Lottie, mostrarla en el lightbox
+        // (o el aviso dedicado si no se puede cargar, ej. abierto en local)
         if (project.lottie) {
-            try {
-                mediaContainer.innerHTML = `<div class="lightbox-lottie-container"></div>`;
-                const lottieDiv = mediaContainer.querySelector('.lightbox-lottie-container');
-                lottie.loadAnimation({
-                    container: lottieDiv,
-                    renderer: 'svg',
-                    loop: true,
-                    autoplay: true,
-                    path: project.lottie
-                });
-                return; // Lottie cargó correctamente, salir
-            } catch (e) {
-                console.warn(`Lottie failed to load in lightbox, falling back to images:`, e);
-                // Si Lottie falla, continuar y mostrar las imágenes
-            }
+            mediaContainer.innerHTML = `<div class="lightbox-lottie-container"></div>`;
+            const lottieDiv = mediaContainer.querySelector('.lightbox-lottie-container');
+            loadLottieSafe({
+                container: lottieDiv,
+                path: project.lottie
+            });
+            return;
         }
         
         // Mostrar imagen normal (fallback o si no hay lottie)

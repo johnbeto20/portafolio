@@ -1230,23 +1230,27 @@ def build_project(folder, category):
     
     # Combinar videos e imagenes para la galeria
     all_media = videos + images
-    
-    if not all_media:
-        return None
-    
-    # La primera imagen/media sera la portada por defecto
-    # Si la original fue eliminada (convertida a WebP), usar la version WebP
-    cover = all_media[0]
-    if is_video(cover):
-        cover_for_card = cover
-    else:
-        webp_version = cover.with_suffix(".webp")
-        cover_for_card = webp_version if webp_version.exists() else cover
-    
-    # Buscar animaciones Lottie
+
+    # Buscar animaciones Lottie (antes del gate: un proyecto solo-Lottie,
+    # sin imagenes/videos estaticos, tambien debe generarse)
     folder_abs = folder if folder.is_absolute() else (ROOT / folder)
     lottie_files = find_lottie_animation(folder_abs)
     lottie_path = to_web_path(lottie_files[0]) if lottie_files else None
+
+    if not all_media and not lottie_path:
+        return None
+
+    # La primera imagen/media sera la portada por defecto (si hay galeria).
+    # Si la original fue eliminada (convertida a WebP), usar la version WebP.
+    if all_media:
+        cover = all_media[0]
+        if is_video(cover):
+            cover_for_card = cover
+        else:
+            webp_version = cover.with_suffix(".webp")
+            cover_for_card = webp_version if webp_version.exists() else cover
+    else:
+        cover_for_card = None
     
     # Construir lista de medios con tipo y MIME para compatibilidad mobile
     media_list = []
@@ -1355,7 +1359,7 @@ def build_project(folder, category):
             "description": "",  # La descripcion general se maneja en las secciones
             "url": None,  # Las URLs son por seccion
             "github": None,  # Los GitHub son por seccion
-            "image": to_web_path(cover_for_card),
+            "image": to_web_path(cover_for_card) if cover_for_card else None,
             "poster": poster_path,
             "associatedImage": None,
             "images": media_list,
@@ -1390,7 +1394,7 @@ def build_project(folder, category):
             "description": description,
             "url": demo_url,
             "github": github_url,
-            "image": to_web_path(cover_for_card),
+            "image": to_web_path(cover_for_card) if cover_for_card else None,
             "poster": poster_path,
             "associatedImage": associated_image_path,
             "images": media_list,

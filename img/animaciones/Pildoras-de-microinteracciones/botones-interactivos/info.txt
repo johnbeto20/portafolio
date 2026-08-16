@@ -14,7 +14,7 @@ demo: https://johnbeto20.github.io/BotonEnviar/
 
 ###Boton de onda
 
-imagen:[boton-onda.png]
+imagen:[boton-onda.webp]
 link GitHub: https://github.com/johnbeto20/pildoritas-css-BotonOnda
 demo: https://johnbeto20.github.io/pildoritas-css-BotonOnda/
 
@@ -22,7 +22,7 @@ demo: https://johnbeto20.github.io/pildoritas-css-BotonOnda/
 
 ###Boton explosivo
 
-imagen:[boton-explosivo.png]
+imagen:[boton-explosivo.webp]
 link GitHub: https://github.com/johnbeto20/pildoritas-css-BotonExplosion
 demo: https://johnbeto20.github.io/pildoritas-css-BotonExplosion/
 
@@ -30,7 +30,7 @@ demo: https://johnbeto20.github.io/pildoritas-css-BotonExplosion/
 
 ###Boton enviar 2
 
-imagen:[boton-enviar-2.png]
+imagen:[boton-enviar-2.webp]
 link GitHub: https://github.com/johnbeto20/pildoritas-css-botonSend
 demo: https://johnbeto20.github.io/pildoritas-css-botonSend/
 

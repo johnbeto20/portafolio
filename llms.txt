@@ -1,0 +1,18 @@
+# John B. — Creative Portfolio
+
+> Portafolio profesional de John Alberto Sánchez Medina (John B.): diseñador UX/UI, ilustrador digital, piloto de drone y editor audiovisual, con más de 10 años de experiencia en diseño web y sistemas de diseño para agencias y empresas.
+
+John B. combina diseño de interfaces, ilustración, producción audiovisual con drone y microinteracciones/motion design para crear experiencias digitales completas. Ha trabajado con clientes como SIIGO, XM, EPM, Renting Colombia, Comfamiliar y Grupo Sura, principalmente a través de Ceiba Software.
+
+## Páginas
+
+- [Inicio](https://johnbeto20.github.io/portafolio/): Presentación general, trabajos destacados y servicios (diseño web, ilustración, tomas aéreas, microinteracciones, sistemas de diseño).
+- [Proyectos](https://johnbeto20.github.io/portafolio/proyectos.html): Portafolio completo de proyectos, filtrable por categoría (aplicaciones y sitios web, ilustraciones, tomas aéreas, animaciones, sistemas de diseño, diseño gráfico).
+- [Certificados](https://johnbeto20.github.io/portafolio/certificados.html): Certificaciones y diplomas en diseño UX/UI, Salesforce, metodologías ágiles, accesibilidad web y liderazgo creativo.
+- [Quién soy](https://johnbeto20.github.io/portafolio/about.html): Biografía, idiomas, habilidades técnicas y experiencia profesional detallada.
+
+## Contacto
+
+- Email: john.beto@outlook.com
+- LinkedIn: https://www.linkedin.com/in/john-sanchez-med
+- Instagram: https://www.instagram.com/johnbeto20/
