@@ -113,13 +113,16 @@
                 ? project.image.mimeType
                 : (isVideo ? {'.mp4': 'video/mp4', '.webm': 'video/webm', '.ogg': 'video/ogg'}[project.image.toLowerCase().split('.').pop()] || '' : '');
             const typeAttr = mimeType ? ` type="${mimeType}"` : '';
-            const media = isVideo
-                ? `<video src="${project.image}" muted playsinline preload="metadata"${typeAttr}${posterAttr} class="card-media"></video>`
-                : `<img src="${project.image}" alt="${project.title}" loading="lazy">`;
-            
-            // Contenedor para animación Lottie (oculto por defecto)
-            const lottieContainer = project.lottie 
-                ? `<div class="lottie-container" id="lottie-${project.slug}" style="display: none;"></div>`
+            // Proyectos solo-Lottie (sin imagen/video estatico) no renderizan media
+            const media = !project.image
+                ? ''
+                : isVideo
+                    ? `<video src="${project.image}" muted playsinline preload="metadata"${typeAttr}${posterAttr} class="card-media"></video>`
+                    : `<img src="${project.image}" alt="${project.title}" loading="lazy">`;
+
+            // Contenedor para animación Lottie (visible directamente si no hay otra media que mostrar primero)
+            const lottieContainer = project.lottie
+                ? `<div class="lottie-container" id="lottie-${project.slug}" style="display: ${project.image ? 'none' : 'block'};"></div>`
                 : '';
             
             return `
@@ -152,6 +155,11 @@
         // already complete by the time we attach the listener).
         grid.querySelectorAll('.card-image').forEach(wrapper => {
             const media = wrapper.querySelector('video, img');
+            if (!media) {
+                // Proyecto solo-Lottie: no hay img/video que cargar
+                wrapper.classList.remove('is-loading');
+                return;
+            }
             function markLoaded() {
                 wrapper.classList.remove('is-loading');
                 media.classList.add('is-loaded');
@@ -186,24 +194,12 @@
                         media.style.display = 'none';
                     }
                     container.style.display = 'block';
-                    
-                    // Cargar y reproducir animación Lottie
-                    try {
-                        lottie.loadAnimation({
-                            container: container,
-                            renderer: 'svg',
-                            loop: true,
-                            autoplay: true,
-                            path: project.lottie
-                        });
-                    } catch (e) {
-                        console.error(`Error loading Lottie animation for ${project.slug}:`, e);
-                        // Fallback: mostrar imagen si Lottie falla
-                        if (media) {
-                            media.style.display = '';
-                        }
-                        container.style.display = 'none';
-                    }
+
+                    // Cargar y reproducir animación Lottie (o mostrar aviso si no es posible)
+                    loadLottieSafe({
+                        container: container,
+                        path: project.lottie
+                    });
                 }
             }
         });

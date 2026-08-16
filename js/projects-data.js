@@ -32,25 +32,78 @@ const PROJECT_CATEGORIES = [
 ];
 const PROJECTS = [
   {
-    "slug": "EPM",
-    "title": "EPM",
+    "slug": "propiapp",
+    "title": "Propiapp",
+    "titleFromInfo": null,
+    "category": "aplicaciones-y-sitios-web",
+    "categoryLabel": "Aplicaciones y Sitios Web",
+    "description": "producto digital para la inversión y venta de vienes raices.",
+    "url": "https://www.propiapp.com/home-propiapp",
+    "github": null,
+    "image": "img/aplicaciones-y-sitios-web/propiapp/propiapp-1.webp",
+    "poster": "img/aplicaciones-y-sitios-web/propiapp/propiapp-1.webp",
+    "associatedImage": null,
+    "images": [
+      {
+        "src": "img/aplicaciones-y-sitios-web/propiapp/propiapp-1.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/propiapp/propiapp-2.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/propiapp/propiapp-3.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/propiapp/propiapp-4.webp",
+        "type": "image",
+        "format": "webp"
+      }
+    ],
+    "lottie": null,
+    "lastModified": "2026-08-16T16:07:01.624434"
+  },
+  {
+    "slug": "Loader propiapp",
+    "title": "Loader Propiapp",
+    "titleFromInfo": null,
+    "category": "animaciones",
+    "categoryLabel": "Animaciones",
+    "description": "producto digital para la inversión y venta de vienes raices.",
+    "url": "https://www.propiapp.com/home-propiapp",
+    "github": null,
+    "image": null,
+    "poster": null,
+    "associatedImage": null,
+    "images": [],
+    "lottie": "img/animaciones/Loader propiapp/loader.json",
+    "lastModified": "2026-08-16T16:06:41.514516"
+  },
+  {
+    "slug": "Splash EPM",
+    "title": "Splash EPM",
     "titleFromInfo": null,
     "category": "animaciones",
     "categoryLabel": "Animaciones",
     "description": "<h2>Cargador para la aplicación Super App de EPM</h2>\n<p>Se creó un splash loader para la aplicación de Super App de EPM para mitigar la carga del Sistema y mostrar algo mas impactante al inicio para el usuario.</p>",
     "url": null,
     "github": null,
-    "image": "img/animaciones/EPM/video_splash.mp4",
-    "poster": "img/animaciones/EPM/base.webp",
+    "image": "img/animaciones/Splash EPM/video_splash.mp4",
+    "poster": "img/animaciones/Splash EPM/base.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/animaciones/EPM/video_splash.mp4",
+        "src": "img/animaciones/Splash EPM/video_splash.mp4",
         "type": "video",
         "mimeType": "video/mp4"
       },
       {
-        "src": "img/animaciones/EPM/base.webp",
+        "src": "img/animaciones/Splash EPM/base.webp",
         "type": "image",
         "format": "webp"
       }
@@ -59,30 +112,30 @@ const PROJECTS = [
     "lastModified": "2026-08-14T11:31:21.310950"
   },
   {
-    "slug": "Comfamiliar",
-    "title": "Comfamiliar",
+    "slug": "Loader Comfamiliar",
+    "title": "Loader Comfamiliar",
     "titleFromInfo": "Comfamiliar — Spinner de carga",
     "category": "animaciones",
     "categoryLabel": "Animaciones",
     "description": "<h1>Comfamiliar — Spinner de carga</h1>\n<p>Cargador realizado manualmente donde refleja la naturalidad del negocio, se plasma la idea en boceto, luego se digitaliza para finalmente ser animado.</p>",
     "url": null,
     "github": null,
-    "image": "img/animaciones/Comfamiliar/boceto_comfamiliar_spinner.webp",
-    "poster": "img/animaciones/Comfamiliar/boceto_comfamiliar_spinner.webp",
+    "image": "img/animaciones/Loader Comfamiliar/boceto_comfamiliar_spinner.webp",
+    "poster": "img/animaciones/Loader Comfamiliar/boceto_comfamiliar_spinner.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/animaciones/Comfamiliar/boceto_comfamiliar_spinner.webp",
+        "src": "img/animaciones/Loader Comfamiliar/boceto_comfamiliar_spinner.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/animaciones/Comfamiliar/spinner_comfamiliar_tienda_de_servicios.webp",
+        "src": "img/animaciones/Loader Comfamiliar/spinner_comfamiliar_tienda_de_servicios.webp",
         "type": "image",
         "format": "webp"
       }
     ],
-    "lottie": "img/animaciones/Comfamiliar/loader.json",
+    "lottie": "img/animaciones/Loader Comfamiliar/loader.json",
     "lastModified": "2026-08-14T11:31:21.310299"
   },
   {
@@ -269,43 +322,6 @@ const PROJECTS = [
     "lastModified": "2026-08-14T11:31:21.298931"
   },
   {
-    "slug": "propiapp",
-    "title": "Propiapp",
-    "titleFromInfo": null,
-    "category": "aplicaciones-y-sitios-web",
-    "categoryLabel": "Aplicaciones y Sitios Web",
-    "description": "producto digital para la inversión y venta de vienes raices.",
-    "url": "https://www.propiapp.com/home-propiapp",
-    "github": null,
-    "image": "img/aplicaciones-y-sitios-web/propiapp/propiapp-1.webp",
-    "poster": "img/aplicaciones-y-sitios-web/propiapp/propiapp-1.webp",
-    "associatedImage": null,
-    "images": [
-      {
-        "src": "img/aplicaciones-y-sitios-web/propiapp/propiapp-1.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/aplicaciones-y-sitios-web/propiapp/propiapp-2.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/aplicaciones-y-sitios-web/propiapp/propiapp-3.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/aplicaciones-y-sitios-web/propiapp/propiapp-4.webp",
-        "type": "image",
-        "format": "webp"
-      }
-    ],
-    "lottie": "img/aplicaciones-y-sitios-web/propiapp/loader.json",
-    "lastModified": "2026-08-14T11:31:21.298931"
-  },
-  {
     "slug": "comfamiliar",
     "title": "Comfamiliar",
     "titleFromInfo": null,
@@ -432,20 +448,20 @@ const PROJECTS = [
     "lastModified": "2026-08-14T11:31:21.291392"
   },
   {
-    "slug": "ceibaSoftware",
-    "title": "Ceiba Software",
+    "slug": "ceibaSoftwareUX",
+    "title": "Ceiba Software UX",
     "titleFromInfo": null,
     "category": "disenio-grafico",
     "categoryLabel": "Diseño Grafico",
     "description": "",
     "url": null,
     "github": null,
-    "image": "img/disenio-grafico/ceibaSoftware/ceiba-software-generandoestrategiasux.webp",
-    "poster": "img/disenio-grafico/ceibaSoftware/ceiba-software-generandoestrategiasux.webp",
+    "image": "img/disenio-grafico/ceibaSoftwareUX/ceiba-software-generandoestrategiasux.webp",
+    "poster": "img/disenio-grafico/ceibaSoftwareUX/ceiba-software-generandoestrategiasux.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/disenio-grafico/ceibaSoftware/ceiba-software-generandoestrategiasux.webp",
+        "src": "img/disenio-grafico/ceibaSoftwareUX/ceiba-software-generandoestrategiasux.webp",
         "type": "image",
         "format": "webp"
       }
@@ -950,19 +966,19 @@ const PROJECTS = [
           },
           {
             "content": "<h3>Boton de onda</h3>",
-            "associatedImage": "boton-onda.png",
+            "associatedImage": "img/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-onda.webp",
             "url": "https://johnbeto20.github.io/pildoritas-css-BotonOnda/",
             "github": "https://github.com/johnbeto20/pildoritas-css-BotonOnda"
           },
           {
             "content": "<h3>Boton explosivo</h3>",
-            "associatedImage": "boton-explosivo.png",
+            "associatedImage": "img/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-explosivo.webp",
             "url": "https://johnbeto20.github.io/pildoritas-css-BotonExplosion/",
             "github": "https://github.com/johnbeto20/pildoritas-css-BotonExplosion"
           },
           {
             "content": "<h3>Boton enviar 2</h3>",
-            "associatedImage": "boton-enviar-2.png",
+            "associatedImage": "img/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-enviar-2.webp",
             "url": "https://johnbeto20.github.io/pildoritas-css-botonSend/",
             "github": "https://github.com/johnbeto20/pildoritas-css-botonSend"
           }
