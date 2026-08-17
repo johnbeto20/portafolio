@@ -31,21 +31,37 @@ function loadLottieSafe(options) {
         return null;
     }
 
+    if (typeof lottie === 'undefined') {
+        // El <script> del CDN de lottie-web no llegó a cargar (bloqueado por
+        // CSP/adblock/red, o el CDN no respondió). Se deja constancia en consola
+        // porque de otro modo el mensaje al usuario es indistinguible de un 404 del JSON.
+        console.error('Lottie: la librería lottie-web no está disponible (revisa que el <script> del CDN haya cargado).');
+        renderLottieFallback(container, 'No se pudo cargar esta animación.');
+        if (onFail) onFail();
+        return null;
+    }
+
+    // Las rutas de proyectos-data.js pueden contener espacios u otros
+    // caracteres sin codificar (p. ej. "img/animaciones/Loader propiapp/loader.json").
+    // encodeURI evita depender de que el navegador/CDN los normalice por su cuenta.
+    const encodedPath = encodeURI(path);
+
     try {
         const anim = lottie.loadAnimation({
             container,
             renderer: 'svg',
             loop: true,
             autoplay: true,
-            path
+            path: encodedPath
         });
         anim.addEventListener('data_failed', () => {
+            console.error('Lottie: no se pudo obtener/parsear el JSON en', encodedPath);
             renderLottieFallback(container, 'No se pudo cargar esta animación.');
             if (onFail) onFail();
         });
         return anim;
     } catch (e) {
-        console.error('Error loading Lottie animation:', e);
+        console.error('Error loading Lottie animation:', encodedPath, e);
         renderLottieFallback(container, 'No se pudo cargar esta animación.');
         if (onFail) onFail();
         return null;
