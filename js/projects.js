@@ -196,9 +196,12 @@
                     container.style.display = 'block';
 
                     // Cargar y reproducir animación Lottie (o mostrar aviso si no es posible)
+                    // preserveAspectRatio "slice" = recorta y llena la tarjeta, igual que
+                    // el object-fit:cover de las imagenes/videos de card-image.
                     loadLottieSafe({
                         container: container,
-                        path: project.lottie
+                        path: project.lottie,
+                        preserveAspectRatio: 'xMidYMid slice'
                     });
                 }
             }
