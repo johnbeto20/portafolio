@@ -21,9 +21,12 @@ function renderLottieFallback(container, message) {
 // Carga una animación Lottie con manejo de errores.
 // Si se abre el sitio como archivo local, muestra el aviso directamente
 // (evita el intento de fetch, que siempre falla bajo file://).
-// options: { container, path, onFail }
+// options: { container, path, onFail, preserveAspectRatio }
+// preserveAspectRatio: 'xMidYMid meet' (default, muestra la animación completa,
+// como en la vista de detalle) o 'xMidYMid slice' (recorta para llenar el
+// contenedor, como el object-fit:cover de las tarjetas de proyectos.html).
 function loadLottieSafe(options) {
-    const { container, path, onFail } = options;
+    const { container, path, onFail, preserveAspectRatio } = options;
 
     if (isLocalFile()) {
         renderLottieFallback(container, 'No se puede ver este contenido en local. Ábrelo desde un servidor (http/https) para visualizarlo.');
@@ -52,7 +55,10 @@ function loadLottieSafe(options) {
             renderer: 'svg',
             loop: true,
             autoplay: true,
-            path: encodedPath
+            path: encodedPath,
+            rendererSettings: {
+                preserveAspectRatio: preserveAspectRatio || 'xMidYMid meet'
+            }
         });
         anim.addEventListener('data_failed', () => {
             console.error('Lottie: no se pudo obtener/parsear el JSON en', encodedPath);
