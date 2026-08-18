@@ -29,15 +29,25 @@ y agregala a la lista CATEGORIES.
 OPTIMIZACION MOBILE:
   - Convierte automaticamente .png, .jpg, .jpeg a .webp
   - Elimina las imagenes originales despues de convertir
-  - Valida videos para compatibilidad iOS/Android (.mp4 H.264)
+  - Normaliza automaticamente los videos (.mp4, .mov, .webm, .ogg, .avi, .mkv)
+    a MP4 con H.264 (perfil baseline) + AAC + faststart usando ffmpeg, para
+    garantizar reproduccion en iOS y Android. Requiere ffmpeg/ffprobe en PATH.
 """
 
 import json
 import re
 import os
+import shutil
+import subprocess
 from pathlib import Path
 from datetime import datetime
 from PIL import Image
+
+# Las imagenes en img/ son assets propios y confiables (no uploads de
+# terceros), asi que desactivamos el limite de "decompression bomb" de
+# Pillow: sin esto, archivos fuente muy grandes (ej. artes originales a
+# resolucion de impresion) ni siquiera se pueden abrir para reescalarlos.
+Image.MAX_IMAGE_PIXELS = None
 
 ROOT = Path(__file__).resolve().parent
 IMG_DIR = ROOT / "img"
@@ -72,14 +82,29 @@ KEEP_EXTENSIONS = {".gif", ".webp"}
 WEBP_CONFIG = {
     "quality": 85,
     "method": 4,
+    "optimize": True,
+    "progressive": False,
+    "max_dimension": 2560,  # redimensiona imagenes fuente mas grandes que esto (lado largo)
 }
 
-# Configuracion de videos para mobile
+# Formatos de video que se normalizan/convierten a MP4 (H.264 + AAC + faststart)
+VIDEO_SOURCE_EXTENSIONS = {".mp4", ".mov", ".m4v", ".webm", ".ogg", ".avi", ".mkv"}
+
+# Marca embebida en los metadatos del MP4 para no re-procesar videos ya optimizados
+VIDEO_OPTIMIZED_MARKER = "mobile_optimized_v1"
+
+# Configuracion de videos para mobile (compatibilidad iOS/Android)
 VIDEO_MOBILE_CONFIG = {
     "required_codec": "h264",
     "required_container": "mp4",
-    "max_width": 1920,
-    "max_height": 1080,
+    "profile": "baseline",  # maxima compatibilidad, incluso en dispositivos antiguos
+    "level": "3.1",
+    "pix_fmt": "yuv420p",
+    "max_dimension": 1920,  # limite del lado mas largo, sin asumir orientacion
+    "crf": 26,
+    "preset": "medium",
+    "audio_codec": "aac",
+    "audio_bitrate": "128k",
 }
 
 # Patrones comunes para imagenes poster
@@ -173,7 +198,16 @@ def convert_to_webp(image_path, quality=85):
         except Exception as open_err:
             print(f"  [ERROR] No se puede abrir {image_path.name}: {open_err}")
             return None, 0, 0, 0
-        
+
+        # Redimensionar si excede el tamaño maximo para web (ej. artes fuente
+        # a resolucion de impresion no tienen sentido servidos tal cual)
+        max_dim = WEBP_CONFIG["max_dimension"]
+        if max(img.size) > max_dim:
+            ratio = max_dim / max(img.size)
+            new_size = (round(img.width * ratio), round(img.height * ratio))
+            img = img.resize(new_size, Image.LANCZOS)
+            print(f"  [RESIZE] {image_path.name}: {image_path.stat().st_size / (1024*1024):.1f}MB, redimensionada a {new_size[0]}x{new_size[1]}")
+
         # Convertir RGBA/PALETTE a RGB si es necesario (WebP no soporta transparencia en modo JPEG)
         try:
             if img.mode in ("RGBA", "P", "LA"):
@@ -300,6 +334,151 @@ def optimize_images_in_folder(folder):
         saved_mb = stats["total_saved"] / (1024 * 1024)
         print(f"  [WEBP] ✓ {stats['converted']} convertidas, {stats['deleted']} originales eliminadas, {saved_mb:.2f} MB ahorrados")
     
+    return stats
+
+
+def ffmpeg_available():
+    """Verifica que ffmpeg y ffprobe esten instalados y disponibles en PATH."""
+    return shutil.which("ffmpeg") is not None and shutil.which("ffprobe") is not None
+
+
+def is_video_already_optimized(video_path):
+    """Verifica si el video ya fue normalizado (via metadato embebido).
+
+    Evita re-codificar en cada ejecucion un video que ya quedo en formato
+    compatible con iOS/Android (H.264 + AAC + faststart) en una corrida previa.
+    """
+    if video_path.suffix.lower() != ".mp4":
+        return False
+    try:
+        result = subprocess.run(
+            [
+                "ffprobe", "-v", "error",
+                "-show_entries", "format_tags=comment",
+                "-of", "default=noprint_wrappers=1:nokey=1",
+                str(video_path),
+            ],
+            capture_output=True, text=True, timeout=30,
+        )
+        return VIDEO_OPTIMIZED_MARKER in (result.stdout or "")
+    except Exception:
+        return False
+
+
+def optimize_video_for_mobile(video_path):
+    """Normaliza un video para reproduccion garantizada en iOS/Android.
+
+    Re-codifica a H.264 (perfil baseline) + AAC + yuv420p, escala si excede
+    la resolucion maxima configurada y mueve el atomo 'moov' al inicio del
+    archivo (+faststart). Sin faststart, Safari/iOS suele no poder reproducir
+    (o tarda muchisimo) videos grandes porque no puede leer los metadatos
+    sin descargar el archivo completo.
+
+    Returns:
+        tuple: (success: bool, output_path: Path or None, original_size: int, new_size: int)
+    """
+    cfg = VIDEO_MOBILE_CONFIG
+    tmp_path = video_path.with_name(video_path.stem + ".tmp_optimized.mp4")
+    original_size = video_path.stat().st_size
+
+    # Limita el lado mas largo a max_dimension, preservando orientacion
+    # (portrait o landscape) en lugar de asumir un ancho > alto.
+    max_dim = cfg["max_dimension"]
+    scale_filter = (
+        f"scale='min({max_dim},iw)':'min({max_dim},ih)':"
+        f"force_original_aspect_ratio=decrease,"
+        f"scale=trunc(iw/2)*2:trunc(ih/2)*2,format={cfg['pix_fmt']}"
+    )
+
+    cmd = [
+        "ffmpeg", "-y", "-i", str(video_path),
+        "-vf", scale_filter,
+        "-c:v", "libx264",
+        "-profile:v", cfg["profile"],
+        "-level", cfg["level"],
+        "-preset", cfg["preset"],
+        "-crf", str(cfg["crf"]),
+        "-c:a", cfg["audio_codec"],
+        "-b:a", cfg["audio_bitrate"],
+        "-movflags", "+faststart",
+        "-metadata", f"comment={VIDEO_OPTIMIZED_MARKER}",
+        str(tmp_path),
+    ]
+
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=1800)
+    except Exception as e:
+        print(f"    [ERROR] ffmpeg fallo en {video_path.name}: {e}")
+        if tmp_path.exists():
+            tmp_path.unlink()
+        return False, None, original_size, 0
+
+    if result.returncode != 0 or not tmp_path.exists() or tmp_path.stat().st_size == 0:
+        print(f"    [ERROR] ffmpeg no pudo convertir {video_path.name}")
+        print(f"           {result.stderr[-500:] if result.stderr else ''}")
+        if tmp_path.exists():
+            tmp_path.unlink()
+        return False, None, original_size, 0
+
+    new_size = tmp_path.stat().st_size
+
+    if video_path.suffix.lower() == ".mp4":
+        final_path = video_path
+        os.replace(tmp_path, final_path)
+    else:
+        final_path = video_path.with_suffix(".mp4")
+        os.replace(tmp_path, final_path)
+        video_path.unlink()
+
+    return True, final_path, original_size, new_size
+
+
+def optimize_videos_in_folder(folder):
+    """Convierte y normaliza todos los videos de una carpeta para mobile.
+
+    A diferencia de las imagenes (que se convierten una sola vez y el
+    original se borra), un video .mp4 se reemplaza in-place solo si aun
+    no tiene la marca de optimizado, para no re-codificar en cada corrida.
+
+    Returns:
+        dict: Resumen de conversiones (converted, errors, total_saved)
+    """
+    stats = {"converted": 0, "errors": 0, "skipped": 0, "total_saved": 0}
+
+    video_files = [
+        path for path in folder.rglob("*")
+        if path.is_file() and path.suffix.lower() in VIDEO_SOURCE_EXTENSIONS
+    ]
+
+    if not video_files:
+        return stats
+
+    if not ffmpeg_available():
+        print(f"  [VIDEO WARN] ffmpeg/ffprobe no encontrados en PATH: no se pueden normalizar los videos de {folder.name}/")
+        return stats
+
+    print(f"  [VIDEO] Procesando {len(video_files)} video(s) en {folder.name}/...")
+
+    for video_path in video_files:
+        if is_video_already_optimized(video_path):
+            stats["skipped"] += 1
+            print(f"    - {video_path.name} ya optimizado (omitido)")
+            continue
+
+        success, final_path, orig_size, new_size = optimize_video_for_mobile(video_path)
+        if success:
+            stats["converted"] += 1
+            saved = orig_size - new_size
+            stats["total_saved"] += saved
+            ratio = (saved / orig_size * 100) if orig_size > 0 else 0
+            print(f"    ✓ {video_path.name} → {final_path.name} (H.264/AAC/faststart, {ratio:.0f}% más pequeño)")
+        else:
+            stats["errors"] += 1
+
+    if stats["converted"] > 0:
+        saved_mb = stats["total_saved"] / (1024 * 1024)
+        print(f"  [VIDEO] ✓ {stats['converted']} normalizados, {saved_mb:.2f} MB ahorrados")
+
     return stats
 
 
@@ -1195,7 +1374,7 @@ def to_web_path(path):
     return path.relative_to(ROOT).as_posix()
 
 
-def build_project(folder, category):
+def build_project(folder, category, totals=None):
     """Construye uno o multiples proyectos desde una carpeta.
     
     Si el info.txt contiene secciones separadas por ---, genera un proyecto
@@ -1213,8 +1392,20 @@ def build_project(folder, category):
     # 1. Ejecutar conversion WebP en la carpeta del proyecto
     print(f"\n[OPTIMIZANDO] {category['slug']}/{folder.name}...")
     webp_stats = optimize_images_in_folder(folder)
-    
-    # 2. Validar videos para mobile
+
+    # 2. Normalizar videos a H.264/AAC/faststart para compatibilidad iOS/Android
+    video_opt_stats = optimize_videos_in_folder(folder)
+
+    if totals is not None:
+        totals["webp_converted"] += webp_stats["converted"]
+        totals["webp_deleted"] += webp_stats["deleted"]
+        totals["webp_saved"] += webp_stats["total_saved"]
+        totals["video_converted"] += video_opt_stats["converted"]
+        totals["video_skipped"] += video_opt_stats["skipped"]
+        totals["video_errors"] += video_opt_stats["errors"]
+        totals["video_saved"] += video_opt_stats["total_saved"]
+
+    # 3. Validar videos para mobile
     video_results = check_all_videos_for_mobile(folder)
     for vr in video_results:
         if not vr["valid"]:
@@ -1224,7 +1415,7 @@ def build_project(folder, category):
             for rec in vr["recommendations"]:
                 print(f"    → {rec}")
     
-    # 3. Buscar imagenes y videos
+    # 4. Buscar imagenes y videos
     videos, images = find_images(folder)
     poster = find_poster_image(folder)
     
@@ -1413,10 +1604,16 @@ def main():
     print("="*60)
     
     projects = []
-    total_webp_converted = 0
-    total_webp_deleted = 0
-    total_webp_saved = 0
-    
+    totals = {
+        "webp_converted": 0,
+        "webp_deleted": 0,
+        "webp_saved": 0,
+        "video_converted": 0,
+        "video_skipped": 0,
+        "video_errors": 0,
+        "video_saved": 0,
+    }
+
     for category in CATEGORIES:
         category_dir = IMG_DIR / category["slug"]
         
@@ -1464,7 +1661,7 @@ def main():
                 print(f"\nOmitida (marcada con {SKIP_MARKER}): {category['slug']}/{folder.name}")
                 continue
 
-            project = build_project(folder, category)
+            project = build_project(folder, category, totals)
             if project is None:
                 print(f"Omitida (sin imagenes): {category['slug']}/{folder.name}")
                 continue
@@ -1489,12 +1686,14 @@ def main():
     print(f"{'='*60}")
     print(f"✓ {len(projects)} proyecto(s) escritos en {to_web_path(OUTPUT_FILE)}")
     print(f"\n[WEBP] Conversion completada:")
-    print(f"  - {total_webp_converted} imagenes convertidas a WebP")
-    print(f"  - {total_webp_deleted} imagenes originales eliminadas")
-    print(f"  - {total_webp_saved/1024/1024:.2f} MB ahorrados en total")
-    print(f"\n[VIDEO] Validacion mobile:")
-    print(f"  - Todos los videos .mp4 con codec H.264 son compatibles")
-    print(f"  - Videos .webm/.ogg requieren conversion a .mp4 para iOS")
+    print(f"  - {totals['webp_converted']} imagenes convertidas a WebP")
+    print(f"  - {totals['webp_deleted']} imagenes originales eliminadas")
+    print(f"  - {totals['webp_saved']/1024/1024:.2f} MB ahorrados en total")
+    print(f"\n[VIDEO] Normalizacion mobile (H.264 + AAC + faststart):")
+    print(f"  - {totals['video_converted']} video(s) normalizados")
+    print(f"  - {totals['video_skipped']} video(s) ya optimizados (omitidos)")
+    print(f"  - {totals['video_errors']} error(es) de conversion")
+    print(f"  - {totals['video_saved']/1024/1024:.2f} MB ahorrados en total")
     print(f"\n[NOTA] Las imagenes originales (.png, .jpg, .jpeg) fueron eliminadas")
     print(f"       despues de la conversion a WebP exitosa.")
     
