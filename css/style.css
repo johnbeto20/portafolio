@@ -1910,6 +1910,8 @@ body *::after {
 
 .project-bento-single .lottie-container {
     width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1926,13 +1928,14 @@ body *::after {
 /* Lottie mostrada junto a un bento grid (varias imagenes + animacion) */
 .project-bento-grid + .lottie-container {
     width: 100%;
+    max-width: 400px;
+    margin: var(--space-md) auto 0;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--color-surface);
     border-radius: 12px;
     min-height: 300px;
-    margin-top: var(--space-md);
 }
 
 .project-bento-grid + .lottie-container svg {
@@ -2419,7 +2422,9 @@ body *::after {
 
 .lightbox-lottie-container {
     width: 100%;
+    max-width: 400px;
     max-height: 80vh;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
