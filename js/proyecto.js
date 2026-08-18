@@ -74,6 +74,7 @@
     updateMetaTags(project, displayTitle);
 
     let activeIndex = 0;
+    let lightboxShowsLottie = false;
 
     // ============================================
     // RENDERIZAR PROYECTOS CON SECCIONES INTERNAS
@@ -381,8 +382,7 @@
             const media = cell.querySelector('video, img');
             wireMediaLoad(media, cell);
             cell.addEventListener('click', () => {
-                activeIndex = Number(cell.dataset.index);
-                openLightbox(activeIndex);
+                openLightbox(Number(cell.dataset.index), false);
             });
         });
     }
@@ -390,9 +390,9 @@
     // Single image/video mode
     if (singleWrap && mainImage) {
         wireMediaLoad(mainImage, singleWrap);
-        mainImage.addEventListener('click', () => openLightbox(0));
+        mainImage.addEventListener('click', () => openLightbox(0, false));
     }
-    
+
     // Initialize Lottie animation in detail view
     if (project.lottie) {
         const lottieDetail = document.getElementById('lottie-detail');
@@ -412,6 +412,11 @@
                 container: lottieDetail,
                 path: project.lottie
             });
+
+            // Al hacer clic en la animación se abre en el lightbox; las imágenes
+            // de la galería (si existen) abren SU PROPIA imagen, no la animación.
+            lottieDetail.style.cursor = 'zoom-in';
+            lottieDetail.addEventListener('click', () => openLightbox(0, true));
         }
     }
 
@@ -617,19 +622,23 @@
     function updateLightbox(lightbox) {
         resetLightboxZoom();
         const mediaContainer = lightbox.querySelector('.lightbox-media');
-        
-        // Si el proyecto tiene animación Lottie, mostrarla en el lightbox
-        // (o el aviso dedicado si no se puede cargar, ej. abierto en local)
-        if (project.lottie) {
+
+        // Solo mostrar la animación Lottie si el lightbox se abrió desde el
+        // propio contenedor de la animación (no al hacer clic en otras imágenes
+        // de la galería, que deben mostrar SU imagen).
+        if (project.lottie && lightboxShowsLottie) {
             mediaContainer.innerHTML = `<div class="lightbox-lottie-container"></div>`;
             const lottieDiv = mediaContainer.querySelector('.lightbox-lottie-container');
             loadLottieSafe({
                 container: lottieDiv,
                 path: project.lottie
             });
+            lightbox.querySelector('.lightbox-caption').textContent = displayTitle;
+            lightbox.querySelector('.lightbox-prev').style.display = 'none';
+            lightbox.querySelector('.lightbox-next').style.display = 'none';
             return;
         }
-        
+
         // Mostrar imagen normal (fallback o si no hay lottie)
         const mediaItem = project.images[activeIndex];
         const src = typeof mediaItem === 'string' ? mediaItem : mediaItem.src;
@@ -656,8 +665,9 @@
         lightbox.querySelector('.lightbox-next').style.display = showNav ? 'flex' : 'none';
     }
 
-    function openLightbox(index) {
+    function openLightbox(index, isLottie) {
         activeIndex = index;
+        lightboxShowsLottie = !!isLottie;
         const lightbox = document.getElementById('projectLightbox') || buildLightbox();
         updateLightbox(lightbox);
         lightbox.classList.add('active');
@@ -669,6 +679,7 @@
     }
 
     function stepLightbox(direction) {
+        if (lightboxShowsLottie || project.images.length === 0) return;
         activeIndex = (activeIndex + direction + project.images.length) % project.images.length;
         updateLightbox(document.getElementById('projectLightbox'));
     }
