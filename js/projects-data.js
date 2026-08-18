@@ -32,6 +32,132 @@ const PROJECT_CATEGORIES = [
 ];
 const PROJECTS = [
   {
+    "slug": "DanielaWeddings",
+    "title": "Daniela Weddings",
+    "titleFromInfo": null,
+    "category": "ilustraciones",
+    "categoryLabel": "Ilustraciones",
+    "description": "<h2>Aniversario Daniela Henao Weddings /A Decade as Art</h2>\n<p>Traducir una década de trayectoria en una identidad que no solo fuera estéticamente superior, sino que comunicara madurez, ambición y exclusividad.</p>\n<p>Como solución Un rediseño conceptual ayudado con inteligencia artificial, basado en la síntesis de símbolos. Trabajé elementos como el corazón anatómico, los pinceles y el reloj para crear un mapa simbólico de la marca. Cada trazo tipográfico y cada decisión de composición fue cuidadosamente seleccionada para transmitir un equilibrio entre la elegancia contemporánea y la calidez humana.</p>\n<p>Como resultado Un sistema visual flexible, \"limpio\" y con narrativa propia, diseñado para escalar en el mercado internacional y elevar el posicionamiento de la firma, reescrito manualmente a papel y lapiz para ser mas claros con la ilustracion solicitada.</p>",
+    "url": "https://danielahenao.com/adecadeasart/",
+    "github": null,
+    "image": "img/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0001.webp",
+    "poster": "img/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0001.webp",
+    "associatedImage": null,
+    "images": [
+      {
+        "src": "img/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0001.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0002.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0003.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/DanielaWeddings/image-big.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/DanielaWeddings/image-simple.webp",
+        "type": "image",
+        "format": "webp"
+      }
+    ],
+    "lottie": null,
+    "lastModified": "2026-08-18T17:21:33.314192"
+  },
+  {
+    "slug": "Splash EPM",
+    "title": "Splash EPM",
+    "titleFromInfo": null,
+    "category": "animaciones",
+    "categoryLabel": "Animaciones",
+    "description": "<h2>Cargador para la aplicación Super App de EPM</h2>\n<p>Se creó un splash loader para la aplicación de Super App de EPM para mitigar la carga del Sistema y mostrar algo mas impactante al inicio para el usuario.</p>",
+    "url": null,
+    "github": null,
+    "image": "img/animaciones/Splash EPM/video_splash.mp4",
+    "poster": "img/animaciones/Splash EPM/base.webp",
+    "associatedImage": null,
+    "images": [
+      {
+        "src": "img/animaciones/Splash EPM/video_splash.mp4",
+        "type": "video",
+        "mimeType": "video/mp4"
+      },
+      {
+        "src": "img/animaciones/Splash EPM/base.webp",
+        "type": "image",
+        "format": "webp"
+      }
+    ],
+    "lottie": null,
+    "lastModified": "2026-08-18T17:15:54.075356"
+  },
+  {
+    "slug": "Logisfashion",
+    "title": "Logisfashion",
+    "titleFromInfo": null,
+    "category": "sistemas-de-diseno",
+    "categoryLabel": "Sistemas de Diseño",
+    "description": "Logisfashion — lineamientos UI y componentes: sistema creado desde sus cimientos utilizando variables y design tokens para sistematizar color, tipografía, espaciado y estados. El enfoque actual del proyecto integra herramientas de IA para automatizar la documentación y reducir la fricción en la entrega (handoff) hacia los desarrolladores. También se trabajó parte de las ilustraciones: \"si está la base inicial de diseño podemos crear el resto creativamente y con mayor intención\". Los componentes se documentan con su modo de uso y se entregan en formato de código para que cualquier desarrollador los utilice en su entorno. Tecnología: Angular Material. Solo para desktop.",
+    "url": null,
+    "github": null,
+    "image": "img/sistemas-de-diseno/Logisfashion/logisfasion-video.mp4",
+    "poster": "img/sistemas-de-diseno/Logisfashion/logis-1.webp",
+    "associatedImage": null,
+    "images": [
+      {
+        "src": "img/sistemas-de-diseno/Logisfashion/logisfasion-video.mp4",
+        "type": "video",
+        "mimeType": "video/mp4"
+      },
+      {
+        "src": "img/sistemas-de-diseno/Logisfashion/logis-1.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/sistemas-de-diseno/Logisfashion/logis-2.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/sistemas-de-diseno/Logisfashion/logis-3.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/sistemas-de-diseno/Logisfashion/logis-4.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/sistemas-de-diseno/Logisfashion/logis-componentes-1.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/sistemas-de-diseno/Logisfashion/logis-componentes-2.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/sistemas-de-diseno/Logisfashion/logis-componentes-3.webp",
+        "type": "image",
+        "format": "webp"
+      }
+    ],
+    "lottie": null,
+    "lastModified": "2026-08-18T17:14:29.794768"
+  },
+  {
     "slug": "propiapp",
     "title": "Propiapp",
     "titleFromInfo": null,
@@ -83,33 +209,6 @@ const PROJECTS = [
     "images": [],
     "lottie": "img/animaciones/Loader propiapp/loader.json",
     "lastModified": "2026-08-16T16:06:41.514516"
-  },
-  {
-    "slug": "Splash EPM",
-    "title": "Splash EPM",
-    "titleFromInfo": null,
-    "category": "animaciones",
-    "categoryLabel": "Animaciones",
-    "description": "<h2>Cargador para la aplicación Super App de EPM</h2>\n<p>Se creó un splash loader para la aplicación de Super App de EPM para mitigar la carga del Sistema y mostrar algo mas impactante al inicio para el usuario.</p>",
-    "url": null,
-    "github": null,
-    "image": "img/animaciones/Splash EPM/video_splash.mp4",
-    "poster": "img/animaciones/Splash EPM/base.webp",
-    "associatedImage": null,
-    "images": [
-      {
-        "src": "img/animaciones/Splash EPM/video_splash.mp4",
-        "type": "video",
-        "mimeType": "video/mp4"
-      },
-      {
-        "src": "img/animaciones/Splash EPM/base.webp",
-        "type": "image",
-        "format": "webp"
-      }
-    ],
-    "lottie": null,
-    "lastModified": "2026-08-14T11:31:21.310950"
   },
   {
     "slug": "Loader Comfamiliar",
@@ -693,48 +792,6 @@ const PROJECTS = [
     "lastModified": "2026-08-14T11:31:21.272407"
   },
   {
-    "slug": "DanielaWeddings",
-    "title": "Daniela Weddings",
-    "titleFromInfo": null,
-    "category": "ilustraciones",
-    "categoryLabel": "Ilustraciones",
-    "description": "<h2>Aniversario Daniela Henao Weddings /A Decade as Art</h2>\n<p>Traducir una década de trayectoria en una identidad que no solo fuera estéticamente superior, sino que comunicara madurez, ambición y exclusividad.</p>\n<p>Como solución Un rediseño conceptual ayudado con inteligencia artificial, basado en la síntesis de símbolos. Trabajé elementos como el corazón anatómico, los pinceles y el reloj para crear un mapa simbólico de la marca. Cada trazo tipográfico y cada decisión de composición fue cuidadosamente seleccionada para transmitir un equilibrio entre la elegancia contemporánea y la calidez humana.</p>\n<p>Como resultado Un sistema visual flexible, \"limpio\" y con narrativa propia, diseñado para escalar en el mercado internacional y elevar el posicionamiento de la firma, reescrito manualmente a papel y lapiz para ser mas claros con la ilustracion solicitada.</p>",
-    "url": "https://danielahenao.com/adecadeasart/",
-    "github": null,
-    "image": "img/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0001.webp",
-    "poster": "img/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0001.webp",
-    "associatedImage": null,
-    "images": [
-      {
-        "src": "img/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0001.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0002.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0003.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/ilustraciones/DanielaWeddings/image-simple.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/ilustraciones/DanielaWeddings/image-big.png",
-        "type": "image",
-        "format": "png"
-      }
-    ],
-    "lottie": null,
-    "lastModified": "2026-08-14T11:31:21.272407"
-  },
-  {
     "slug": "Gerencia produccion distintivo visual",
     "title": "Gerencia Produccion Distintivo Visual",
     "titleFromInfo": null,
@@ -817,63 +874,6 @@ const PROJECTS = [
     ],
     "lottie": null,
     "lastModified": "2026-08-14T11:31:21.268662"
-  },
-  {
-    "slug": "Logisfashion",
-    "title": "Logisfashion",
-    "titleFromInfo": null,
-    "category": "sistemas-de-diseno",
-    "categoryLabel": "Sistemas de Diseño",
-    "description": "Logisfashion — lineamientos UI y componentes: sistema creado desde sus cimientos utilizando variables y design tokens para sistematizar color, tipografía, espaciado y estados. El enfoque actual del proyecto integra herramientas de IA para automatizar la documentación y reducir la fricción en la entrega (handoff) hacia los desarrolladores. También se trabajó parte de las ilustraciones: \"si está la base inicial de diseño podemos crear el resto creativamente y con mayor intención\". Los componentes se documentan con su modo de uso y se entregan en formato de código para que cualquier desarrollador los utilice en su entorno. Tecnología: Angular Material. Solo para desktop.",
-    "url": null,
-    "github": null,
-    "image": "img/sistemas-de-diseno/Logisfashion/logisfasion-video.mp4",
-    "poster": "img/sistemas-de-diseno/Logisfashion/logis-1.webp",
-    "associatedImage": null,
-    "images": [
-      {
-        "src": "img/sistemas-de-diseno/Logisfashion/logisfasion-video.mp4",
-        "type": "video",
-        "mimeType": "video/mp4"
-      },
-      {
-        "src": "img/sistemas-de-diseno/Logisfashion/logis-1.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/sistemas-de-diseno/Logisfashion/logis-2.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/sistemas-de-diseno/Logisfashion/logis-3.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/sistemas-de-diseno/Logisfashion/logis-4.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/sistemas-de-diseno/Logisfashion/logis-componentes-1.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/sistemas-de-diseno/Logisfashion/logis-componentes-2.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/sistemas-de-diseno/Logisfashion/logis-componentes-3.webp",
-        "type": "image",
-        "format": "webp"
-      }
-    ],
-    "lottie": null,
-    "lastModified": "2026-08-14T11:31:21.252490"
   },
   {
     "slug": "Renting Colombia",

@@ -34,13 +34,35 @@ Imágenes y videos no se veían correctamente en dispositivos móviles.
   - Imágenes: .webp/.jpg primero, luego .png
 - Campos `mimeType` agregados automáticamente en el output
 
+### 5. Normalización real de video (2026-08-18)
+Los videos existentes tenían el codec correcto (H.264) pero fallaban en
+iOS/Android por dos causas reales, no solo de extensión:
+- `logisfasion-video.mp4` (59.8 MB) no tenía el átomo `moov` al inicio
+  (sin "faststart"), por lo que Safari/iOS no podía leer los metadatos
+  sin descargar el archivo completo.
+- Videos grandes sin compresión adecuada para redes móviles.
+
+Se agregó normalización real vía `ffmpeg` en `generate_projects.py`
+(funciones `optimize_videos_in_folder` / `optimize_video_for_mobile`):
+- Re-codifica cualquier video (.mp4, .mov, .webm, .ogg, .avi, .mkv) a
+  H.264 perfil baseline + AAC + `yuv420p` + `-movflags +faststart`.
+- Escala el lado más largo a máx. 1920px preservando orientación
+  (portrait/landscape), evitando aplastar videos verticales.
+- Marca cada archivo con metadato `comment=mobile_optimized_v1` para
+  no re-codificar en corridas futuras si ya está optimizado.
+- Requiere `ffmpeg`/`ffprobe` en PATH (si faltan, solo advierte y omite).
+
+Resultado: `logisfasion-video.mp4` bajó de 59.8 MB a 9.7 MB;
+`video_splash.mp4` bajó de 818 KB a 462 KB conservando su aspecto
+1124:2436 (quedó en 886x1920).
+
 ## Formatos Optimizados para Mobile
-- **Videos**: .mp4 (H.264) - Universal en iOS/Android
+- **Videos**: .mp4 (H.264 baseline + AAC + faststart) - Universal en iOS/Android
 - **Imágenes**: .webp, .jpg, .jpeg - Mejor compresión y soporte
 - **Fallback**: .png, .gif
 
 ## Videos Detectados y Optimizados
-1. `img/animaciones/EPM/video_splash.mp4` → mimeType: video/mp4
+1. `img/animaciones/Splash EPM/video_splash.mp4` → mimeType: video/mp4
 2. `img/sistemas-de-diseno/Logisfashion/logisfasion-video.mp4` → mimeType: video/mp4
 
 ## Cómo Regenerar
