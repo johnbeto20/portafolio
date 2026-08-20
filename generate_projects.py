@@ -143,26 +143,44 @@ def prettify_title(folder_name):
 
 
 def find_poster_image(folder):
-    """Busca una imagen poster en la carpeta del proyecto.
-    Prioriza archivos con nombres comunes (poster, cover, thumbnail, etc.)
-    Si no encuentra, usa la primera imagen encontrada.
+    """Busca una imagen poster DEDICADA en la carpeta del proyecto (nombre
+    que coincide con un patron conocido: poster, cover, thumbnail, etc.).
+
+    Si la carpeta tiene un video y ninguna imagen dedicada, se devuelve
+    None en vez de "la primera imagen encontrada": ese comportamiento hacia
+    que una imagen sin relacion con el video (ej. una captura de pantalla
+    suelta del proyecto) terminara como portada del video, y ademas de forma
+    inestable entre corridas porque el orden de folder.rglob() no esta
+    garantizado (puede cambiar al recrear archivos, como al convertir a WebP).
+    Para proyectos sin video (solo imagenes), se mantiene el fallback a la
+    primera imagen, pero ahora en orden alfabetico deterministico.
     """
     poster_candidates = []
     all_images = []
-    
+    video_stems = set()
+
     for path in folder.rglob("*"):
-        if path.is_file() and path.suffix.lower() in {".jpg", ".jpeg", ".png", ".gif", ".webp"}:
+        if not path.is_file():
+            continue
+        ext = path.suffix.lower()
+        if ext in VIDEO_EXTENSIONS:
+            video_stems.add(path.stem.lower())
+        elif ext in {".jpg", ".jpeg", ".png", ".gif", ".webp"}:
             all_images.append(path)
-            name_lower = path.stem.lower()
-            # Verificar si el nombre coincide con patrones de poster
-            if any(pattern in name_lower for pattern in POSTER_PATTERNS):
+            if any(pattern in path.stem.lower() for pattern in POSTER_PATTERNS):
                 poster_candidates.append(path)
-    
-    # Retornar la mejor opcion: poster dedicado o primera imagen
+
+    # Imagen con el mismo nombre que un video (ej. intro.mp4 + intro.jpg)
+    # es una senal de intencion tan fuerte como el nombre "poster/cover".
+    same_name_as_video = [img for img in all_images if img.stem.lower() in video_stems]
+    poster_candidates = same_name_as_video + poster_candidates
+
     if poster_candidates:
-        return poster_candidates[0]
-    elif all_images:
-        return all_images[0]
+        return sorted(poster_candidates, key=lambda p: str(p).lower())[0]
+    if video_stems:
+        return None
+    if all_images:
+        return sorted(all_images, key=lambda p: str(p).lower())[0]
     return None
 
 
@@ -551,38 +569,6 @@ def check_all_videos_for_mobile(folder):
     return results
 
 
-def find_video_with_poster(folder):
-    """Busca videos y sus posters en la carpeta del proyecto.
-    
-    Para cada video encontrado, verifica si existe una imagen poster
-    asociada. Si no, busca la primera imagen disponible como poster.
-    
-    Returns:
-        tuple: (videos_list, best_poster_path)
-            - videos_list: Lista de videos ordenados (mp4 primero)
-            - best_poster_path: Mejor imagen poster disponible
-    """
-    videos = []
-    all_images = []
-    
-    for path in folder.rglob("*"):
-        if not path.is_file():
-            continue
-        ext = path.suffix.lower()
-        if ext in VIDEO_EXTENSIONS:
-            videos.append(path)
-        elif ext in IMAGE_EXTENSIONS:
-            all_images.append(path)
-    
-    # Ordenar: mp4 primero (mejor compatibilidad mobile), luego otros
-    videos.sort(key=lambda p: (0 if p.suffix.lower() == ".mp4" else 1, str(p).lower()))
-    
-    # Buscar poster dedicado
-    poster = find_poster_image(folder)
-    
-    return videos, all_images, poster
-
-
 def get_video_mime_type(filepath):
     """Determina el tipo MIME correcto segun la extension del video.
     
@@ -596,45 +582,6 @@ def get_video_mime_type(filepath):
         ".ogg": "video/ogg",
     }
     return mime_map.get(ext, "")
-
-
-def get_optimal_poster_for_video(folder, video_path):
-    """Encuentra la mejor imagen poster para un video especifico.
-    
-    Prioridad:
-    1. Imagen con nombre que coincida con el video (sin extension)
-    2. Imagen con nombre poster/cover/thumbnail
-    3. Primera imagen jpg/jpeg disponible (mejor compatibilidad)
-    4. Cualquier otra imagen
-    
-    Returns:
-        Path or None: La mejor imagen poster encontrada.
-    """
-    video_stem = video_path.stem.lower()
-    
-    # 1. Buscar imagen con nombre similar al video
-    for ext in [".jpg", ".jpeg", ".png", ".webp", ".gif"]:
-        candidate = folder / f"{video_stem}{ext}"
-        if candidate.exists():
-            return candidate
-    
-    # 2. Buscar poster dedicado
-    poster = find_poster_image(folder)
-    if poster:
-        return poster
-    
-    # 3. Primera imagen jpg/jpeg (mejor compatibilidad mobile)
-    for ext in [".jpg", ".jpeg"]:
-        for path in folder.rglob(f"*{ext}"):
-            if path.is_file():
-                return path
-    
-    # 4. Cualquier imagen disponible
-    for path in folder.rglob("*"):
-        if path.is_file() and path.suffix.lower() in IMAGE_EXTENSIONS:
-            return path
-    
-    return None
 
 
 def is_video(path):
@@ -660,38 +607,25 @@ def find_lottie_animation(folder):
 
 def find_images(folder):
     """Encuentra imagenes y videos en la carpeta del proyecto.
-    
-    Optimizado para mobile:
-    - Videos .mp4 primero (mejor compatibilidad iOS/Android)
-    - Imagen poster: prioriza .jpg/.webp sobre .png
-    
+
+    Videos e imagenes se devuelven en una sola lista ordenada por nombre
+    de archivo, para que el orden de la galeria (y cual queda de portada)
+    respete el nombramiento usado en la carpeta, en vez de forzar los
+    videos siempre de primero sin importar como se hayan nombrado.
+
     Returns:
-        tuple: (videos_list, images_list)
-            - videos_list: Lista de videos ordenados (mp4 primero)
-            - images_list: Lista de imagenes ordenadas (optimizadas primero)
+        list[Path]: Videos e imagenes mezclados, ordenados por nombre.
     """
-    videos = []
-    images = []
-    
+    media = []
+
     for path in folder.rglob("*"):
         if path.is_file():
             ext = path.suffix.lower()
-            if ext in VIDEO_EXTENSIONS:
-                videos.append(path)
-            elif ext in IMAGE_EXTENSIONS:
-                images.append(path)
-    
-    # Videos: mp4 primero (mejor compatibilidad mobile)
-    videos.sort(key=lambda p: (0 if p.suffix.lower() == ".mp4" else 1, str(p.relative_to(folder)).lower()))
-    
-    # Imagenes: .webp y .jpg primero (mejor compresion y soporte mobile)
-    images.sort(key=lambda p: (
-        0 if p.suffix.lower() in {".webp", ".jpg", ".jpeg"} else
-        1 if p.suffix.lower() in {".png"} else 2,
-        str(p.relative_to(folder)).lower()
-    ))
-    
-    return videos, images
+            if ext in VIDEO_EXTENSIONS or ext in IMAGE_EXTENSIONS:
+                media.append(path)
+
+    media.sort(key=lambda p: str(p.relative_to(folder)).lower())
+    return media
 
 
 def has_sections(text):
@@ -1323,12 +1257,9 @@ def build_project(folder, category, totals=None):
             for rec in vr["recommendations"]:
                 print(f"    → {rec}")
     
-    # 4. Buscar imagenes y videos
-    videos, images = find_images(folder)
+    # 4. Buscar imagenes y videos (ya ordenados por nombre de archivo)
+    all_media = find_images(folder)
     poster = find_poster_image(folder)
-    
-    # Combinar videos e imagenes para la galeria
-    all_media = videos + images
 
     # Buscar animaciones Lottie (antes del gate: un proyecto solo-Lottie,
     # sin imagenes/videos estaticos, tambien debe generarse)

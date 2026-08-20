@@ -32,6 +32,160 @@ const PROJECT_CATEGORIES = [
 ];
 const PROJECTS = [
   {
+    "slug": "Animación e ilustración - ceiba 20 años",
+    "title": "Animación E Ilustración Ceiba 20 Años",
+    "titleFromInfo": null,
+    "category": "animaciones",
+    "categoryLabel": "Animaciones",
+    "description": "Para este Proyecto se crearon las ilustraciones, y luego se animaron, con el fin de tener escenas que mostraran la intención de cada recuadro. link del sitio:",
+    "url": "https://www.ceiba.com.co/conocenos/ceiba-aniversario-20/",
+    "github": null,
+    "image": "img/animaciones/Animación e ilustración - ceiba 20 años/00.imagen-destacada.webp",
+    "poster": null,
+    "associatedImage": null,
+    "images": [
+      {
+        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/00.imagen-destacada.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/01-Bocetos_Ceiba-20anios-27032025.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/01_1.mp4",
+        "type": "video",
+        "mimeType": "video/mp4"
+      },
+      {
+        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/02-Bocetos_Ceiba-20anios-27032025.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/02.mp4",
+        "type": "video",
+        "mimeType": "video/mp4"
+      },
+      {
+        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/03-Bocetos_Ceiba-20anios-27032025.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/03.mp4",
+        "type": "video",
+        "mimeType": "video/mp4"
+      },
+      {
+        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/04-Bocetos_Ceiba-20anios-27032025.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/04.mp4",
+        "type": "video",
+        "mimeType": "video/mp4"
+      },
+      {
+        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/05-Bocetos_Ceiba-20anios-27032025.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/05.mp4",
+        "type": "video",
+        "mimeType": "video/mp4"
+      }
+    ],
+    "lottie": null,
+    "lastModified": "2026-08-20T16:13:04.526009"
+  },
+  {
+    "slug": "agiles 2022",
+    "title": "Agiles 2022",
+    "titleFromInfo": null,
+    "category": "ilustraciones",
+    "categoryLabel": "Ilustraciones",
+    "description": "<p>El evento Ágiles Latinoamérica 2022 (#Ágiles2022) se realizó del 22 al 24 de septiembre de 2022 en el Centro de Convenciones de Armenia, Colombia. Fue el encuentro regional de la comunidad hispanohablante enfocado en compartir experiencias, prácticas y el intercambio de conocimientos sobre la agilidad de negocios y marcos de trabajo flexibles</p>\n<p>La idea en este caso era inspirar la biodiversidad, los paisajes y la cultura del Eje Cafetero de Colombia, región donde se celebró el evento (Armenia, Quindío).</p>\n<h2>Elementos Representativos de la Región</h2>\n<ul><li>Palmas de cera: Representan el árbol nacional de Colombia, característico del Valle de Cocora en el departamento del Quindío.</li><li>Guacamaya: Simboliza la enorme diversidad de aves y la riqueza natural de la fauna tropical del país.</li><li>Flor de heliconia: Refleja la flora típica de la región cafetera, aportando los colores vivos del paisaje local.</li><li>Hoja de café: La gran hoja verde que sirve de base para el texto \"Ágiles 2022\" rinde un homenaje directo a la tierra del café colombiana.</li></ul>",
+    "url": null,
+    "github": null,
+    "image": "img/ilustraciones/agiles 2022/Agiles-2022.webp",
+    "poster": "img/ilustraciones/agiles 2022/Agiles-2022.webp",
+    "associatedImage": null,
+    "images": [
+      {
+        "src": "img/ilustraciones/agiles 2022/Agiles-2022.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/agiles 2022/camisa-blanca-adelante.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/agiles 2022/camisa-blanca-atras.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/agiles 2022/camisa-negra-adelante.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/agiles 2022/escarapela-Agiles-2022.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/agiles 2022/PENDON.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/agiles 2022/resultados-evento-1.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/agiles 2022/resultados-evento-2.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/agiles 2022/resultados-evento-3.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/agiles 2022/resultados-evento-3.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/agiles 2022/resultados-evento-4.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/agiles 2022/resultados-evento-5.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/agiles 2022/resultados-evento-5.webp",
+        "type": "image",
+        "format": "webp"
+      }
+    ],
+    "lottie": null,
+    "lastModified": "2026-08-20T13:49:12.689801"
+  },
+  {
     "slug": "a.u.r.a.velas",
     "title": "A.u.r.a.velas",
     "titleFromInfo": null,
@@ -134,19 +288,19 @@ const PROJECTS = [
     "description": "<h2>Cargador para la aplicación Super App de EPM</h2>\n<p>Se creó un splash loader para la aplicación de Super App de EPM para mitigar la carga del Sistema y mostrar algo mas impactante al inicio para el usuario.</p>",
     "url": null,
     "github": null,
-    "image": "img/animaciones/Splash EPM/video_splash.mp4",
-    "poster": "img/animaciones/Splash EPM/base.webp",
+    "image": "img/animaciones/Splash EPM/base.webp",
+    "poster": null,
     "associatedImage": null,
     "images": [
-      {
-        "src": "img/animaciones/Splash EPM/video_splash.mp4",
-        "type": "video",
-        "mimeType": "video/mp4"
-      },
       {
         "src": "img/animaciones/Splash EPM/base.webp",
         "type": "image",
         "format": "webp"
+      },
+      {
+        "src": "img/animaciones/Splash EPM/video_splash.mp4",
+        "type": "video",
+        "mimeType": "video/mp4"
       }
     ],
     "lottie": null,
@@ -161,15 +315,10 @@ const PROJECTS = [
     "description": "Logisfashion — lineamientos UI y componentes: sistema creado desde sus cimientos utilizando variables y design tokens para sistematizar color, tipografía, espaciado y estados. El enfoque actual del proyecto integra herramientas de IA para automatizar la documentación y reducir la fricción en la entrega (handoff) hacia los desarrolladores. También se trabajó parte de las ilustraciones: \"si está la base inicial de diseño podemos crear el resto creativamente y con mayor intención\". Los componentes se documentan con su modo de uso y se entregan en formato de código para que cualquier desarrollador los utilice en su entorno. Tecnología: Angular Material. Solo para desktop.",
     "url": null,
     "github": null,
-    "image": "img/sistemas-de-diseno/Logisfashion/logisfasion-video.mp4",
-    "poster": "img/sistemas-de-diseno/Logisfashion/logis-1.webp",
+    "image": "img/sistemas-de-diseno/Logisfashion/logis-1.webp",
+    "poster": null,
     "associatedImage": null,
     "images": [
-      {
-        "src": "img/sistemas-de-diseno/Logisfashion/logisfasion-video.mp4",
-        "type": "video",
-        "mimeType": "video/mp4"
-      },
       {
         "src": "img/sistemas-de-diseno/Logisfashion/logis-1.webp",
         "type": "image",
@@ -204,6 +353,11 @@ const PROJECTS = [
         "src": "img/sistemas-de-diseno/Logisfashion/logis-componentes-3.webp",
         "type": "image",
         "format": "webp"
+      },
+      {
+        "src": "img/sistemas-de-diseno/Logisfashion/logisfasion-video.mp4",
+        "type": "video",
+        "mimeType": "video/mp4"
       }
     ],
     "lottie": null,
