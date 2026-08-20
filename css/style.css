@@ -1699,6 +1699,7 @@ body *::after {
 .project-detail-description ol {
     margin: 1em 0;
     padding-left: 2em;
+    list-style: initial;
 }
 
 .project-detail-description li {
