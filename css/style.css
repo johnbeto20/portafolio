@@ -689,6 +689,14 @@ body *::after {
     transform: translateX(4px);
 }
 
+.btn-link-icon {
+    width: 16px;
+    height: 16px;
+    margin-left: 0.5rem;
+    flex-shrink: 0;
+    vertical-align: middle;
+}
+
 .hero-scroll-indicator {
     position: absolute;
     bottom: var(--space-lg);

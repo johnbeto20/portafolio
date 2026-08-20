@@ -32,6 +32,58 @@ const PROJECT_CATEGORIES = [
 ];
 const PROJECTS = [
   {
+    "slug": "a.u.r.a.velas",
+    "title": "A.u.r.a.velas",
+    "titleFromInfo": null,
+    "category": "ilustraciones",
+    "categoryLabel": "Ilustraciones",
+    "description": "Este Proyecto fué muy chevere, ya que la idea inicial era solo un mapa de sueños, pero se construyó mas que eso, se crearon insumos para que la cliente pudiera manejar todo lo que se generó, desde elementos, ilustraciones y gráficas. No solo se realize el trabajo solicitado, se detectan oportunidades para el negocio y se complementan con insumos y ejecuciones que no demoran mucho en tener, como por ejemplo los logos en tonos de colores útiles para cualquier necesidad, colores definidos y plantillas para redes sociales, lo ideal es que todo insumo se pueda aprovechar desde su concepto y construcción. Instagram:",
+    "url": "https://www.instagram.com/a.u.r.a.velas?igsh=MWdoODdhZ3Q3MmdhdA==&igsi=MWdoODdhZ3Q3MmdhdA==",
+    "github": null,
+    "image": "img/ilustraciones/a.u.r.a.velas/boceto-aura-velas.webp",
+    "poster": "img/ilustraciones/a.u.r.a.velas/boceto-aura-velas.webp",
+    "associatedImage": null,
+    "images": [
+      {
+        "src": "img/ilustraciones/a.u.r.a.velas/boceto-aura-velas.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/a.u.r.a.velas/colores.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/a.u.r.a.velas/ilustraciones.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/a.u.r.a.velas/logo-estados.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/a.u.r.a.velas/mapa-de-sueños.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/a.u.r.a.velas/plantilla-1.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/ilustraciones/a.u.r.a.velas/plantilla-2.webp",
+        "type": "image",
+        "format": "webp"
+      }
+    ],
+    "lottie": null,
+    "lastModified": "2026-08-20T11:56:26.753135"
+  },
+  {
     "slug": "DanielaWeddings",
     "title": "Daniela Weddings",
     "titleFromInfo": null,
