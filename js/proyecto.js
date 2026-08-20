@@ -31,6 +31,43 @@
         return (html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
     }
 
+    // ============================================
+    // DETECCION DE PLATAFORMA PARA LINKS
+    // A partir del dominio del link (url/demo de info.txt) se elige una
+    // etiqueta e icono mas personalizados que el generico "VISITAR SITIO".
+    // ============================================
+    const LINK_PLATFORM_ICONS = {
+        instagram: '<svg class="btn-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>',
+        youtube: '<svg class="btn-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>',
+        linkedin: '<svg class="btn-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>',
+    };
+
+    const LINK_PLATFORMS = [
+        { host: /(^|\.)instagram\.com$/, label: 'VER INSTAGRAM', icon: LINK_PLATFORM_ICONS.instagram },
+        { host: /(^|\.)(youtube\.com|youtu\.be)$/, label: 'VER YOUTUBE', icon: LINK_PLATFORM_ICONS.youtube },
+        { host: /(^|\.)linkedin\.com$/, label: 'VER LINKEDIN', icon: LINK_PLATFORM_ICONS.linkedin },
+    ];
+
+    function getLinkVisual(url) {
+        let hostname = '';
+        try {
+            hostname = new URL(url).hostname.toLowerCase();
+        } catch (e) {
+            hostname = '';
+        }
+        const platform = LINK_PLATFORMS.find(p => p.host.test(hostname));
+        if (platform) {
+            return { label: platform.label, iconHtml: platform.icon };
+        }
+        return { label: 'VISITAR SITIO', iconHtml: '<span class="btn-arrow">↗</span>' };
+    }
+
+    function renderUrlButton(url) {
+        if (!url) return '';
+        const { label, iconHtml } = getLinkVisual(url);
+        return `<a class="btn btn-secondary magnetic-btn project-detail-link" href="${url}" target="_blank" rel="noopener noreferrer"><span class="btn-text">${label}</span>${iconHtml}</a>`;
+    }
+
     function updateMetaTags(project, displayTitle) {
         const plainDescription = (project.description || '')
             .replace(/<[^>]+>/g, ' ')
@@ -117,7 +154,7 @@
                     ${col.content}
                     ${col.url || col.github ? `
                         <div class="project-detail-links">
-                            ${col.url ? `<a class="btn btn-secondary magnetic-btn project-detail-link" href="${col.url}" target="_blank" rel="noopener noreferrer"><span class="btn-text">VISITAR SITIO</span><span class="btn-arrow">↗</span></a>` : ''}
+                            ${renderUrlButton(col.url)}
                             ${col.github ? `<a class="btn btn-secondary magnetic-btn project-detail-link" href="${col.github}" target="_blank" rel="noopener noreferrer"><span class="btn-text">VER EN GITHUB</span><i class="hgi hgi-stroke hgi-github-circle" style="margin-left: 0.5rem;"></i></a>` : ''}
                         </div>
                     ` : ''}
@@ -143,7 +180,7 @@
                 ${col.content}
                 ${col.url || col.github ? `
                     <div class="project-detail-links">
-                        ${col.url ? `<a class="btn btn-secondary magnetic-btn project-detail-link" href="${col.url}" target="_blank" rel="noopener noreferrer"><span class="btn-text">VISITAR SITIO</span><span class="btn-arrow">↗</span></a>` : ''}
+                        ${renderUrlButton(col.url)}
                         ${col.github ? `<a class="btn btn-secondary magnetic-btn project-detail-link" href="${col.github}" target="_blank" rel="noopener noreferrer"><span class="btn-text">VER EN GITHUB</span><i class="hgi hgi-stroke hgi-github-circle" style="margin-left: 0.5rem;"></i></a>` : ''}
                     </div>
                 ` : ''}
@@ -157,12 +194,7 @@
         
         let linksHtml = '<div class="project-detail-links">';
         if (url) {
-            linksHtml += `
-                <a class="btn btn-secondary magnetic-btn project-detail-link" href="${url}" target="_blank" rel="noopener noreferrer">
-                    <span class="btn-text">VISITAR SITIO</span>
-                    <span class="btn-arrow">↗</span>
-                </a>
-            `;
+            linksHtml += renderUrlButton(url);
         }
         if (github) {
             linksHtml += `
@@ -206,12 +238,7 @@
             return `
                 ${project.description ? `<div class="project-detail-description">${project.description}</div>` : ''}
                 <div class="project-detail-links">
-                    ${project.url ? `
-                        <a class="btn btn-secondary magnetic-btn project-detail-link" href="${project.url}" target="_blank" rel="noopener noreferrer">
-                            <span class="btn-text">VISITAR SITIO</span>
-                            <span class="btn-arrow">↗</span>
-                        </a>
-                    ` : ''}
+                    ${renderUrlButton(project.url)}
                     ${project.github ? `
                         <a class="btn btn-secondary magnetic-btn project-detail-link" href="${project.github}" target="_blank" rel="noopener noreferrer">
                             <span class="btn-text">VER EN GITHUB</span>
@@ -255,12 +282,7 @@
             return `
                 ${project.description ? `<div class="project-detail-description">${project.description}</div>` : ''}
                 <div class="project-detail-links">
-                    ${project.url ? `
-                        <a class="btn btn-secondary magnetic-btn project-detail-link" href="${project.url}" target="_blank" rel="noopener noreferrer">
-                            <span class="btn-text">VISITAR SITIO</span>
-                            <span class="btn-arrow">↗</span>
-                        </a>
-                    ` : ''}
+                    ${renderUrlButton(project.url)}
                     ${project.github ? `
                         <a class="btn btn-secondary magnetic-btn project-detail-link" href="${project.github}" target="_blank" rel="noopener noreferrer">
                             <span class="btn-text">VER EN GITHUB</span>
@@ -321,12 +343,7 @@
         return `
             ${project.description ? `<div class="project-detail-description">${project.description}</div>` : ''}
             <div class="project-detail-links">
-                ${project.url ? `
-                    <a class="btn btn-secondary magnetic-btn project-detail-link" href="${project.url}" target="_blank" rel="noopener noreferrer">
-                        <span class="btn-text">VISITAR SITIO</span>
-                        <span class="btn-arrow">↗</span>
-                    </a>
-                ` : ''}
+                ${renderUrlButton(project.url)}
                 ${project.github ? `
                     <a class="btn btn-secondary magnetic-btn project-detail-link" href="${project.github}" target="_blank" rel="noopener noreferrer">
                         <span class="btn-text">VER EN GITHUB</span>

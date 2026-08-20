@@ -19,3 +19,6 @@
 # Método Ceiba - Worktrees y script auxiliar
 ceiba-worktree.js
 /worktrees/
+
+# generate_projects.py - cache de huella para detectar cambios en img/
+.generate_projects_state.json

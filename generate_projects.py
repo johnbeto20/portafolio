@@ -39,9 +39,16 @@ import re
 import os
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 from datetime import datetime
 from PIL import Image
+
+# En consolas de Windows (cp1252) los print() con simbolos como checkmarks
+# o tildes lanzan UnicodeEncodeError a mitad de la ejecucion. Forzamos UTF-8.
+for _stream in (sys.stdout, sys.stderr):
+    if hasattr(_stream, "reconfigure"):
+        _stream.reconfigure(encoding="utf-8", errors="replace")
 
 # Las imagenes en img/ son assets propios y confiables (no uploads de
 # terceros), asi que desactivamos el limite de "decompression bomb" de
@@ -52,6 +59,7 @@ Image.MAX_IMAGE_PIXELS = None
 ROOT = Path(__file__).resolve().parent
 IMG_DIR = ROOT / "img"
 OUTPUT_FILE = ROOT / "js" / "projects-data.js"
+STATE_FILE = ROOT / ".generate_projects_state.json"
 
 # ============================================================
 # CONFIGURACION
@@ -728,8 +736,11 @@ def has_column_container(text):
             return True, column_content
     
     return False, None
+
+
+def split_sections(text):
     """Divide el texto en secciones separadas por ---.
-    
+
     Returns:
         list[str]: Lista de textos por seccion (sin los separadores ---)
     """
@@ -884,144 +895,6 @@ def clean_section_text(text):
         content_html = ' '.join(lines).strip()
     
     return {'content_html': content_html}
-    for header_level in [1, 2, 3]:
-        pattern = rf'^#{{{header_level}}}\s*(.+)$'
-        header_match = re.search(pattern, section_text, re.MULTILINE)
-        if header_match:
-            title_from_info = header_match.group(1).strip()
-            # Limpiar caracteres de markdown del titulo
-            title_from_info = re.sub(r'[#*_`]', '', title_from_info).strip()
-            # Remover dos puntos al final si existen (ej: "###Boton de enviar:" -> "Boton de enviar")
-            title_from_info = re.sub(r':\s*$', '', title_from_info).strip()
-            break
-    
-    # Remover lineas de etiquetas conocidas
-    cleaned_text = section_text
-    cleaned_text = re.sub(r'demo\s*:?\s*https?://\S+', '', cleaned_text, flags=re.I)
-    cleaned_text = re.sub(r'(?:link\s+)?github\s*:?\s*https?://\S+', '', cleaned_text, flags=re.I)
-    cleaned_text = re.sub(r'imagen\s*:?\s*\[?[^\]]+\]?', '', cleaned_text, flags=re.I)
-    cleaned_text = re.sub(r'https?://\S+', '', cleaned_text)
-    
-    # Limpiar lineas de etiquetas conocidas
-    cleaned_lines = []
-    for line in cleaned_text.splitlines():
-        stripped = line.strip()
-        if re.match(r'^(sitio web|website|link|url|demo|github|imagen)\s*:?\s*$', stripped, re.I):
-            continue
-        cleaned_lines.append(line)
-    
-    cleaned_text = '\n'.join(cleaned_lines).strip()
-    
-    # Detectar si el texto usa markdown
-    if detect_markdown(cleaned_text):
-        description = markdown_to_html(cleaned_text)
-    else:
-        lines = [line.strip() for line in cleaned_lines if line.strip()]
-        description = ' '.join(lines).strip()
-    
-    return description, title_from_info
-
-
-def parse_info_txt(folder):
-    """Parsea info.txt y detecta si usa markdown.
-    
-    Soporta etiquetas especiales:
-    - demo: URL del proyecto en vivo
-    - github: Link al repositorio
-    - imagen: Nombre de imagen asociada (sin ruta completa)
-    - link: URL alternativa
-    - # Titulo H1: Se extrae el primer H1 como titulo principal
-    
-    Busca info.txt en la carpeta del proyecto y sus subcarpetas.
-    
-    Si el archivo contiene markdown, lo convierte a HTML para renderizado.
-    Si no, mantiene el formato de texto plano original.
-    
-    Returns:
-        tuple: (description_html, title_from_info, demo_url, github_url, associated_image)
-    """
-    info_path = folder / "info.txt"
-    
-    # Si no existe en la carpeta raiz, buscar en subcarpetas
-    if not info_path.exists():
-        subfolders = list(folder.rglob("info.txt"))
-        if subfolders:
-            info_path = subfolders[0]  # Usar el primero encontrado
-        else:
-            return "", None, None, None, None
-
-    text = info_path.read_text(encoding="utf-8", errors="ignore").strip()
-    
-    # Extraer el primer encabezado como titulo principal (prioridad: H1 -> H2 -> H3)
-    title_from_info = None
-    for header_level in [1, 2, 3]:
-        pattern = rf'^#{{{header_level}}}\s+(.+)$'
-        header_match = re.search(pattern, text, re.MULTILINE)
-        if header_match:
-            title_from_info = header_match.group(1).strip()
-            # Limpiar caracteres de markdown del titulo
-            title_from_info = re.sub(r'[#*_`]', '', title_from_info).strip()
-            break  # Usar el primer encabezado encontrado
-    
-    # Extraer URLs con etiquetas especificas
-    demo_url = None
-    github_url = None
-    associated_image = None
-    
-    # Buscar etiquetas conocidas (case-insensitive) - soporta "link GitHub", "github", etc.
-    demo_match = re.search(r'demo\s*:?\s*(https?://\S+)', text, re.I)
-    if demo_match:
-        demo_url = demo_match.group(1).rstrip(".,")
-    
-    # Soporta "link GitHub:", "github:", "github link:", etc.
-    github_match = re.search(r'(?:link\s+)?github\s*:?\s*(https?://\S+)', text, re.I)
-    if github_match:
-        github_url = github_match.group(1).rstrip(".,")
-    
-    # Buscar imagen asociada - soporta "imagen:[archivo.png]" con corchetes
-    imagen_match = re.search(r'imagen\s*:?\s*\[?([^\]\s]+)\]?', text, re.I)
-    if imagen_match:
-        associated_image = imagen_match.group(1).strip()
-        # Si parece un nombre de archivo, limpiar extensiones de URL
-        if not associated_image.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')):
-            associated_image = None
-    
-    # Remover lineas de etiquetas para procesar el resto
-    cleaned_text = text
-    cleaned_text = re.sub(r'demo\s*:?\s*https?://\S+', '', cleaned_text, flags=re.I)
-    cleaned_text = re.sub(r'(?:link\s+)?github\s*:?\s*https?://\S+', '', cleaned_text, flags=re.I)
-    cleaned_text = re.sub(r'imagen\s*:?\s*\[?[^\]]+\]?', '', cleaned_text, flags=re.I)
-    
-    # Tambien extraer URL genérica (para compatibilidad con info.txt existentes)
-    url_match = re.search(r'https?://\S+', cleaned_text)
-    generic_url = url_match.group(0).rstrip(".,") if url_match else None
-    # Si no hay demo/github, usar la URL genérica como demo
-    if not demo_url and generic_url:
-        demo_url = generic_url
-    
-    cleaned_text = re.sub(r'https?://\S+', '', cleaned_text)
-    
-    # Limpiar lineas de etiquetas conocidas (pero preservar lineas vacias para markdown)
-    cleaned_lines = []
-    for line in cleaned_text.splitlines():
-        stripped = line.strip()
-        # Eliminar lineas que son solo etiquetas conocidas
-        if re.match(r'^(sitio web|website|link|url|demo|github|imagen)\s*:?\s*$', stripped, re.I):
-            continue
-        cleaned_lines.append(line)
-    
-    cleaned_text = '\n'.join(cleaned_lines).strip()
-    
-    # Detectar si el texto usa markdown
-    if detect_markdown(cleaned_text):
-        # Convertir markdown a HTML (preservando estructura de bloques)
-        description = markdown_to_html(cleaned_text)
-    else:
-        # Formato de texto plano (comportamiento original)
-        lines = [line.strip() for line in cleaned_lines if line.strip()]
-        description = ' '.join(lines).strip()
-    
-    return description, title_from_info, demo_url, github_url, associated_image
 
 
 def parse_info_txt_sections(folder):
@@ -1374,6 +1247,41 @@ def to_web_path(path):
     return path.relative_to(ROOT).as_posix()
 
 
+def scan_source_fingerprint():
+    """Recorre img/ y Certificados/ y arma una huella {ruta: [tamano, mtime]}.
+
+    Se usa para detectar si hay archivos nuevos, modificados o eliminados
+    desde la ultima ejecucion, y asi evitar reprocesar (WebP/ffmpeg) cuando
+    no hay nada que hacer.
+    """
+    fingerprint = {}
+    scan_dirs = [IMG_DIR, ROOT / "Certificados"]
+    for base_dir in scan_dirs:
+        if not base_dir.exists():
+            continue
+        for path in base_dir.rglob("*"):
+            if path.is_file():
+                stat = path.stat()
+                fingerprint[to_web_path(path)] = [stat.st_size, stat.st_mtime]
+    return fingerprint
+
+
+def load_previous_fingerprint():
+    if not STATE_FILE.exists():
+        return None
+    try:
+        return json.loads(STATE_FILE.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
+def save_fingerprint(fingerprint):
+    STATE_FILE.write_text(
+        json.dumps(fingerprint, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
 def build_project(folder, category, totals=None):
     """Construye uno o multiples proyectos desde una carpeta.
     
@@ -1598,11 +1506,21 @@ def main():
     """Funcion principal: escanea img/, convierte a WebP, valida videos, genera data."""
     if not IMG_DIR.exists():
         raise SystemExit(f"No se encontro la carpeta {IMG_DIR}")
-    
+
+    force = "--force" in sys.argv
+
+    current_fingerprint = scan_source_fingerprint()
+    previous_fingerprint = load_previous_fingerprint()
+
+    if not force and OUTPUT_FILE.exists() and current_fingerprint == previous_fingerprint:
+        print("Sin cambios en img/ o Certificados/ desde la ultima ejecucion: se omite.")
+        print(f"(Usa --force para regenerar de todas formas, o borra {STATE_FILE.name})")
+        return
+
     print("="*60)
     print("PORTAFOLIO - OPTIMIZACION MOBILE")
     print("="*60)
-    
+
     projects = []
     totals = {
         "webp_converted": 0,
@@ -1699,6 +1617,10 @@ def main():
     
     for project in projects:
         print(f"  - [{project['categoryLabel']}] {project['title']} ({len(project['images'])} archivo(s))")
+
+    # Guardar la huella final (post-optimizacion) para poder omitir la
+    # proxima ejecucion si no hay archivos nuevos/diferentes en img/ o Certificados/.
+    save_fingerprint(scan_source_fingerprint())
 
 
 if __name__ == "__main__":
