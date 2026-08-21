@@ -3,8 +3,8 @@
 Escanea la carpeta img/ y genera js/projects-data.js con la lista de
 proyectos para proyectos.html y proyecto.html.
 
-Uso:
-    python generate_projects.py
+Uso (desde la raiz del proyecto):
+    python scripts/generate_projects.py
 
 Estructura esperada:
     img/<categoria>/<proyecto>/...imagenes...
@@ -56,10 +56,10 @@ for _stream in (sys.stdout, sys.stderr):
 # resolucion de impresion) ni siquiera se pueden abrir para reescalarlos.
 Image.MAX_IMAGE_PIXELS = None
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 IMG_DIR = ROOT / "img"
 OUTPUT_FILE = ROOT / "js" / "projects-data.js"
-STATE_FILE = ROOT / ".generate_projects_state.json"
+STATE_FILE = Path(__file__).resolve().parent / ".generate_projects_state.json"
 
 # ============================================================
 # CONFIGURACION

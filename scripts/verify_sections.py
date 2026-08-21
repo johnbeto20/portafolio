@@ -1,7 +1,10 @@
 import json
 import re
+from pathlib import Path
 
-with open('js/projects-data.js', encoding='utf-8') as f:
+ROOT = Path(__file__).resolve().parent.parent
+
+with open(ROOT / 'js' / 'projects-data.js', encoding='utf-8') as f:
     content = f.read()
 
 # Extract the JSON part - find PROJECTS array
