@@ -3,15 +3,15 @@
 Elimina imágenes originales (.png, .jpg, .jpeg) cuando existe
 una versión .webp con el mismo nombre en la misma carpeta.
 
-Uso:
-    python cleanup_duplicates.py
+Uso (desde la raiz del proyecto):
+    python scripts/cleanup_duplicates.py
 
 Esto deja solo las versiones .webp optimizadas.
 """
 
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 IMG_DIR = ROOT / "img"
 CERTIFICADOS = ROOT / "Certificados"
 
