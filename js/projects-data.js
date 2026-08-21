@@ -32,6 +32,98 @@ const PROJECT_CATEGORIES = [
 ];
 const PROJECTS = [
   {
+    "slug": "Rally System",
+    "title": "Rally System",
+    "titleFromInfo": null,
+    "category": "aplicaciones-y-sitios-web",
+    "categoryLabel": "Aplicaciones y Sitios Web",
+    "description": "Proyecto para rally en aplicación. Link del prototipo interactivo:",
+    "url": "https://xd.adobe.com/view/b2cddfbe-3539-4bd0-8314-bf6d631f69f8-e79e/",
+    "github": null,
+    "image": "img/aplicaciones-y-sitios-web/Rally System/01. Home.webp",
+    "poster": "img/aplicaciones-y-sitios-web/Rally System/01. Home.webp",
+    "associatedImage": null,
+    "images": [
+      {
+        "src": "img/aplicaciones-y-sitios-web/Rally System/01. Home.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/Rally System/02. Mode – 1.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/Rally System/Active – 2.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/Rally System/Active – 3.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/Rally System/Active.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/Rally System/change road.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/Rally System/Console contraste.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/Rally System/Console – habilitado – contraste.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/Rally System/Console – habilitado.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/Rally System/Console.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/Rally System/Details.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/Rally System/Judge.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/Rally System/Readbook –  habilitado.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/Rally System/Readbook.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/aplicaciones-y-sitios-web/Rally System/Settings.webp",
+        "type": "image",
+        "format": "webp"
+      }
+    ],
+    "lottie": null,
+    "lastModified": "2026-08-21T08:53:03.220984"
+  },
+  {
     "slug": "a.u.r.a.velas",
     "title": "A.u.r.a.velas",
     "titleFromInfo": null,
