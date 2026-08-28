@@ -1905,6 +1905,9 @@ body *::after {
     /* Mobile video fixes */
     max-width: 100%;
     height: auto;
+}
+
+.project-bento-single video {
     background: #000;
 }
 
@@ -1985,9 +1988,12 @@ body *::after {
     transition: opacity 0.4s ease;
     /* Mobile video fixes */
     max-width: 100%;
-    background: #000;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+}
+
+.bento-cell video {
+    background: #000;
 }
 
 .bento-cell img.is-loaded,
@@ -2408,10 +2414,13 @@ body *::after {
     border: 1px solid var(--color-border);
     transform-origin: center center;
     will-change: transform;
-    /* Mobile video fixes */
-    background: #000;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+}
+
+.lightbox-media video {
+    /* Mobile video fixes */
+    background: #000;
 }
 
 .lightbox-media img {

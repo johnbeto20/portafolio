@@ -32,6 +32,38 @@ const PROJECT_CATEGORIES = [
 ];
 const PROJECTS = [
   {
+    "slug": "cargador logisfashion",
+    "title": "Cargador Logisfashion",
+    "titleFromInfo": null,
+    "category": "animaciones",
+    "categoryLabel": "Animaciones",
+    "description": "Un negocio de distribución y almacenamiento de paquetes tiene proceso muy extenso, con el objetivo de mostrar una carga mas amigable en estos proceso se crearon varios cargadores, uno general, otro enfocado a blackfriday que fué una solicitud muy especifica, y otro para Halloween, en estos dos son similares ya que querian mantener el mismo cargador solo que agregando detalles que involucrara mas al personaje segun la fecha especial.",
+    "url": null,
+    "github": null,
+    "image": "img/animaciones/cargador logisfashion/01.spinner_preloadBlackFriday_logisfashion_28102024.gif",
+    "poster": "img/animaciones/cargador logisfashion/01.spinner_preloadBlackFriday_logisfashion_28102024.gif",
+    "associatedImage": null,
+    "images": [
+      {
+        "src": "img/animaciones/cargador logisfashion/01.spinner_preloadBlackFriday_logisfashion_28102024.gif",
+        "type": "image",
+        "format": "gif"
+      },
+      {
+        "src": "img/animaciones/cargador logisfashion/insumos_preloadBlackFriday_logisfashion_28102024.gif",
+        "type": "image",
+        "format": "gif"
+      },
+      {
+        "src": "img/animaciones/cargador logisfashion/spinner_LOGISCORE.gif",
+        "type": "image",
+        "format": "gif"
+      }
+    ],
+    "lottie": null,
+    "lastModified": "2026-08-28T12:04:51.460854"
+  },
+  {
     "slug": "Rally System",
     "title": "Rally System",
     "titleFromInfo": null,
