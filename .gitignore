@@ -29,3 +29,11 @@ __pycache__/
 
 # Logs
 console_shader.log
+
+# Método Ceiba - Worktrees y script auxiliar
+.claude/log-agent-activity.ps1
+.claude/log-agent-activity.sh
+.claude/settings.json
+.github/hooks/agent-activity.json
+.github/log-agent-activity.ps1
+.github/log-agent-activity.sh

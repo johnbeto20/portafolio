@@ -32,6 +32,20 @@ const PROJECT_CATEGORIES = [
 ];
 const PROJECTS = [
   {
+    "slug": "certificado-figma-platzi-2026",
+    "title": "Certificado Figma Platzi 2026",
+    "category": "certificados",
+    "categoryLabel": "Certificados",
+    "description": "",
+    "url": null,
+    "image": "Certificados/certificado-figma-platzi-2026.pdf",
+    "images": [
+      "Certificados/certificado-figma-platzi-2026.pdf"
+    ],
+    "file_type": "pdf",
+    "lastModified": "2026-10-21T20:50:32.023341"
+  },
+  {
     "slug": "cargador logisfashion",
     "title": "Cargador Logisfashion",
     "titleFromInfo": null,
