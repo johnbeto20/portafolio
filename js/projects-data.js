@@ -32,6 +32,28 @@ const PROJECT_CATEGORIES = [
 ];
 const PROJECTS = [
   {
+    "slug": "Cuponera EPM",
+    "title": "Cuponera EPM",
+    "titleFromInfo": null,
+    "category": "animaciones",
+    "categoryLabel": "Animaciones",
+    "description": "<h2>Cargador para la cuponera de EPM</h2>\n<p>Se creó un cargador amigable para las cuponeras de EPM, con el fin de mitigar la carga del Sistema y mostrar algo mas impactante al inicio para el usuario.</p>",
+    "url": null,
+    "github": null,
+    "image": "img/animaciones/Cuponera EPM/image-cuponera.webp",
+    "poster": "img/animaciones/Cuponera EPM/image-cuponera.webp",
+    "associatedImage": null,
+    "images": [
+      {
+        "src": "img/animaciones/Cuponera EPM/image-cuponera.webp",
+        "type": "image",
+        "format": "webp"
+      }
+    ],
+    "lottie": "img/animaciones/Cuponera EPM/loader.json",
+    "lastModified": "2026-10-29T11:24:21.000946"
+  },
+  {
     "slug": "certificado-figma-platzi-2026",
     "title": "Certificado Figma Platzi 2026",
     "category": "certificados",

@@ -22,7 +22,6 @@ function onScroll(callback) {
 
 document.addEventListener('DOMContentLoaded', () => {
     initPreloader();
-    initCustomCursor();
     initNavbar();
     initScrollReveal();
     initWorkFilters();
@@ -54,53 +53,6 @@ function initPreloader() {
             progressBar.style.width = progress + '%';
         }
     }, 200);
-}
-
-// ========== CUSTOM CURSOR ==========
-function initCustomCursor() {
-    const cursor = document.getElementById('cursor');
-    const follower = document.getElementById('cursorFollower');
-    
-    if (!cursor || !follower) return;
-    
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-    let followerX = 0, followerY = 0;
-    
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-    });
-    
-    function animate() {
-        // Cursor follows immediately (transform-only: keeps this off the layout/paint path)
-        cursorX += (mouseX - cursorX) * 0.2;
-        cursorY += (mouseY - cursorY) * 0.2;
-        cursor.style.setProperty('--cursor-x', cursorX + 'px');
-        cursor.style.setProperty('--cursor-y', cursorY + 'px');
-
-        // Follower follows with a slight delay (tighter than before)
-        followerX += (mouseX - followerX) * 0.25;
-        followerY += (mouseY - followerY) * 0.25;
-        follower.style.setProperty('--follower-x', followerX + 'px');
-        follower.style.setProperty('--follower-y', followerY + 'px');
-
-        requestAnimationFrame(animate);
-    }
-    animate();
-    
-    // Hover effects on interactive elements
-    const hoverElements = document.querySelectorAll('a, button, .work-card, .service-card, .filter-btn, .magnetic-btn');
-    hoverElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.classList.add('hover');
-            follower.classList.add('hover');
-        });
-        el.addEventListener('mouseleave', () => {
-            cursor.classList.remove('hover');
-            follower.classList.remove('hover');
-        });
-    });
 }
 
 // ========== NAVBAR ==========

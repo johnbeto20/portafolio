@@ -1,0 +1,3 @@
+##Cargador para la cuponera de EPM
+
+Se creó un cargador amigable para las cuponeras de EPM, con el fin de mitigar la carga del Sistema y mostrar algo mas impactante al inicio para el usuario.
