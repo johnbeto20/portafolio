@@ -77,9 +77,9 @@
             );
             float f = fbm(p + 2.2 * r);
 
-            vec3 color = mix(u_base, u_blue, clamp(f * f * 3.0, 0.0, 1.0));
-            color = mix(color, u_orange, clamp(length(q) * 0.9, 0.0, 1.0));
-            color = mix(color, u_glow, clamp(pow(length(r), 2.0) * 0.6, 0.0, 1.0));
+            vec3 color = mix(u_base, u_blue, clamp(f * f * 4.5, 0.0, 1.0));
+            color = mix(color, u_orange, clamp(length(q) * 1.15, 0.0, 1.0));
+            color = mix(color, u_glow, clamp(pow(length(r), 2.0) * 0.85, 0.0, 1.0));
 
             gl_FragColor = vec4(color, 1.0);
         }
