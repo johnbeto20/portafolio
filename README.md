@@ -30,12 +30,20 @@ portafolio/
 │   ├── projects-data.js # Datos generados (no editar a mano)
 │   ├── hero-shader.js  # Hero con shader
 │   └── lottie-helper.js # Animaciones Lottie
-├── img/                # Assets por categoria (una carpeta por proyecto)
-├── Certificados/       # Imagenes de certificados
-└── scripts/
-    ├── generate_projects.py  # Genera js/projects-data.js desde img/
-    ├── cleanup_duplicates.py # Elimina originales cuando existe .webp
-    └── verify_sections.py    # Verifica secciones de proyectos generados
+├── img/
+│   ├── proyectos/      # Categorias de portafolio (una carpeta por proyecto)
+│   │   └── <categoria>/<proyecto>/  # Imagenes + info.txt por proyecto
+│   ├── mentoria/       # Imagenes estaticas de mentoria.html
+│   ├── brand/          # Assets del sitio: favicon, apple-touch, og, foto personal
+│   └── src/            # Fuentes originales no publicadas
+├── Certificados/       # PDF/imagenes de certificados
+├── build/              # Pipeline de renderizado automatico
+│   ├── config/
+│   │   └── site_config.py # Config central: rutas y categorias (fuente de verdad)
+│   ├── generate_projects.py  # Genera js/projects-data.js desde img/proyectos/
+│   ├── cleanup_duplicates.py # Elimina originales cuando existe .webp
+│   └── qa/
+│       └── verify_sections.py # Verifica secciones de proyectos generados
 ```
 
 ## Navegación
@@ -47,15 +55,19 @@ portafolio/
 - **Mentoría** — Servicios de mentoría
 - **Quien Soy** — Página personal con habilidades y experiencia
 
-## Scripts de mantenimiento
+## Pipeline de renderizado automático (`build/`)
 
-Los scripts viven en `scripts/` y se ejecutan desde la raiz del proyecto:
+Los scripts viven en `build/` y se ejecutan desde la raiz del proyecto.
+Rutas y categorias se configuran en **`build/config/site_config.py`** (fuente unica de verdad):
 
 ```bash
-python scripts/generate_projects.py   # Regenera js/projects-data.js (convierte a webp y normaliza video)
-python scripts/cleanup_duplicates.py  # Elimina .png/.jpg duplicados si ya hay .webp
-python scripts/verify_sections.py     # Verifica secciones en los datos generados
+python build/generate_projects.py   # Regenera js/projects-data.js (convierte a webp y normaliza video)
+python build/cleanup_duplicates.py  # Elimina .png/.jpg duplicados si ya hay .webp
+python build/qa/verify_sections.py  # Verifica secciones en los datos generados
 ```
+
+- `generate_projects.py` escanea `img/proyectos/<categoria>/<proyecto>/`, convierte imagenes a WebP, normaliza videos a H.264/AAC y escribe `js/projects-data.js`.
+- `--force` obliga a reprocesar aunque no haya cambios (o borra `build/.generate_projects_state.json`).
 
 ## Características
 
@@ -98,7 +110,7 @@ Modificar las variables CSS en `css/style.css`:
 ```
 
 ### Imágenes de proyectos
-Cada proyecto es una carpeta dentro de `img/<categoria>/<proyecto>/` con sus imágenes y un `info.txt` (URL + descripción). Después ejecutar `python scripts/generate_projects.py` para regenerar `js/projects-data.js`. Reemplazar los `card-image-placeholder` con imágenes reales:
+Cada proyecto es una carpeta dentro de `img/proyectos/<categoria>/<proyecto>/` con sus imágenes y un `info.txt` (URL + descripción). Después ejecutar `python build/generate_projects.py` para regenerar `js/projects-data.js`. Para crear una categoría nueva: crear la carpeta en `img/proyectos/` y registrarla en `build/config/site_config.py`. Reemplazar los `card-image-placeholder` con imágenes reales:
 
 ```html
 <div class="card-image">

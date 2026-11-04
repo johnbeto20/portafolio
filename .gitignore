@@ -20,8 +20,8 @@
 ceiba-worktree.js
 /worktrees/
 
-# scripts/generate_projects.py - cache de huella para detectar cambios en img/
-scripts/.generate_projects_state.json
+# build/generate_projects.py - cache de huella para detectar cambios en img/proyectos/
+build/.generate_projects_state.json
 
 # Python
 __pycache__/

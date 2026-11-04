@@ -32,6 +32,78 @@ const PROJECT_CATEGORIES = [
 ];
 const PROJECTS = [
   {
+    "slug": "agiles 2022",
+    "title": "Agiles 2022",
+    "titleFromInfo": null,
+    "category": "ilustraciones",
+    "categoryLabel": "Ilustraciones",
+    "description": "<p>El evento Ágiles Latinoamérica 2022 (#Ágiles2022) se realizó del 22 al 24 de septiembre de 2022 en el Centro de Convenciones de Armenia, Colombia. Fue el encuentro regional de la comunidad hispanohablante enfocado en compartir experiencias, prácticas y el intercambio de conocimientos sobre la agilidad de negocios y marcos de trabajo flexibles</p>\n<p>La idea en este caso era inspirar la biodiversidad, los paisajes y la cultura del Eje Cafetero de Colombia, región donde se celebró el evento (Armenia, Quindío).</p>\n<h2>Elementos Representativos de la Región</h2>\n<ul><li>Palmas de cera: Representan el árbol nacional de Colombia, característico del Valle de Cocora en el departamento del Quindío.</li><li>Guacamaya: Simboliza la enorme diversidad de aves y la riqueza natural de la fauna tropical del país.</li><li>Flor de heliconia: Refleja la flora típica de la región cafetera, aportando los colores vivos del paisaje local.</li><li>Hoja de café: La gran hoja verde que sirve de base para el texto \"Ágiles 2022\" rinde un homenaje directo a la tierra del café colombiana.</li></ul>",
+    "url": null,
+    "github": null,
+    "image": "img/proyectos/ilustraciones/agiles 2022/Agiles-2022.webp",
+    "poster": "img/proyectos/ilustraciones/agiles 2022/Agiles-2022.webp",
+    "associatedImage": null,
+    "images": [
+      {
+        "src": "img/proyectos/ilustraciones/agiles 2022/Agiles-2022.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/proyectos/ilustraciones/agiles 2022/camisa-blanca-adelante.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/proyectos/ilustraciones/agiles 2022/camisa-blanca-atras.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/proyectos/ilustraciones/agiles 2022/camisa-negra-adelante.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/proyectos/ilustraciones/agiles 2022/escarapela-Agiles-2022.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/proyectos/ilustraciones/agiles 2022/PENDON.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/proyectos/ilustraciones/agiles 2022/resultados-evento-1.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/proyectos/ilustraciones/agiles 2022/resultados-evento-2.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/proyectos/ilustraciones/agiles 2022/resultados-evento-3.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/proyectos/ilustraciones/agiles 2022/resultados-evento-4.webp",
+        "type": "image",
+        "format": "webp"
+      },
+      {
+        "src": "img/proyectos/ilustraciones/agiles 2022/resultados-evento-5.webp",
+        "type": "image",
+        "format": "webp"
+      }
+    ],
+    "lottie": null,
+    "lastModified": "2026-11-04T11:25:10.057759"
+  },
+  {
     "slug": "Cuponera EPM",
     "title": "Cuponera EPM",
     "titleFromInfo": null,
@@ -40,17 +112,17 @@ const PROJECTS = [
     "description": "<h2>Cargador para la cuponera de EPM</h2>\n<p>Se creó un cargador amigable para las cuponeras de EPM, con el fin de mitigar la carga del Sistema y mostrar algo mas impactante al inicio para el usuario.</p>",
     "url": null,
     "github": null,
-    "image": "img/animaciones/Cuponera EPM/image-cuponera.webp",
-    "poster": "img/animaciones/Cuponera EPM/image-cuponera.webp",
+    "image": "img/proyectos/animaciones/Cuponera EPM/image-cuponera.webp",
+    "poster": "img/proyectos/animaciones/Cuponera EPM/image-cuponera.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/animaciones/Cuponera EPM/image-cuponera.webp",
+        "src": "img/proyectos/animaciones/Cuponera EPM/image-cuponera.webp",
         "type": "image",
         "format": "webp"
       }
     ],
-    "lottie": "img/animaciones/Cuponera EPM/loader.json",
+    "lottie": "img/proyectos/animaciones/Cuponera EPM/loader.json",
     "lastModified": "2026-10-29T11:24:21.000946"
   },
   {
@@ -76,22 +148,22 @@ const PROJECTS = [
     "description": "Un negocio de distribución y almacenamiento de paquetes tiene proceso muy extenso, con el objetivo de mostrar una carga mas amigable en estos proceso se crearon varios cargadores, uno general, otro enfocado a blackfriday que fué una solicitud muy especifica, y otro para Halloween, en estos dos son similares ya que querian mantener el mismo cargador solo que agregando detalles que involucrara mas al personaje segun la fecha especial.",
     "url": null,
     "github": null,
-    "image": "img/animaciones/cargador logisfashion/01.spinner_preloadBlackFriday_logisfashion_28102024.gif",
-    "poster": "img/animaciones/cargador logisfashion/01.spinner_preloadBlackFriday_logisfashion_28102024.gif",
+    "image": "img/proyectos/animaciones/cargador logisfashion/01.spinner_preloadBlackFriday_logisfashion_28102024.gif",
+    "poster": "img/proyectos/animaciones/cargador logisfashion/01.spinner_preloadBlackFriday_logisfashion_28102024.gif",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/animaciones/cargador logisfashion/01.spinner_preloadBlackFriday_logisfashion_28102024.gif",
+        "src": "img/proyectos/animaciones/cargador logisfashion/01.spinner_preloadBlackFriday_logisfashion_28102024.gif",
         "type": "image",
         "format": "gif"
       },
       {
-        "src": "img/animaciones/cargador logisfashion/insumos_preloadBlackFriday_logisfashion_28102024.gif",
+        "src": "img/proyectos/animaciones/cargador logisfashion/insumos_preloadBlackFriday_logisfashion_28102024.gif",
         "type": "image",
         "format": "gif"
       },
       {
-        "src": "img/animaciones/cargador logisfashion/spinner_LOGISCORE.gif",
+        "src": "img/proyectos/animaciones/cargador logisfashion/spinner_LOGISCORE.gif",
         "type": "image",
         "format": "gif"
       }
@@ -108,82 +180,82 @@ const PROJECTS = [
     "description": "Proyecto para rally en aplicación. Link del prototipo interactivo:",
     "url": "https://xd.adobe.com/view/b2cddfbe-3539-4bd0-8314-bf6d631f69f8-e79e/",
     "github": null,
-    "image": "img/aplicaciones-y-sitios-web/Rally System/01. Home.webp",
-    "poster": "img/aplicaciones-y-sitios-web/Rally System/01. Home.webp",
+    "image": "img/proyectos/aplicaciones-y-sitios-web/Rally System/01. Home.webp",
+    "poster": "img/proyectos/aplicaciones-y-sitios-web/Rally System/01. Home.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/aplicaciones-y-sitios-web/Rally System/01. Home.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/Rally System/01. Home.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/Rally System/02. Mode – 1.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/Rally System/02. Mode – 1.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/Rally System/Active – 2.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/Rally System/Active – 2.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/Rally System/Active – 3.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/Rally System/Active – 3.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/Rally System/Active.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/Rally System/Active.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/Rally System/change road.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/Rally System/change road.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/Rally System/Console contraste.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/Rally System/Console contraste.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/Rally System/Console – habilitado – contraste.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/Rally System/Console – habilitado – contraste.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/Rally System/Console – habilitado.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/Rally System/Console – habilitado.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/Rally System/Console.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/Rally System/Console.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/Rally System/Details.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/Rally System/Details.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/Rally System/Judge.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/Rally System/Judge.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/Rally System/Readbook –  habilitado.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/Rally System/Readbook –  habilitado.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/Rally System/Readbook.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/Rally System/Readbook.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/Rally System/Settings.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/Rally System/Settings.webp",
         "type": "image",
         "format": "webp"
       }
@@ -200,42 +272,42 @@ const PROJECTS = [
     "description": "Este Proyecto fué muy chevere, ya que la idea inicial era solo un mapa de sueños, pero se construyó mas que eso, se crearon insumos para que la cliente pudiera manejar todo lo que se generó, desde elementos, ilustraciones y gráficas. No solo se realize el trabajo solicitado, se detectan oportunidades para el negocio y se complementan con insumos y ejecuciones que no demoran mucho en tener, como por ejemplo los logos en tonos de colores útiles para cualquier necesidad, colores definidos y plantillas para redes sociales, lo ideal es que todo insumo se pueda aprovechar desde su concepto y construcción. Instagram:",
     "url": "https://www.instagram.com/a.u.r.a.velas?igsh=MWdoODdhZ3Q3MmdhdA==&igsi=MWdoODdhZ3Q3MmdhdA==",
     "github": null,
-    "image": "img/ilustraciones/a.u.r.a.velas/01.mapa-de-sueños.webp",
-    "poster": "img/ilustraciones/a.u.r.a.velas/01.mapa-de-sueños.webp",
+    "image": "img/proyectos/ilustraciones/a.u.r.a.velas/01.mapa-de-sueños.webp",
+    "poster": "img/proyectos/ilustraciones/a.u.r.a.velas/01.mapa-de-sueños.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/ilustraciones/a.u.r.a.velas/01.mapa-de-sueños.webp",
+        "src": "img/proyectos/ilustraciones/a.u.r.a.velas/01.mapa-de-sueños.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/a.u.r.a.velas/boceto-aura-velas.webp",
+        "src": "img/proyectos/ilustraciones/a.u.r.a.velas/boceto-aura-velas.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/a.u.r.a.velas/colores.webp",
+        "src": "img/proyectos/ilustraciones/a.u.r.a.velas/colores.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/a.u.r.a.velas/ilustraciones.webp",
+        "src": "img/proyectos/ilustraciones/a.u.r.a.velas/ilustraciones.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/a.u.r.a.velas/logo-estados.webp",
+        "src": "img/proyectos/ilustraciones/a.u.r.a.velas/logo-estados.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/a.u.r.a.velas/plantilla-1.webp",
+        "src": "img/proyectos/ilustraciones/a.u.r.a.velas/plantilla-1.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/a.u.r.a.velas/plantilla-2.webp",
+        "src": "img/proyectos/ilustraciones/a.u.r.a.velas/plantilla-2.webp",
         "type": "image",
         "format": "webp"
       }
@@ -252,150 +324,68 @@ const PROJECTS = [
     "description": "Para este Proyecto se crearon las ilustraciones, y luego se animaron, con el fin de tener escenas que mostraran la intención de cada recuadro. link del sitio:",
     "url": "https://www.ceiba.com.co/conocenos/ceiba-aniversario-20/",
     "github": null,
-    "image": "img/animaciones/Animación e ilustración - ceiba 20 años/00.imagen-destacada.webp",
+    "image": "img/proyectos/animaciones/Animación e ilustración - ceiba 20 años/00.imagen-destacada.webp",
     "poster": null,
     "associatedImage": null,
     "images": [
       {
-        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/00.imagen-destacada.webp",
+        "src": "img/proyectos/animaciones/Animación e ilustración - ceiba 20 años/00.imagen-destacada.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/01-Bocetos_Ceiba-20anios-27032025.webp",
+        "src": "img/proyectos/animaciones/Animación e ilustración - ceiba 20 años/01-Bocetos_Ceiba-20anios-27032025.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/01_1.mp4",
+        "src": "img/proyectos/animaciones/Animación e ilustración - ceiba 20 años/01_1.mp4",
         "type": "video",
         "mimeType": "video/mp4"
       },
       {
-        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/02-Bocetos_Ceiba-20anios-27032025.webp",
+        "src": "img/proyectos/animaciones/Animación e ilustración - ceiba 20 años/02-Bocetos_Ceiba-20anios-27032025.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/02.mp4",
+        "src": "img/proyectos/animaciones/Animación e ilustración - ceiba 20 años/02.mp4",
         "type": "video",
         "mimeType": "video/mp4"
       },
       {
-        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/03-Bocetos_Ceiba-20anios-27032025.webp",
+        "src": "img/proyectos/animaciones/Animación e ilustración - ceiba 20 años/03-Bocetos_Ceiba-20anios-27032025.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/03.mp4",
+        "src": "img/proyectos/animaciones/Animación e ilustración - ceiba 20 años/03.mp4",
         "type": "video",
         "mimeType": "video/mp4"
       },
       {
-        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/04-Bocetos_Ceiba-20anios-27032025.webp",
+        "src": "img/proyectos/animaciones/Animación e ilustración - ceiba 20 años/04-Bocetos_Ceiba-20anios-27032025.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/04.mp4",
+        "src": "img/proyectos/animaciones/Animación e ilustración - ceiba 20 años/04.mp4",
         "type": "video",
         "mimeType": "video/mp4"
       },
       {
-        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/05-Bocetos_Ceiba-20anios-27032025.webp",
+        "src": "img/proyectos/animaciones/Animación e ilustración - ceiba 20 años/05-Bocetos_Ceiba-20anios-27032025.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/animaciones/Animación e ilustración - ceiba 20 años/05.mp4",
+        "src": "img/proyectos/animaciones/Animación e ilustración - ceiba 20 años/05.mp4",
         "type": "video",
         "mimeType": "video/mp4"
       }
     ],
     "lottie": null,
     "lastModified": "2026-08-20T16:13:04.526009"
-  },
-  {
-    "slug": "agiles 2022",
-    "title": "Agiles 2022",
-    "titleFromInfo": null,
-    "category": "ilustraciones",
-    "categoryLabel": "Ilustraciones",
-    "description": "<p>El evento Ágiles Latinoamérica 2022 (#Ágiles2022) se realizó del 22 al 24 de septiembre de 2022 en el Centro de Convenciones de Armenia, Colombia. Fue el encuentro regional de la comunidad hispanohablante enfocado en compartir experiencias, prácticas y el intercambio de conocimientos sobre la agilidad de negocios y marcos de trabajo flexibles</p>\n<p>La idea en este caso era inspirar la biodiversidad, los paisajes y la cultura del Eje Cafetero de Colombia, región donde se celebró el evento (Armenia, Quindío).</p>\n<h2>Elementos Representativos de la Región</h2>\n<ul><li>Palmas de cera: Representan el árbol nacional de Colombia, característico del Valle de Cocora en el departamento del Quindío.</li><li>Guacamaya: Simboliza la enorme diversidad de aves y la riqueza natural de la fauna tropical del país.</li><li>Flor de heliconia: Refleja la flora típica de la región cafetera, aportando los colores vivos del paisaje local.</li><li>Hoja de café: La gran hoja verde que sirve de base para el texto \"Ágiles 2022\" rinde un homenaje directo a la tierra del café colombiana.</li></ul>",
-    "url": null,
-    "github": null,
-    "image": "img/ilustraciones/agiles 2022/Agiles-2022.webp",
-    "poster": "img/ilustraciones/agiles 2022/Agiles-2022.webp",
-    "associatedImage": null,
-    "images": [
-      {
-        "src": "img/ilustraciones/agiles 2022/Agiles-2022.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/ilustraciones/agiles 2022/camisa-blanca-adelante.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/ilustraciones/agiles 2022/camisa-blanca-atras.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/ilustraciones/agiles 2022/camisa-negra-adelante.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/ilustraciones/agiles 2022/escarapela-Agiles-2022.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/ilustraciones/agiles 2022/PENDON.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/ilustraciones/agiles 2022/resultados-evento-1.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/ilustraciones/agiles 2022/resultados-evento-2.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/ilustraciones/agiles 2022/resultados-evento-3.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/ilustraciones/agiles 2022/resultados-evento-3.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/ilustraciones/agiles 2022/resultados-evento-4.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/ilustraciones/agiles 2022/resultados-evento-5.webp",
-        "type": "image",
-        "format": "webp"
-      },
-      {
-        "src": "img/ilustraciones/agiles 2022/resultados-evento-5.webp",
-        "type": "image",
-        "format": "webp"
-      }
-    ],
-    "lottie": null,
-    "lastModified": "2026-08-20T13:49:12.689801"
   },
   {
     "slug": "DanielaWeddings",
@@ -406,32 +396,32 @@ const PROJECTS = [
     "description": "<h2>Aniversario Daniela Henao Weddings /A Decade as Art</h2>\n<p>Traducir una década de trayectoria en una identidad que no solo fuera estéticamente superior, sino que comunicara madurez, ambición y exclusividad.</p>\n<p>Como solución Un rediseño conceptual ayudado con inteligencia artificial, basado en la síntesis de símbolos. Trabajé elementos como el corazón anatómico, los pinceles y el reloj para crear un mapa simbólico de la marca. Cada trazo tipográfico y cada decisión de composición fue cuidadosamente seleccionada para transmitir un equilibrio entre la elegancia contemporánea y la calidez humana.</p>\n<p>Como resultado Un sistema visual flexible, \"limpio\" y con narrativa propia, diseñado para escalar en el mercado internacional y elevar el posicionamiento de la firma, reescrito manualmente a papel y lapiz para ser mas claros con la ilustracion solicitada.</p>",
     "url": "https://danielahenao.com/adecadeasart/",
     "github": null,
-    "image": "img/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0001.webp",
-    "poster": "img/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0001.webp",
+    "image": "img/proyectos/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0001.webp",
+    "poster": "img/proyectos/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0001.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0001.webp",
+        "src": "img/proyectos/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0001.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0002.webp",
+        "src": "img/proyectos/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0002.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0003.webp",
+        "src": "img/proyectos/ilustraciones/DanielaWeddings/ilustracion-aniversario-danielaweddings-logos-v2_page-0003.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/DanielaWeddings/image-big.webp",
+        "src": "img/proyectos/ilustraciones/DanielaWeddings/image-big.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/DanielaWeddings/image-simple.webp",
+        "src": "img/proyectos/ilustraciones/DanielaWeddings/image-simple.webp",
         "type": "image",
         "format": "webp"
       }
@@ -448,17 +438,17 @@ const PROJECTS = [
     "description": "<h2>Cargador para la aplicación Super App de EPM</h2>\n<p>Se creó un splash loader para la aplicación de Super App de EPM para mitigar la carga del Sistema y mostrar algo mas impactante al inicio para el usuario.</p>",
     "url": null,
     "github": null,
-    "image": "img/animaciones/Splash EPM/base.webp",
+    "image": "img/proyectos/animaciones/Splash EPM/base.webp",
     "poster": null,
     "associatedImage": null,
     "images": [
       {
-        "src": "img/animaciones/Splash EPM/base.webp",
+        "src": "img/proyectos/animaciones/Splash EPM/base.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/animaciones/Splash EPM/video_splash.mp4",
+        "src": "img/proyectos/animaciones/Splash EPM/video_splash.mp4",
         "type": "video",
         "mimeType": "video/mp4"
       }
@@ -475,47 +465,47 @@ const PROJECTS = [
     "description": "Logisfashion — lineamientos UI y componentes: sistema creado desde sus cimientos utilizando variables y design tokens para sistematizar color, tipografía, espaciado y estados. El enfoque actual del proyecto integra herramientas de IA para automatizar la documentación y reducir la fricción en la entrega (handoff) hacia los desarrolladores. También se trabajó parte de las ilustraciones: \"si está la base inicial de diseño podemos crear el resto creativamente y con mayor intención\". Los componentes se documentan con su modo de uso y se entregan en formato de código para que cualquier desarrollador los utilice en su entorno. Tecnología: Angular Material. Solo para desktop.",
     "url": null,
     "github": null,
-    "image": "img/sistemas-de-diseno/Logisfashion/logis-1.webp",
+    "image": "img/proyectos/sistemas-de-diseno/Logisfashion/logis-1.webp",
     "poster": null,
     "associatedImage": null,
     "images": [
       {
-        "src": "img/sistemas-de-diseno/Logisfashion/logis-1.webp",
+        "src": "img/proyectos/sistemas-de-diseno/Logisfashion/logis-1.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/sistemas-de-diseno/Logisfashion/logis-2.webp",
+        "src": "img/proyectos/sistemas-de-diseno/Logisfashion/logis-2.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/sistemas-de-diseno/Logisfashion/logis-3.webp",
+        "src": "img/proyectos/sistemas-de-diseno/Logisfashion/logis-3.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/sistemas-de-diseno/Logisfashion/logis-4.webp",
+        "src": "img/proyectos/sistemas-de-diseno/Logisfashion/logis-4.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/sistemas-de-diseno/Logisfashion/logis-componentes-1.webp",
+        "src": "img/proyectos/sistemas-de-diseno/Logisfashion/logis-componentes-1.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/sistemas-de-diseno/Logisfashion/logis-componentes-2.webp",
+        "src": "img/proyectos/sistemas-de-diseno/Logisfashion/logis-componentes-2.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/sistemas-de-diseno/Logisfashion/logis-componentes-3.webp",
+        "src": "img/proyectos/sistemas-de-diseno/Logisfashion/logis-componentes-3.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/sistemas-de-diseno/Logisfashion/logisfasion-video.mp4",
+        "src": "img/proyectos/sistemas-de-diseno/Logisfashion/logisfasion-video.mp4",
         "type": "video",
         "mimeType": "video/mp4"
       }
@@ -532,27 +522,27 @@ const PROJECTS = [
     "description": "producto digital para la inversión y venta de vienes raices.",
     "url": "https://www.propiapp.com/home-propiapp",
     "github": null,
-    "image": "img/aplicaciones-y-sitios-web/propiapp/propiapp-1.webp",
-    "poster": "img/aplicaciones-y-sitios-web/propiapp/propiapp-1.webp",
+    "image": "img/proyectos/aplicaciones-y-sitios-web/propiapp/propiapp-1.webp",
+    "poster": "img/proyectos/aplicaciones-y-sitios-web/propiapp/propiapp-1.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/aplicaciones-y-sitios-web/propiapp/propiapp-1.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/propiapp/propiapp-1.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/propiapp/propiapp-2.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/propiapp/propiapp-2.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/propiapp/propiapp-3.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/propiapp/propiapp-3.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/propiapp/propiapp-4.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/propiapp/propiapp-4.webp",
         "type": "image",
         "format": "webp"
       }
@@ -573,7 +563,7 @@ const PROJECTS = [
     "poster": null,
     "associatedImage": null,
     "images": [],
-    "lottie": "img/animaciones/Loader propiapp/loader.json",
+    "lottie": "img/proyectos/animaciones/Loader propiapp/loader.json",
     "lastModified": "2026-08-16T16:06:41.514516"
   },
   {
@@ -585,22 +575,22 @@ const PROJECTS = [
     "description": "<h1>Comfamiliar — Spinner de carga</h1>\n<p>Cargador realizado manualmente donde refleja la naturalidad del negocio, se plasma la idea en boceto, luego se digitaliza para finalmente ser animado.</p>",
     "url": null,
     "github": null,
-    "image": "img/animaciones/Loader Comfamiliar/boceto_comfamiliar_spinner.webp",
-    "poster": "img/animaciones/Loader Comfamiliar/boceto_comfamiliar_spinner.webp",
+    "image": "img/proyectos/animaciones/Loader Comfamiliar/boceto_comfamiliar_spinner.webp",
+    "poster": "img/proyectos/animaciones/Loader Comfamiliar/boceto_comfamiliar_spinner.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/animaciones/Loader Comfamiliar/boceto_comfamiliar_spinner.webp",
+        "src": "img/proyectos/animaciones/Loader Comfamiliar/boceto_comfamiliar_spinner.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/animaciones/Loader Comfamiliar/spinner_comfamiliar_tienda_de_servicios.webp",
+        "src": "img/proyectos/animaciones/Loader Comfamiliar/spinner_comfamiliar_tienda_de_servicios.webp",
         "type": "image",
         "format": "webp"
       }
     ],
-    "lottie": "img/animaciones/Loader Comfamiliar/loader.json",
+    "lottie": "img/proyectos/animaciones/Loader Comfamiliar/loader.json",
     "lastModified": "2026-08-14T11:31:21.310299"
   },
   {
@@ -612,67 +602,67 @@ const PROJECTS = [
     "description": "Simplex - XM: construcción de la línea gráfica de la interfaz y estandarización de la unidad gráfica del sistema de generación y gestión de casos. (2019 - actualidad, vía Ceiba Software)",
     "url": null,
     "github": null,
-    "image": "img/aplicaciones-y-sitios-web/SIMPLEX/00.dashboard-crear-caso-menu-hide.webp",
-    "poster": "img/aplicaciones-y-sitios-web/SIMPLEX/00.dashboard-crear-caso-menu-hide.webp",
+    "image": "img/proyectos/aplicaciones-y-sitios-web/SIMPLEX/00.dashboard-crear-caso-menu-hide.webp",
+    "poster": "img/proyectos/aplicaciones-y-sitios-web/SIMPLEX/00.dashboard-crear-caso-menu-hide.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/aplicaciones-y-sitios-web/SIMPLEX/00.dashboard-crear-caso-menu-hide.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/SIMPLEX/00.dashboard-crear-caso-menu-hide.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/SIMPLEX/01.dashboard-crear-caso.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/SIMPLEX/01.dashboard-crear-caso.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/SIMPLEX/02.dashboard-parametrizacion.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/SIMPLEX/02.dashboard-parametrizacion.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/SIMPLEX/03.dashboard-informacion-de-estudio.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/SIMPLEX/03.dashboard-informacion-de-estudio.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/SIMPLEX/04.dashboard-informacion-de-estudio-carga-masiva.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/SIMPLEX/04.dashboard-informacion-de-estudio-carga-masiva.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/SIMPLEX/05.dashboard-generar-caso-estudio.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/SIMPLEX/05.dashboard-generar-caso-estudio.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/SIMPLEX/06.dashboard-generar-caso-estudio-tooltip.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/SIMPLEX/06.dashboard-generar-caso-estudio-tooltip.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/SIMPLEX/07.dashboard-generar-caso-estudio-detalle.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/SIMPLEX/07.dashboard-generar-caso-estudio-detalle.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/SIMPLEX/08.dashboard-modal-1.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/SIMPLEX/08.dashboard-modal-1.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/SIMPLEX/09.dashboard-modal-2.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/SIMPLEX/09.dashboard-modal-2.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/SIMPLEX/10.dashboard-opciones-configuracion.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/SIMPLEX/10.dashboard-opciones-configuracion.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/SIMPLEX/10.iconografia-y-logo.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/SIMPLEX/10.iconografia-y-logo.webp",
         "type": "image",
         "format": "webp"
       }
@@ -689,17 +679,17 @@ const PROJECTS = [
     "description": "<h2>Targeta animada para Navidad</h2>\n<p>En pandemia se realiza un homenaje a celebrar la navidad desde la distancia, Se realiza primero el diseño y luego se lleva a ser animada y a agregar microinteracciones que capturen al usuario, interacciones de valor y que se puedan revivir momentos para recordar.</p>",
     "url": "https://johnbeto20.github.io/tarjetaCeibaNavidad/",
     "github": null,
-    "image": "img/aplicaciones-y-sitios-web/targeta-navidad-Ceiba/targeta-navidad-1.webp",
-    "poster": "img/aplicaciones-y-sitios-web/targeta-navidad-Ceiba/targeta-navidad-1.webp",
+    "image": "img/proyectos/aplicaciones-y-sitios-web/targeta-navidad-Ceiba/targeta-navidad-1.webp",
+    "poster": "img/proyectos/aplicaciones-y-sitios-web/targeta-navidad-Ceiba/targeta-navidad-1.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/aplicaciones-y-sitios-web/targeta-navidad-Ceiba/targeta-navidad-1.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/targeta-navidad-Ceiba/targeta-navidad-1.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/targeta-navidad-Ceiba/targeta-navidad-2.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/targeta-navidad-Ceiba/targeta-navidad-2.webp",
         "type": "image",
         "format": "webp"
       }
@@ -716,32 +706,32 @@ const PROJECTS = [
     "description": "",
     "url": null,
     "github": null,
-    "image": "img/aplicaciones-y-sitios-web/virtualHeald/00.index.webp",
-    "poster": "img/aplicaciones-y-sitios-web/virtualHeald/00.index.webp",
+    "image": "img/proyectos/aplicaciones-y-sitios-web/virtualHeald/00.index.webp",
+    "poster": "img/proyectos/aplicaciones-y-sitios-web/virtualHeald/00.index.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/aplicaciones-y-sitios-web/virtualHeald/00.index.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/virtualHeald/00.index.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/virtualHeald/01.perfil.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/virtualHeald/01.perfil.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/virtualHeald/02.historia.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/virtualHeald/02.historia.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/virtualHeald/03.interes.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/virtualHeald/03.interes.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/virtualHeald/04.programas.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/virtualHeald/04.programas.webp",
         "type": "image",
         "format": "webp"
       }
@@ -758,27 +748,27 @@ const PROJECTS = [
     "description": "",
     "url": null,
     "github": null,
-    "image": "img/aplicaciones-y-sitios-web/MAIA/arbol-v2.webp",
-    "poster": "img/aplicaciones-y-sitios-web/MAIA/arbol-v2.webp",
+    "image": "img/proyectos/aplicaciones-y-sitios-web/MAIA/arbol-v2.webp",
+    "poster": "img/proyectos/aplicaciones-y-sitios-web/MAIA/arbol-v2.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/aplicaciones-y-sitios-web/MAIA/arbol-v2.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/MAIA/arbol-v2.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/MAIA/dashboard.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/MAIA/dashboard.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/MAIA/image-tree-resolution.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/MAIA/image-tree-resolution.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/MAIA/resoluciones-porestado.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/MAIA/resoluciones-porestado.webp",
         "type": "image",
         "format": "webp"
       }
@@ -795,47 +785,47 @@ const PROJECTS = [
     "description": "<h2>Comfamiliar / Tienda de servicios</h2>\n<p>Propuesta inicial de la aplicación de tienda de servicios para comprar entradas para el centro recreativo de la caja de compensación familiar.</p>",
     "url": null,
     "github": null,
-    "image": "img/aplicaciones-y-sitios-web/comfamiliar/cunsultas-1.webp",
-    "poster": "img/aplicaciones-y-sitios-web/comfamiliar/cunsultas-1.webp",
+    "image": "img/proyectos/aplicaciones-y-sitios-web/comfamiliar/cunsultas-1.webp",
+    "poster": "img/proyectos/aplicaciones-y-sitios-web/comfamiliar/cunsultas-1.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/aplicaciones-y-sitios-web/comfamiliar/cunsultas-1.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/comfamiliar/cunsultas-1.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/comfamiliar/pagina-404.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/comfamiliar/pagina-404.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/comfamiliar/parametrizacion-servicios-11.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/comfamiliar/parametrizacion-servicios-11.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/comfamiliar/parametrizacion-servicios-12.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/comfamiliar/parametrizacion-servicios-12.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/comfamiliar/parametrizacion-servicios-13.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/comfamiliar/parametrizacion-servicios-13.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/comfamiliar/parametrizacion-servicios-14.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/comfamiliar/parametrizacion-servicios-14.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/comfamiliar/proceso-compra-rechazada.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/comfamiliar/proceso-compra-rechazada.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/comfamiliar/resumen-factura.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/comfamiliar/resumen-factura.webp",
         "type": "image",
         "format": "webp"
       }
@@ -852,37 +842,37 @@ const PROJECTS = [
     "description": "",
     "url": null,
     "github": null,
-    "image": "img/aplicaciones-y-sitios-web/GCA/propuestagrafica-home-gca.webp",
-    "poster": "img/aplicaciones-y-sitios-web/GCA/propuestagrafica-home-gca.webp",
+    "image": "img/proyectos/aplicaciones-y-sitios-web/GCA/propuestagrafica-home-gca.webp",
+    "poster": "img/proyectos/aplicaciones-y-sitios-web/GCA/propuestagrafica-home-gca.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/aplicaciones-y-sitios-web/GCA/propuestagrafica-home-gca.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/GCA/propuestagrafica-home-gca.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/GCA/propuestagrafica-home-submenu-gca.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/GCA/propuestagrafica-home-submenu-gca.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/GCA/propuestagrafica-interna-gca.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/GCA/propuestagrafica-interna-gca.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/GCA/propuestagrafica-itinerarios-gca.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/GCA/propuestagrafica-itinerarios-gca.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/GCA/propuestagrafica-nuestracompania-gca-09292018.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/GCA/propuestagrafica-nuestracompania-gca-09292018.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/aplicaciones-y-sitios-web/GCA/propuestagrafica-politicasdeequipaje-gca.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/GCA/propuestagrafica-politicasdeequipaje-gca.webp",
         "type": "image",
         "format": "webp"
       }
@@ -899,12 +889,12 @@ const PROJECTS = [
     "description": "",
     "url": null,
     "github": null,
-    "image": "img/aplicaciones-y-sitios-web/ceibaSoftware/sitio-web-ceiba-en-ingles.webp",
-    "poster": "img/aplicaciones-y-sitios-web/ceibaSoftware/sitio-web-ceiba-en-ingles.webp",
+    "image": "img/proyectos/aplicaciones-y-sitios-web/ceibaSoftware/sitio-web-ceiba-en-ingles.webp",
+    "poster": "img/proyectos/aplicaciones-y-sitios-web/ceibaSoftware/sitio-web-ceiba-en-ingles.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/aplicaciones-y-sitios-web/ceibaSoftware/sitio-web-ceiba-en-ingles.webp",
+        "src": "img/proyectos/aplicaciones-y-sitios-web/ceibaSoftware/sitio-web-ceiba-en-ingles.webp",
         "type": "image",
         "format": "webp"
       }
@@ -921,12 +911,12 @@ const PROJECTS = [
     "description": "",
     "url": null,
     "github": null,
-    "image": "img/disenio-grafico/ceibaSoftwareUX/ceiba-software-generandoestrategiasux.webp",
-    "poster": "img/disenio-grafico/ceibaSoftwareUX/ceiba-software-generandoestrategiasux.webp",
+    "image": "img/proyectos/disenio-grafico/ceibaSoftwareUX/ceiba-software-generandoestrategiasux.webp",
+    "poster": "img/proyectos/disenio-grafico/ceibaSoftwareUX/ceiba-software-generandoestrategiasux.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/disenio-grafico/ceibaSoftwareUX/ceiba-software-generandoestrategiasux.webp",
+        "src": "img/proyectos/disenio-grafico/ceibaSoftwareUX/ceiba-software-generandoestrategiasux.webp",
         "type": "image",
         "format": "webp"
       }
@@ -943,37 +933,37 @@ const PROJECTS = [
     "description": "<h2>portadas para fondos de pantalla</h2>\n<p>La empresa siempre se ha interesado por la creatividad y la forma en la que damos los mensajes a los empleados de que estamos alienados con los objetivos y valores de la compañia, por eso qué mas ganador que ilustrar una escenas que le den significado visual a los valores y de la empresa y plasmarlos en un fondo de pantalla que haga siempre un recuerdo para cada individuo.</p>",
     "url": null,
     "github": null,
-    "image": "img/ilustraciones/portadas/backgrounddefault-2.webp",
-    "poster": "img/ilustraciones/portadas/backgrounddefault-2.webp",
+    "image": "img/proyectos/ilustraciones/portadas/backgrounddefault-2.webp",
+    "poster": "img/proyectos/ilustraciones/portadas/backgrounddefault-2.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/ilustraciones/portadas/backgrounddefault-2.webp",
+        "src": "img/proyectos/ilustraciones/portadas/backgrounddefault-2.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/portadas/backgrounddefault-3.webp",
+        "src": "img/proyectos/ilustraciones/portadas/backgrounddefault-3.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/portadas/backgrounddefault-4.webp",
+        "src": "img/proyectos/ilustraciones/portadas/backgrounddefault-4.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/portadas/backgrounddefault.webp",
+        "src": "img/proyectos/ilustraciones/portadas/backgrounddefault.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/portadas/ceiba15.webp",
+        "src": "img/proyectos/ilustraciones/portadas/ceiba15.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/portadas/grafico-portadas.webp",
+        "src": "img/proyectos/ilustraciones/portadas/grafico-portadas.webp",
         "type": "image",
         "format": "webp"
       }
@@ -990,17 +980,17 @@ const PROJECTS = [
     "description": "<h2>Grupo SURA - Portal de Procesos Cobit</h2>\n<p>Siempre que se realiza una propuesta gráfica se comienza por un boceto para aterrizar mejor la idea antes de realizer la gráfica completa, se construyó un banner para la aplicación web del producto y acompañamiento en el entendimiento del negocio. (2017 - 2018)</p>",
     "url": null,
     "github": null,
-    "image": "img/ilustraciones/grupoSura/banner-gruposura-portal-proceso.webp",
-    "poster": "img/ilustraciones/grupoSura/banner-gruposura-portal-proceso.webp",
+    "image": "img/proyectos/ilustraciones/grupoSura/banner-gruposura-portal-proceso.webp",
+    "poster": "img/proyectos/ilustraciones/grupoSura/banner-gruposura-portal-proceso.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/ilustraciones/grupoSura/banner-gruposura-portal-proceso.webp",
+        "src": "img/proyectos/ilustraciones/grupoSura/banner-gruposura-portal-proceso.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/grupoSura/boceto-portalproceso-banner-05032018.webp",
+        "src": "img/proyectos/ilustraciones/grupoSura/boceto-portalproceso-banner-05032018.webp",
         "type": "image",
         "format": "webp"
       }
@@ -1017,72 +1007,72 @@ const PROJECTS = [
     "description": "<h2>Gerencia técnica / Distintivo visual / Ceiba Software</h2>\n<p>Siempre que se construye un distintivo visual se piensa en todo, desde la lluvia de ideas, es un ejercicio muy interesante, en qué frases lo acompañan, en qué souvenir puede ir el elemento.</p>",
     "url": null,
     "github": null,
-    "image": "img/ilustraciones/Gerencia técnica distintivo visual/a.distintivo-visual-gt-2.webp",
-    "poster": "img/ilustraciones/Gerencia técnica distintivo visual/a.distintivo-visual-gt-2.webp",
+    "image": "img/proyectos/ilustraciones/Gerencia técnica distintivo visual/a.distintivo-visual-gt-2.webp",
+    "poster": "img/proyectos/ilustraciones/Gerencia técnica distintivo visual/a.distintivo-visual-gt-2.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/ilustraciones/Gerencia técnica distintivo visual/a.distintivo-visual-gt-2.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia técnica distintivo visual/a.distintivo-visual-gt-2.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/Gerencia técnica distintivo visual/a.distintivo-visual-gt-3.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia técnica distintivo visual/a.distintivo-visual-gt-3.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/Gerencia técnica distintivo visual/a.distintivo-visual-gt-4.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia técnica distintivo visual/a.distintivo-visual-gt-4.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/Gerencia técnica distintivo visual/a.distintivo-visual-gt-5.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia técnica distintivo visual/a.distintivo-visual-gt-5.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/Gerencia técnica distintivo visual/a.distintivo-visual-gt.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia técnica distintivo visual/a.distintivo-visual-gt.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/Gerencia técnica distintivo visual/distintivogt_blanco__gerenciatecnica_17122020.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia técnica distintivo visual/distintivogt_blanco__gerenciatecnica_17122020.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/Gerencia técnica distintivo visual/distintivogt_fondo__gerenciatecnica_17122020.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia técnica distintivo visual/distintivogt_fondo__gerenciatecnica_17122020.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/Gerencia técnica distintivo visual/distintivogt_letras-negativo__gerenciatecnica_17122020.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia técnica distintivo visual/distintivogt_letras-negativo__gerenciatecnica_17122020.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/Gerencia técnica distintivo visual/distintivogt_letras-positivo__gerenciatecnica_17122020.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia técnica distintivo visual/distintivogt_letras-positivo__gerenciatecnica_17122020.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/Gerencia técnica distintivo visual/distintivogt_letras__gerenciatecnica_17122020.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia técnica distintivo visual/distintivogt_letras__gerenciatecnica_17122020.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/Gerencia técnica distintivo visual/propuestaencamisa-conletra.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia técnica distintivo visual/propuestaencamisa-conletra.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/Gerencia técnica distintivo visual/propuestaencamisa.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia técnica distintivo visual/propuestaencamisa.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/Gerencia técnica distintivo visual/propuestavistaenmug.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia técnica distintivo visual/propuestavistaenmug.webp",
         "type": "image",
         "format": "webp"
       }
@@ -1099,57 +1089,57 @@ const PROJECTS = [
     "description": "<h2>Convocatorias / superheroes y el monstruo que estamos buscando</h2>\n<p>ESte concepto de convocatorias me gusto mucho por que las publicaciones eran enfocadas a buscar el monstruo, el tezo para hacer las cosas, entonces buscamos muchas formas de llegar a las personas, enfocandonos en superheroes, teniamos un \"reclutador\" y en los monstruos fué una campana que se creo en la empresa, pero la forma de reclutar era como si cada monstruo estaba buscando segun el ambiente o rol que necesitabamos, entonces no se mostraba todo el monstruo completo, solo se veia completo al momento de estar en la empresa.</p>",
     "url": null,
     "github": null,
-    "image": "img/ilustraciones/convocatorias/01.q2gestionhumanaconvocatorias21052019.webp",
-    "poster": "img/ilustraciones/convocatorias/01.q2gestionhumanaconvocatorias21052019.webp",
+    "image": "img/proyectos/ilustraciones/convocatorias/01.q2gestionhumanaconvocatorias21052019.webp",
+    "poster": "img/proyectos/ilustraciones/convocatorias/01.q2gestionhumanaconvocatorias21052019.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/ilustraciones/convocatorias/01.q2gestionhumanaconvocatorias21052019.webp",
+        "src": "img/proyectos/ilustraciones/convocatorias/01.q2gestionhumanaconvocatorias21052019.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/convocatorias/02q3gestionhumanaconvocatorias20022019.webp",
+        "src": "img/proyectos/ilustraciones/convocatorias/02q3gestionhumanaconvocatorias20022019.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/convocatorias/04q4gestionhumanaconvocatorias12032019.webp",
+        "src": "img/proyectos/ilustraciones/convocatorias/04q4gestionhumanaconvocatorias12032019.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/convocatorias/05q3gestionhumanaconvocatorias25022019.webp",
+        "src": "img/proyectos/ilustraciones/convocatorias/05q3gestionhumanaconvocatorias25022019.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/convocatorias/convocatoria-coachtecnicoios-ceibasoftware-facebook.webp",
+        "src": "img/proyectos/ilustraciones/convocatorias/convocatoria-coachtecnicoios-ceibasoftware-facebook.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/convocatorias/convocatoria-coachtecnicojava-ceibasoftware-facebook.webp",
+        "src": "img/proyectos/ilustraciones/convocatorias/convocatoria-coachtecnicojava-ceibasoftware-facebook.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/convocatorias/convocatoria-desarrolladores-golang-facebook.webp",
+        "src": "img/proyectos/ilustraciones/convocatorias/convocatoria-desarrolladores-golang-facebook.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/convocatorias/convocatoria-devopsautomation-ceibasoftware-facebook.webp",
+        "src": "img/proyectos/ilustraciones/convocatorias/convocatoria-devopsautomation-ceibasoftware-facebook.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/convocatorias/facebook.webp",
+        "src": "img/proyectos/ilustraciones/convocatorias/facebook.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/convocatorias/vacante-desarrolladores-phyton-facebook.webp",
+        "src": "img/proyectos/ilustraciones/convocatorias/vacante-desarrolladores-phyton-facebook.webp",
         "type": "image",
         "format": "webp"
       }
@@ -1166,32 +1156,32 @@ const PROJECTS = [
     "description": "<h2>Gerencia de producción / Distintivo visual / Ceiba Software</h2>\n<p>Siempre que se construye un distintivo visual se piensa en todo, desde la lluvia de ideas, es un ejercicio muy interesante, en qué frases lo acompañan, en qué souvenir puede ir el elemento.</p>",
     "url": null,
     "github": null,
-    "image": "img/ilustraciones/Gerencia produccion distintivo visual/gerencia-produccion-distintivo-visual-1.webp",
-    "poster": "img/ilustraciones/Gerencia produccion distintivo visual/gerencia-produccion-distintivo-visual-1.webp",
+    "image": "img/proyectos/ilustraciones/Gerencia produccion distintivo visual/gerencia-produccion-distintivo-visual-1.webp",
+    "poster": "img/proyectos/ilustraciones/Gerencia produccion distintivo visual/gerencia-produccion-distintivo-visual-1.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/ilustraciones/Gerencia produccion distintivo visual/gerencia-produccion-distintivo-visual-1.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia produccion distintivo visual/gerencia-produccion-distintivo-visual-1.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/Gerencia produccion distintivo visual/gerencia-produccion-distintivo-visual-2.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia produccion distintivo visual/gerencia-produccion-distintivo-visual-2.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/Gerencia produccion distintivo visual/gerencia-produccion-distintivo-visual-3.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia produccion distintivo visual/gerencia-produccion-distintivo-visual-3.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/Gerencia produccion distintivo visual/gerencia-produccion-distintivo-visual-4.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia produccion distintivo visual/gerencia-produccion-distintivo-visual-4.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/ilustraciones/Gerencia produccion distintivo visual/gerencia-produccion-distintivo-visual-5.webp",
+        "src": "img/proyectos/ilustraciones/Gerencia produccion distintivo visual/gerencia-produccion-distintivo-visual-5.webp",
         "type": "image",
         "format": "webp"
       }
@@ -1208,32 +1198,32 @@ const PROJECTS = [
     "description": "Biblioteca de componentes — XM: sistema creado desde sus cimientos utilizando variables y design tokens para sistematizar color, tipografía, espaciado y estados. El enfoque actual del proyecto integra herramientas de IA para automatizar la documentación y reducir la fricción en la entrega (handoff) hacia los desarrolladores. Se documenta la anatomía visual y el modo de uso, para que cualquier desarrollador lo utilice en su entorno de desarrollo. Tecnología: Angular, PrimeNG. Solo para desktop.",
     "url": "https://bibliotecadecomponentes-cbamhkhebndbdjec.z01.azurefd.net/inicio",
     "github": null,
-    "image": "img/sistemas-de-diseno/XM/xm-libreria-1.webp",
-    "poster": "img/sistemas-de-diseno/XM/xm-libreria-1.webp",
+    "image": "img/proyectos/sistemas-de-diseno/XM/xm-libreria-1.webp",
+    "poster": "img/proyectos/sistemas-de-diseno/XM/xm-libreria-1.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/sistemas-de-diseno/XM/xm-libreria-1.webp",
+        "src": "img/proyectos/sistemas-de-diseno/XM/xm-libreria-1.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/sistemas-de-diseno/XM/xm-libreria-2.webp",
+        "src": "img/proyectos/sistemas-de-diseno/XM/xm-libreria-2.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/sistemas-de-diseno/XM/xm-libreria-3.webp",
+        "src": "img/proyectos/sistemas-de-diseno/XM/xm-libreria-3.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/sistemas-de-diseno/XM/xm-libreria-4.webp",
+        "src": "img/proyectos/sistemas-de-diseno/XM/xm-libreria-4.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/sistemas-de-diseno/XM/xm-libreria-5.webp",
+        "src": "img/proyectos/sistemas-de-diseno/XM/xm-libreria-5.webp",
         "type": "image",
         "format": "webp"
       }
@@ -1250,32 +1240,32 @@ const PROJECTS = [
     "description": "Renting Colombia: sistema creado desde sus cimientos utilizando variables y design tokens para sistematizar color, tipografía, espaciado y estados. El enfoque actual del proyecto integra herramientas de IA para automatizar la documentación y reducir la fricción en la entrega (handoff) hacia los desarrolladores. Tecnología: Angular Material. Solo para desktop.",
     "url": "https://ws3.20d2t2infra.com:35000/estandargrafico/home",
     "github": null,
-    "image": "img/sistemas-de-diseno/Renting Colombia/renting-1.webp",
-    "poster": "img/sistemas-de-diseno/Renting Colombia/renting-1.webp",
+    "image": "img/proyectos/sistemas-de-diseno/Renting Colombia/renting-1.webp",
+    "poster": "img/proyectos/sistemas-de-diseno/Renting Colombia/renting-1.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/sistemas-de-diseno/Renting Colombia/renting-1.webp",
+        "src": "img/proyectos/sistemas-de-diseno/Renting Colombia/renting-1.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/sistemas-de-diseno/Renting Colombia/renting-2.webp",
+        "src": "img/proyectos/sistemas-de-diseno/Renting Colombia/renting-2.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/sistemas-de-diseno/Renting Colombia/renting-3.webp",
+        "src": "img/proyectos/sistemas-de-diseno/Renting Colombia/renting-3.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/sistemas-de-diseno/Renting Colombia/renting-4.webp",
+        "src": "img/proyectos/sistemas-de-diseno/Renting Colombia/renting-4.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/sistemas-de-diseno/Renting Colombia/renting-ilustracion-base.webp",
+        "src": "img/proyectos/sistemas-de-diseno/Renting Colombia/renting-ilustracion-base.webp",
         "type": "image",
         "format": "webp"
       }
@@ -1292,27 +1282,27 @@ const PROJECTS = [
     "description": "",
     "url": null,
     "github": null,
-    "image": "img/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-enviar-2.webp",
-    "poster": "img/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-enviar-2.webp",
+    "image": "img/proyectos/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-enviar-2.webp",
+    "poster": "img/proyectos/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-enviar-2.webp",
     "associatedImage": null,
     "images": [
       {
-        "src": "img/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-enviar-2.webp",
+        "src": "img/proyectos/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-enviar-2.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-explosivo.webp",
+        "src": "img/proyectos/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-explosivo.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-onda.webp",
+        "src": "img/proyectos/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-onda.webp",
         "type": "image",
         "format": "webp"
       },
       {
-        "src": "img/animaciones/Pildoras-de-microinteracciones/botones-interactivos/elemento-animado-boton-enviar.gif",
+        "src": "img/proyectos/animaciones/Pildoras-de-microinteracciones/botones-interactivos/elemento-animado-boton-enviar.gif",
         "type": "image",
         "format": "gif"
       }
@@ -1326,25 +1316,25 @@ const PROJECTS = [
         "columns": [
           {
             "content": "<h3>Boton de enviar</h3>",
-            "associatedImage": "img/animaciones/Pildoras-de-microinteracciones/botones-interactivos/elemento-animado-boton-enviar.gif",
+            "associatedImage": "img/proyectos/animaciones/Pildoras-de-microinteracciones/botones-interactivos/elemento-animado-boton-enviar.gif",
             "url": "https://johnbeto20.github.io/BotonEnviar/",
             "github": "https://github.com/johnbeto20/BotonEnviar"
           },
           {
             "content": "<h3>Boton de onda</h3>",
-            "associatedImage": "img/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-onda.webp",
+            "associatedImage": "img/proyectos/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-onda.webp",
             "url": "https://johnbeto20.github.io/pildoritas-css-BotonOnda/",
             "github": "https://github.com/johnbeto20/pildoritas-css-BotonOnda"
           },
           {
             "content": "<h3>Boton explosivo</h3>",
-            "associatedImage": "img/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-explosivo.webp",
+            "associatedImage": "img/proyectos/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-explosivo.webp",
             "url": "https://johnbeto20.github.io/pildoritas-css-BotonExplosion/",
             "github": "https://github.com/johnbeto20/pildoritas-css-BotonExplosion"
           },
           {
             "content": "<h3>Boton enviar 2</h3>",
-            "associatedImage": "img/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-enviar-2.webp",
+            "associatedImage": "img/proyectos/animaciones/Pildoras-de-microinteracciones/botones-interactivos/boton-enviar-2.webp",
             "url": "https://johnbeto20.github.io/pildoritas-css-botonSend/",
             "github": "https://github.com/johnbeto20/pildoritas-css-botonSend"
           }

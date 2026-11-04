@@ -83,7 +83,7 @@
         }
         const imageUrl = imagePath
             ? new URL(imagePath, window.location.href).href
-            : new URL('img/og-default.png', window.location.href).href;
+            : new URL('img/brand/og-default.png', window.location.href).href;
         const canonicalUrl = `${window.location.origin}${window.location.pathname}?slug=${encodeURIComponent(project.slug)}`;
         const pageTitle = `${displayTitle} — JOHN B.`;
 
