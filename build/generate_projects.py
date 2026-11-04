@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 """
-Escanea la carpeta img/ y genera js/projects-data.js con la lista de
-proyectos para proyectos.html y proyecto.html.
+Escanea la carpeta img/proyectos/ y genera js/projects-data.js con la lista
+de proyectos para proyectos.html y proyecto.html.
 
 Uso (desde la raiz del proyecto):
-    python scripts/generate_projects.py
+    python build/generate_projects.py
+
+Las rutas y categorias se definen en build/config/site_config.py.
 
 Estructura esperada:
-    img/<categoria>/<proyecto>/...imagenes...
+    img/proyectos/<categoria>/<proyecto>/...imagenes...
 
-Las categorias validas son las definidas en CATEGORIES mas abajo. Cada
+Las categorias validas son las definidas en CATEGORIES (site_config.py). Cada
 subcarpeta de una categoria se trata como un proyecto:
   - Titulo: se deriva del nombre de la carpeta del proyecto.
   - Imagen destacada: la primera imagen (orden alfabetico) encontrada al
@@ -23,8 +25,8 @@ subcarpeta de una categoria se trata como un proyecto:
 Para excluir una carpeta de proyecto, agrega dentro de ella un archivo
 vacio llamado ".skip".
 
-Para agregar una nueva categoria, crea la carpeta img/<slug-categoria>/
-y agregala a la lista CATEGORIES.
+Para agregar una nueva categoria, crea la carpeta img/proyectos/<slug-categoria>/
+y agregala a CATEGORIES en build/config/site_config.py.
 
 OPTIMIZACION MOBILE:
   - Convierte automaticamente .png, .jpg, .jpeg a .webp
@@ -44,6 +46,18 @@ from pathlib import Path
 from datetime import datetime
 from PIL import Image
 
+# Importar la configuracion central (build/config/site_config.py)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from config.site_config import (  # noqa: E402
+    ROOT,
+    PROJECTS_DIR as IMG_DIR,
+    CERTIFICADOS_DIR,
+    CERTIFICADOS_CATEGORY_SLUG,
+    OUTPUT_FILE,
+    STATE_FILE,
+    CATEGORIES,
+)
+
 # En consolas de Windows (cp1252) los print() con simbolos como checkmarks
 # o tildes lanzan UnicodeEncodeError a mitad de la ejecucion. Forzamos UTF-8.
 for _stream in (sys.stdout, sys.stderr):
@@ -56,24 +70,7 @@ for _stream in (sys.stdout, sys.stderr):
 # resolucion de impresion) ni siquiera se pueden abrir para reescalarlos.
 Image.MAX_IMAGE_PIXELS = None
 
-ROOT = Path(__file__).resolve().parent.parent
-IMG_DIR = ROOT / "img"
-OUTPUT_FILE = ROOT / "js" / "projects-data.js"
-STATE_FILE = Path(__file__).resolve().parent / ".generate_projects_state.json"
-
-# ============================================================
-# CONFIGURACION
-# ============================================================
-
-CATEGORIES = [
-    {"slug": "ilustraciones", "label": "Ilustraciones"},
-    {"slug": "tomas-aereas", "label": "Tomas Aereas"},
-    {"slug": "aplicaciones-y-sitios-web", "label": "Aplicaciones y Sitios Web"},
-    {"slug": "sistemas-de-diseno", "label": "Sistemas de Diseño"},
-    {"slug": "animaciones", "label": "Animaciones"},
-    {"slug": "disenio-grafico", "label": "Diseño Grafico"},
-    {"slug": "certificados", "label": "Certificados"},
-]
+# Rutas, categorias y archivo de estado: ver build/config/site_config.py
 
 VIDEO_EXTENSIONS = {".mp4", ".webm", ".ogg"}
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
@@ -1182,14 +1179,14 @@ def to_web_path(path):
 
 
 def scan_source_fingerprint():
-    """Recorre img/ y Certificados/ y arma una huella {ruta: [tamano, mtime]}.
+    """Recorre img/proyectos/ y Certificados/ y arma una huella {ruta: [tamano, mtime]}.
 
     Se usa para detectar si hay archivos nuevos, modificados o eliminados
     desde la ultima ejecucion, y asi evitar reprocesar (WebP/ffmpeg) cuando
     no hay nada que hacer.
     """
     fingerprint = {}
-    scan_dirs = [IMG_DIR, ROOT / "Certificados"]
+    scan_dirs = [IMG_DIR, CERTIFICADOS_DIR]
     for base_dir in scan_dirs:
         if not base_dir.exists():
             continue
@@ -1434,7 +1431,7 @@ def build_project(folder, category, totals=None):
 
 
 def main():
-    """Funcion principal: escanea img/, convierte a WebP, valida videos, genera data."""
+    """Funcion principal: escanea img/proyectos/, convierte a WebP, valida videos, genera data."""
     if not IMG_DIR.exists():
         raise SystemExit(f"No se encontro la carpeta {IMG_DIR}")
 
@@ -1466,9 +1463,9 @@ def main():
     for category in CATEGORIES:
         category_dir = IMG_DIR / category["slug"]
         
-        # Manejo especial para Certificados: estan en Certificados/ en la raiz, no en img/
-        if category["slug"] == "certificados":
-            cert_dir = ROOT / "Certificados"
+        # Manejo especial para Certificados: estan en Certificados/ en la raiz, no en img/proyectos/
+        if category["slug"] == CERTIFICADOS_CATEGORY_SLUG:
+            cert_dir = CERTIFICADOS_DIR
             if not cert_dir.exists():
                 print(f"\nAviso: no existe Certificados/ (se omite)")
                 continue
@@ -1500,7 +1497,7 @@ def main():
             continue
 
         if not category_dir.exists():
-            print(f"\nAviso: no existe img/{category['slug']}/ (se omite)")
+            print(f"\nAviso: no existe img/proyectos/{category['slug']}/ (se omite)")
             continue
 
         for folder in sorted(category_dir.iterdir()):

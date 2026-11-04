@@ -1,10 +1,16 @@
 import json
 import re
+import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+# Importar la configuracion central (build/config/site_config.py)
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from config.site_config import (  # noqa: E402
+    ROOT,
+    OUTPUT_FILE,
+)
 
-with open(ROOT / 'js' / 'projects-data.js', encoding='utf-8') as f:
+with open(OUTPUT_FILE, encoding='utf-8') as f:
     content = f.read()
 
 # Extract the JSON part - find PROJECTS array

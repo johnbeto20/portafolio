@@ -614,7 +614,6 @@ body *::after {
 
 .btn-primary:hover {
     background: var(--color-accent-pink);
-    transform: translateY(-2px);
 }
 
 .btn-secondary {

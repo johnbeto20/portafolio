@@ -4,16 +4,21 @@ Elimina imágenes originales (.png, .jpg, .jpeg) cuando existe
 una versión .webp con el mismo nombre en la misma carpeta.
 
 Uso (desde la raiz del proyecto):
-    python scripts/cleanup_duplicates.py
+    python build/cleanup_duplicates.py
 
 Esto deja solo las versiones .webp optimizadas.
 """
 
+import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-IMG_DIR = ROOT / "img"
-CERTIFICADOS = ROOT / "Certificados"
+# Importar la configuracion central (build/config/site_config.py)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from config.site_config import (  # noqa: E402
+    ROOT,
+    SITE_IMAGES_DIR,
+    CERTIFICADOS_DIR as CERTIFICADOS,
+)
 
 SOURCE_EXTENSIONS = {".png", ".jpg", ".jpeg"}
 
@@ -29,7 +34,7 @@ def cleanup_folder(folder):
             original = parent / f"{stem}{ext}"
             if original.exists():
                 original.unlink()
-                print(f"  ELIMINADA: {original.relative_to(IMG_DIR)}")
+                print(f"  ELIMINADA: {original.relative_to(ROOT)}")
                 deleted += 1
     
     return deleted
@@ -42,10 +47,10 @@ def main():
     
     total_deleted = 0
     
-    # Limpiar img/
-    print(f"\n[1/2] Procesando {IMG_DIR}/...")
-    if IMG_DIR.exists():
-        total_deleted += cleanup_folder(IMG_DIR)
+    # Limpiar img/ (proyectos, mentoria, brand, src)
+    print(f"\n[1/2] Procesando {SITE_IMAGES_DIR}/...")
+    if SITE_IMAGES_DIR.exists():
+        total_deleted += cleanup_folder(SITE_IMAGES_DIR)
     else:
         print("  [AVISO] Carpeta img/ no encontrada")
     
